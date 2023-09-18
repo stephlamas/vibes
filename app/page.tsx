@@ -1,5 +1,10 @@
-export default function LandingPage() {
+import React from 'react';
+import { AppWrapper }from './layout/components/AppWrapper'
+import { LandingPage} from './layout/components/LandingPage'
+export default function HomePage() {
   return (
-    <h1>Hello world</h1>
-  )
+    <AppWrapper>
+      <LandingPage />
+    </AppWrapper>
+  );
 }

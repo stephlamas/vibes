@@ -1,7 +1,7 @@
+import React from 'react';
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Vibes',
@@ -14,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        {children}
+      </body>
     </html>
-  )
+  );
 }
