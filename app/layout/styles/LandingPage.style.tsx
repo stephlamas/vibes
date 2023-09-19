@@ -23,14 +23,28 @@ export const vibesBoxStyle = {
     width: '300px',
     height: '200px',
     display: 'flex',
-    alignItems: 'center',
-    // flexDirection: 'column',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: '8px',
     padding: '2em',
+    position: 'relative', 
     background: `linear-gradient(135deg, ${lavender['2']} 0%, ${peach['1']} 100%)`,
     border: '1px solid rgba(255, 255, 255, 0.2)',
   };
+
+  export const loginBoxStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    '&:hover': {
+      borderRadius: '8px',
+      background: 'rgba(255, 255, 255, 0.25)',
+      cursor: 'pointer',
+      padding: '0.5em',
+    },
+  };
+  
+  
   
   
   

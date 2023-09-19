@@ -1,6 +1,6 @@
 import { createTypography } from './typography';
 
-const { PARAGRAPH_S, PARAGRAPH_XS_BOLD, PARAGRAPH_XS } = createTypography();
+createTypography();
 
 export const createComponents = () => {
   return {
