@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 const LandingContainer = styled('div')({});
 const LandingBox = styled('div')({});
-import { landingContainerStyle, landingBoxStyle } from '../styles/LandingPage.style';
+import { landingContainerStyle, landingBoxStyle, vibesBoxStyle } from '../styles/LandingPage.style';
 
 export function LandingPage() {
   return (
@@ -16,10 +16,15 @@ export function LandingPage() {
       sx={landingContainerStyle}
     >
       <LandingBox
+        sx={vibesBoxStyle}
+      > 
+        <Typography variant="HEADLINE_L">VIBES</Typography>
+      </LandingBox>
+      <LandingBox
         sx={landingBoxStyle}
       >
-        <Typography variant="TITLE_S">Login with Spotify</Typography>
-        <FontAwesomeIcon icon={faSpotify} size='3x'/>
+        <Typography variant="TITLE_S"><FontAwesomeIcon icon={faSpotify} size='2x' style={{ marginRight: '.2em' }} />Login with Spotify</Typography>
+        
       </LandingBox>
     </LandingContainer>
   );
