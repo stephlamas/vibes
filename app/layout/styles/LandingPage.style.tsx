@@ -36,12 +36,10 @@ export const vibesBoxStyle = {
   export const loginBoxStyle = {
     display: 'flex',
     alignItems: 'center',
-    '&:hover': {
-      borderRadius: '8px',
-      background: 'rgba(255, 255, 255, 0.25)',
-      cursor: 'pointer',
-      padding: '0.5em',
-    },
+    borderRadius: '8px',
+    background: 'rgba(255, 255, 255, 0.25)',
+    cursor: 'pointer',
+    padding: '0.5em',
   };
   
   
