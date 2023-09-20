@@ -1,0 +1,9 @@
+jest.setup.js
+next.config.js
+jest.setup.js
+coverage/
+.dependency-cruiser.js
+.lintstagedrc.js
+.prettierrc.js
+public/
+scripts/
