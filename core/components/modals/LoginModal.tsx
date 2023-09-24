@@ -51,15 +51,15 @@ export function LoginModal({ isOpen, onClose, mode, onLoginWithSpotify, onSignup
           }}
         >
           {mode === 'login' ? (
-            <Button variant="contained" color="primary" onClick={onLoginWithSpotify}>
+            <Button variant="primary" onClick={onLoginWithSpotify}>
               Login with Spotify
             </Button>
           ) : (
-            <Button variant="contained" color="primary" onClick={onSignupWithSpotify}>
+            <Button variant="card" onClick={onSignupWithSpotify}>
               Sign up with Spotify
             </Button>
           )}
-          <Button variant="outlined" color="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={onClose}>
             Cancel
           </Button>
         </Box>
