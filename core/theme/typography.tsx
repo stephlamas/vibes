@@ -69,6 +69,7 @@ declare module '@mui/material/Typography' {
         fontWeight: 700,
         fontSize: '16px',
         lineHeight: '20px',
+        width: '100%',
       },
       PARAGRAPH_XL: {
         fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),

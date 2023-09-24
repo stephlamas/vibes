@@ -42,6 +42,8 @@ export const vibesBoxStyle = {
     padding: '1em',
     border: '1px solid rgba(255, 255, 255, 0.1)',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    margin: '.5em',
+    width: '100%',
   };
   
   
