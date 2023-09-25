@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { GenericModal } from './GenericModal';
+import { Button, Typography } from '@mui/material';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -9,19 +10,15 @@ interface LoginModalProps {
   onSignupWithSpotify: () => void;
 }
 
-export function LoginModal({ isOpen, onClose, mode, onLoginWithSpotify, onSignupWithSpotify }: LoginModalProps) {
-  const style = {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    borderRadius: '12px',
-    p: 4,
-  };
-
+export function LoginModal({
+  isOpen,
+  onClose,
+  mode,
+  onLoginWithSpotify,
+  onSignupWithSpotify,
+}: LoginModalProps) {
   const modalTitle = mode === 'login' ? 'Log in with Spotify' : 'Sign up with Spotify';
+
   const modalDescription =
     mode === 'login'
       ? 'By clicking ' + modalTitle + ', you will log in to our service using your Spotify account.'
@@ -29,41 +26,33 @@ export function LoginModal({ isOpen, onClose, mode, onLoginWithSpotify, onSignup
         modalTitle +
         ', you will grant our application access to your Spotify account. This will allow us to personalize your experience and provide you with relevant content. You can revoke this access at any time in your Spotify account settings.';
 
+  const buttons = (
+    <>
+      {mode === 'login' ? (
+        <Button variant="primary" onClick={onLoginWithSpotify}>
+          Login with Spotify
+        </Button>
+      ) : (
+        <Button variant="primary" onClick={onSignupWithSpotify}>
+          Sign up with Spotify
+        </Button>
+      )}
+      <Button variant="secondary" onClick={onClose}>
+        Cancel
+      </Button>
+    </>
+  );
+
   return (
-    <Modal
+    <GenericModal
       open={isOpen}
       onClose={onClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      title={modalTitle}
+      footerContent={buttons}
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          {modalTitle}
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {modalDescription}
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: 2,
-          }}
-        >
-          {mode === 'login' ? (
-            <Button variant="primary" onClick={onLoginWithSpotify}>
-              Login with Spotify
-            </Button>
-          ) : (
-            <Button variant="card" onClick={onSignupWithSpotify}>
-              Sign up with Spotify
-            </Button>
-          )}
-          <Button variant="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-        </Box>
-      </Box>
-    </Modal>
+      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {modalDescription}
+      </Typography>
+    </GenericModal>
   );
 }

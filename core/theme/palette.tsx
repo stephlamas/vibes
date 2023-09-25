@@ -13,14 +13,14 @@ export const createPalette = () => {
       '2': '#EEF6F7',
       '1': '#F9FCFC',
     },
-    // PRIMARY (Change lavender to pink)
+    // PRIMARY
     pink: {
-      '1': '#F4E8F4', // Soft pink
-      '2': '#E3CCE3', // Mild pink
-      '3': '#D2B0D2', // Slightly darker
-      '4': '#BB94BB', // A balanced pink
-      '5': '#A078A0', // A bit darker
-      '6': '#7B547B', // Richer shade
+      '1': '#FFC0CB', // Soft pink
+      '2': '#FFA7B5', // Mild pink
+      '3': '#FF8E9F', // Slightly darker
+      '4': '#FF7589', // A balanced pink
+      '5': '#FF5C73', // A bit darker
+      '6': '#FF435D', // Richer shade
     },
     fucsia: '#fd3d93',
     black: '#000000',

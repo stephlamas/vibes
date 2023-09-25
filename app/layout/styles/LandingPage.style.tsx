@@ -2,7 +2,7 @@ import { createTypography } from "@/core/theme/typography";
 import { createPalette } from "@/core/theme/palette";
 
 const { TITLE_XS, HEADLINE_L } = createTypography();
-const { lavender, pink, peach } = createPalette();
+const { pink, peach } = createPalette();
 
 export const landingContainerStyle = {  minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' };
 
@@ -28,8 +28,9 @@ export const vibesBoxStyle = {
     borderRadius: '8px',
     padding: '2em',
     position: 'relative', 
-    background: `linear-gradient(135deg, ${pink['2']} 0%, ${peach['1']} 100%)`,
+    background: `linear-gradient(135deg, ${peach['1']} 0%, ${pink['5']}  100%)`,
     border: '1px solid rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(3000px)',
   };
 
   export const loginBoxStyle = {
@@ -45,9 +46,4 @@ export const vibesBoxStyle = {
     margin: '.5em',
     width: '100%',
   };
-  
-  
-  
-  
-  
   
