@@ -10,6 +10,8 @@ interface GenericModalProps {
   footerContent?: ReactNode;
 }
 
+const glassmorphismColor = 'rgba(255, 255, 255, 0.2)';
+
 const modalBoxStyles = {
   width: '80%',
   maxWidth: 400,
@@ -17,8 +19,11 @@ const modalBoxStyles = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  backgroundColor: 'white',
+  backgroundColor: glassmorphismColor,
   borderRadius: '12px',
+  backdropFilter: 'blur(40px)',
+  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+  border: '1px solid rgba(255, 255, 255, 0.3)',
 };
 
 const modalTitleStyles = {
@@ -32,8 +37,7 @@ const modalFooterStyles = {
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  mt: 2,
-  backgroundColor: 'neutral.2',
+  marginTop: '2px',
   padding: '24px',
   borderRadius: '0 0 12px 12px',
 };
