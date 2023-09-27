@@ -69,7 +69,7 @@ export function GenericModal({
           <Typography
             id="modal-description"
             variant="PARAGRAPH_S"
-            sx={{ mt: 2, padding: '24px' }}
+            sx={{ mt: 2, padding: '24px', color: 'neutral.7' }}
           >
             {children}
           </Typography>

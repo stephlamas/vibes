@@ -21,25 +21,25 @@ export function LoginModal({
 
   const modalDescription =
     mode === 'login'
-      ? 'By clicking ' + modalTitle + ', you will log in to our service using your Spotify account.'
+      ? 'Use your Spotify account to continue'
       : 'By clicking ' +
         modalTitle +
         ', you will grant our application access to your Spotify account. This will allow us to personalize your experience and provide you with relevant content. You can revoke this access at any time in your Spotify account settings.';
 
   const buttons = (
     <>
+    <Button variant="secondary" onClick={onClose}>
+        Cancel
+      </Button>
       {mode === 'login' ? (
         <Button variant="primary" onClick={onLoginWithSpotify}>
-          Login with Spotify
+          Login
         </Button>
       ) : (
         <Button variant="primary" onClick={onSignupWithSpotify}>
-          Sign up with Spotify
+          Sign up
         </Button>
       )}
-      <Button variant="secondary" onClick={onClose}>
-        Cancel
-      </Button>
     </>
   );
 

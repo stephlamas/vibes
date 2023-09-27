@@ -2,7 +2,7 @@ import { createPalette } from '../palette';
 import { createTypography } from '../typography';
 
 const { PARAGRAPH_S } = createTypography();
-const { pink, fucsia, black, white } = createPalette(); // Updated color names
+const { pink, black, white } = createPalette();
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
@@ -38,11 +38,11 @@ export const MuiButton = {
         '&:hover': {
             color: white,
             borderColor: pink[3],
-            backgroundColor: fucsia,
+            backgroundColor: pink[5],
         },
         '&:active': {
           color: white,
-          backgroundColor: fucsia,
+          backgroundColor: pink[5],
         },
         '&:disabled': {
           color: white,
@@ -61,12 +61,12 @@ export const MuiButton = {
         borderColor: black,
         '&:hover': {
           color: white,
-          borderColor: fucsia,
-          backgroundColor: fucsia,
+          borderColor: pink[5],
+          backgroundColor: pink[5],
         },
         '&:active': {
           color: white,
-          borderColor: fucsia,
+          borderColor: pink[5],
           backgroundColor: pink[3],
         },
         '&:disabled': {
