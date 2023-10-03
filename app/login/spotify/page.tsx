@@ -36,10 +36,11 @@ export default function SpotifyCallback() {
         })
         .then((data) => {
           const { access_token: accessToken, refresh_token: refreshToken } = data;
-          console.log("Access token:", accessToken);
-  
+          
           document.cookie = `accessToken=${accessToken}; path=/`;
-  
+          document.cookie = `refreshToken=${refreshToken}; path=/`;
+          
+          console.log("Access token:", accessToken);
           console.log("Refresh token:", refreshToken);
         })
         .catch((error) => {
