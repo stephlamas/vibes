@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export async function GET(req: NextRequest, res: NextResponse) {
+
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
 
@@ -44,8 +45,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const data = await response.json();
     let { access_token: accessToken, refresh_token: refreshToken } = data;
 
-    console.log("Access token:", accessToken);
-    console.log("Refresh token:", refreshToken);
+    console.error("CALLBACK: Access token:" + accessToken);
+    console.error("CALLBACK: Refresh token:" + refreshToken);
 
     cookieStore.set('accessToken', accessToken as string);
     cookieStore.set('refreshToken', refreshToken as string);
