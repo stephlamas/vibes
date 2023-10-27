@@ -4,8 +4,8 @@ class SpotifyClient {
 
         this.refresh();
 
-        var regex = /accessToken=(.[^;]*)/ig;
-        var match = regex.exec(document.cookie);
+        let regex = /accessToken=(.[^;]*)/ig;
+        let match = regex.exec(document.cookie);
         const accessToken = match && match[1];
 
         console.error(accessToken);
@@ -21,8 +21,8 @@ class SpotifyClient {
     }
 
     private refresh() {
-        var regex = /refreshToken=(.[^;]*)/ig;
-        var match = regex.exec(document.cookie);
+        let regex = /refreshToken=(.[^;]*)/ig;
+        let match = regex.exec(document.cookie);
         const refreshToken = match && match[1];
             
         fetch('/api/spotify-refresh-token', { 

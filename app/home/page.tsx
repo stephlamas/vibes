@@ -1,23 +1,15 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import SpotifyClient from "../layout/components/SpotifyClient";
+import { Sidebar } from "../layout/components/sidebar/sidebar";
+import { Box } from "@mui/material";
 
 const HomePage = () => {
 
-  const [data, setData] = useState<any>({} as any);
+  return <Box sx={{ display: 'flex' }}>
+      <Sidebar />
 
-  useEffect(() => {
-
-    console.error('Lets work!');
-
-    const client = new SpotifyClient();
-
-    client.call("/me")
-      .then(j => setData(j));
-
-  }, []);
-
-  return <h1>Welcome {data.display_name}</h1>;
+    </Box>;
   
 }
 
