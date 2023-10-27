@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { List, ListItemButton, ListItemIcon, Avatar, ListItemText } from "@mui/material";
 import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
-import HomeIcon from '@mui/icons-material/Home';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import SpotifyClient from "../SpotifyClient";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faMicrophoneLines  } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
 
 export function Sidebar() {
     const [data, setData] = useState<any>({} as any);
@@ -26,7 +27,7 @@ export function Sidebar() {
   
     return (
       <List
-        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', minHeight: '100vh', fontFamily: 'Montserrat' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
@@ -38,21 +39,21 @@ export function Sidebar() {
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-            <HomeIcon />
+          <FontAwesomeIcon icon={faHouse} />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary="Home" />
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-            <StarBorderIcon />
+          <FontAwesomeIcon icon={faStar} />
           </ListItemIcon>
           <ListItemText primary="I'm in" />
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-            <MicExternalOnIcon />
+          <FontAwesomeIcon icon={faMicrophoneLines} />
           </ListItemIcon>
-          <ListItemText primary="My past shows" />
+          <ListItemText primary="Past shows" />
         </ListItemButton>
       </List>
     );
