@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { List, ListItemButton, ListItemIcon, Avatar, ListItemText } from "@mui/material";
-import MicExternalOnIcon from '@mui/icons-material/MicExternalOn';
 import SpotifyClient from "../SpotifyClient";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faMicrophoneLines  } from '@fortawesome/free-solid-svg-icons';
-import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { faHouse, faMicrophoneLines, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 export function Sidebar() {
     const [data, setData] = useState<any>({} as any);
@@ -33,19 +31,13 @@ export function Sidebar() {
       >
         <ListItemButton>
           <ListItemIcon>
-            <Avatar src={user.imageUrl} alt={user.name} />
-          </ListItemIcon>
-          <ListItemText primary={user.name} />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
           <FontAwesomeIcon icon={faHouse} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faCalendar} />
           </ListItemIcon>
           <ListItemText primary="I'm in" />
         </ListItemButton>
