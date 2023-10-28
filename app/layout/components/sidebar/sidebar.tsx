@@ -1,3 +1,4 @@
+"use client";
 import {
   List,
   ListItemButton,
@@ -6,19 +7,20 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faMicrophoneLines, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { sidebarListStyles } from "./styles/sidebar.styles";
 import { Theme } from "@mui/material/styles";
 import { BottomNav } from "../bottom-nav/bottom-nav";
+import { HomeIcon } from "../icons/sidebar/Home";
+import { EventsIcon } from "../icons/sidebar/Events";
+import { ArtistsIcon } from "../icons/sidebar/Artists";
 
 export function Sidebar() {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm"),
+  );
 
   if (isMobile) {
-    return (
-      <BottomNav />
-    );
+    return <BottomNav />;
   }
 
   return (
@@ -29,26 +31,26 @@ export function Sidebar() {
     >
       <ListItemButton>
         <ListItemIcon sx={{ color: "darkGray" }}>
-          <FontAwesomeIcon icon={faHouse} />
+          <HomeIcon />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="PARAGRAPH_S">Home</Typography>
+          <Typography variant="PARAGRAPH_M">Home</Typography>
         </ListItemText>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon sx={{ color: "darkGray" }}>
-          <FontAwesomeIcon icon={faCalendar} />
+          <EventsIcon />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="PARAGRAPH_S">I'm in</Typography>
+          <Typography variant="PARAGRAPH_M">My events</Typography>
         </ListItemText>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon sx={{ color: "darkGray" }}>
-          <FontAwesomeIcon icon={faMicrophoneLines} />
+        <ArtistsIcon />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="PARAGRAPH_S">Past shows</Typography>
+          <Typography variant="PARAGRAPH_M">My artists</Typography>
         </ListItemText>
       </ListItemButton>
     </List>

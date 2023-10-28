@@ -1,11 +1,8 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouse,
-  faMicrophoneLines,
-  faCalendar,
-} from "@fortawesome/free-solid-svg-icons";
 import { bottomNavStyles } from "./styles/bottom-nav.styles";
+import { HomeIcon } from "../icons/sidebar/Home";
+import { EventsIcon } from "../icons/sidebar/Events";
+import { ArtistsIcon } from "../icons/sidebar/Artists";
 
 export function BottomNav() {
   return (
@@ -14,13 +11,13 @@ export function BottomNav() {
       sx={bottomNavStyles}
     >
       <BottomNavigationAction
-        icon={<FontAwesomeIcon icon={faHouse} />}
+        icon={<HomeIcon />}
       />
       <BottomNavigationAction
-        icon={<FontAwesomeIcon icon={faCalendar} />}
+        icon={<EventsIcon />}
       />
       <BottomNavigationAction
-        icon={<FontAwesomeIcon icon={faMicrophoneLines} />}
+        icon={<ArtistsIcon />}
       />
     </BottomNavigation>
   );

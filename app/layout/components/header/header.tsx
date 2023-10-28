@@ -1,3 +1,4 @@
+"use client"; 
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -60,7 +61,7 @@ export function Header() {
         </Typography>
 
         <Box sx={boxStyles}>
-          <Typography variant='PARAGRAPH_S' sx={boxTypographyStyles}>
+          <Typography variant='PARAGRAPH_S_BOLD' sx={boxTypographyStyles}>
             {user.name}
           </Typography>
           <Tooltip title="Open settings">

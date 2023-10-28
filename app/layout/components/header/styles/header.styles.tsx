@@ -31,7 +31,6 @@ export const boxStyles = {
 export const boxTypographyStyles = {
   mr: 1,
   alignSelf: "center",
-  fontFamily: "Montserrat",
 };
 
 export const menuStyles = {

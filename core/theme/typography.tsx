@@ -59,7 +59,7 @@ declare module '@mui/material/Typography' {
         lineHeight: '28px',
       },
       TITLE_S: {
-        fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space mono', 'Arial', 'sans-serif'].join(','),
         fontWeight: 700,
         fontSize: '20px',
         lineHeight: '24px',
@@ -90,7 +90,7 @@ declare module '@mui/material/Typography' {
         lineHeight: '24px',
       },
       PARAGRAPH_M: {
-        fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space mono', 'Arial', 'sans-serif'].join(','),
         fontWeight: 400,
         fontSize: '16px',
         lineHeight: '20px',
@@ -102,7 +102,7 @@ declare module '@mui/material/Typography' {
         lineHeight: '20px',
       },
       PARAGRAPH_S: {
-        fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space mono', 'Arial', 'sans-serif'].join(','),
         fontWeight: 400,
         fontSize: '14px',
         lineHeight: '20px',

@@ -5,4 +5,5 @@ export const sidebarListStyles = {
   minHeight: "100vh",
   fontFamily: "Montserrat",
   px: 2,
+  pt: 2,
 };
