@@ -7,6 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+
 import { sidebarListStyles } from "./styles/sidebar.styles";
 import { Theme } from "@mui/material/styles";
 import { BottomNav } from "../bottom-nav/bottom-nav";
