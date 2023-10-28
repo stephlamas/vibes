@@ -23,13 +23,13 @@ declare module '@mui/material/Typography' {
   export const createTypography = () => {
     return {
       HEADLINE_L: {
-        fontFamily: ['Space Mono', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space Mono', 'Roboto', 'sans-serif'].join(','),
         fontWeight: 700,
         fontSize: '48px',
         lineHeight: '60px',
       },
       HEADLINE_M: {
-        fontFamily: ['Space Mono', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space Mono', 'Roboto', 'sans-serif'].join(','),
         fontWeight: 700,
         fontSize: '40px',
         lineHeight: '52px',
@@ -47,13 +47,13 @@ declare module '@mui/material/Typography' {
         lineHeight: '36px',
       },
       TITLE_L: {
-        fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space mono', 'Arial', 'sans-serif'].join(','),
         fontWeight: 700,
         fontSize: '24px',
         lineHeight: '32px',
       },
       TITLE_M: {
-        fontFamily: ['Montserrat', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Space mono', 'Arial', 'sans-serif'].join(','),
         fontWeight: 400,
         fontSize: '24px',
         lineHeight: '28px',

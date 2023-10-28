@@ -23,6 +23,7 @@ export const createPalette = () => {
       '6': '#FF435D', // Richer shade
     },
     fucsia: '#fd3d93',
+    darkGray: '#2c2c2c',
     black: '#000000',
     white: '#FFFFFF',
     // SECONDARY

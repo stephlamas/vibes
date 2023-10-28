@@ -8,7 +8,6 @@ class SpotifyClient {
         let match = regex.exec(document.cookie);
         const accessToken = match && match[1];
 
-        console.error(accessToken);
         return fetch("https://api.spotify.com/v1" + path, {
             headers: {
               Authorization: `Bearer ${accessToken}`,

@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Sidebar } from "../layout/components/sidebar/sidebar";
 import { Box } from "@mui/material";
 import  Header from "../layout/components/header/header";
+import { homeBoxStyles } from "./styles/home.styles";
 
 const HomePage = () => {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box sx={homeBoxStyles}>
       <Header />
       <Sidebar />
     </Box>

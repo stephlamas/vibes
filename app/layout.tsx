@@ -1,7 +1,7 @@
 import React from "react";
-
 import type { Metadata } from "next";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { AppWrapper } from "./layout/components/AppWrapper";
 
 export const metadata: Metadata = {
   title: "Vibes",
@@ -14,7 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppWrapper>
+          {children}
+        </AppWrapper>
+      </body>
     </html>
   );
 }

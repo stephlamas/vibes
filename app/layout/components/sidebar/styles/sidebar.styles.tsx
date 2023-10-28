@@ -4,4 +4,5 @@ export const sidebarListStyles = {
   bgcolor: "background.paper",
   minHeight: "100vh",
   fontFamily: "Montserrat",
+  px: 2,
 };

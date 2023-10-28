@@ -24,7 +24,6 @@ export function Header() {
   const [data, setData] = React.useState<any>({} as any);
 
   React.useEffect(() => {
-    console.error("Lets work!");
 
     const client = new SpotifyClient();
 
@@ -51,17 +50,17 @@ export function Header() {
     <AppBar position="static" sx={appBarStyles}>
       <Toolbar disableGutters sx={toolBarStyles}>
         <Typography
-          variant="h6"
+          variant="TITLE_L"
           noWrap
           component="a"
           href="#appbar"
           sx={logoTypography}
         >
-          vibes
+          VIBES
         </Typography>
 
         <Box sx={boxStyles}>
-          <Typography sx={boxTypographyStyles}>
+          <Typography variant='PARAGRAPH_S' sx={boxTypographyStyles}>
             {user.name}
           </Typography>
           <Tooltip title="Open settings">

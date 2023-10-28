@@ -7,7 +7,7 @@ export const appBarStyles = {
 };
 
 export const toolBarStyles = {
-  px: 2,
+  px: 3,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
@@ -17,7 +17,6 @@ export const toolBarStyles = {
 
 export const logoTypography = {
   mr: 2,
-  fontFamily: "Montserrat",
   fontWeight: 700,
   letterSpacing: ".3rem",
   color: "black",
