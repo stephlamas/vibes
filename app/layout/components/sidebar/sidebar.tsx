@@ -3,13 +3,13 @@ import { List, ListItemButton, ListItemIcon, Avatar, ListItemText } from "@mui/m
 import SpotifyClient from "../SpotifyClient";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faMicrophoneLines, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { sidebarListStyles } from "./styles/sidebar.styles";
 
 export function Sidebar() {
     const [data, setData] = useState<any>({} as any);
 
     useEffect(() => {
 
-        console.error('Lets work!');
     
         const client = new SpotifyClient();
     
@@ -18,14 +18,10 @@ export function Sidebar() {
     
       }, []);
   
-    const user = {
-      name: data.display_name,
-      imageUrl: data.images && data.images[0] ? data.images[0].url : null,
-    };
   
     return (
       <List
-        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', minHeight: '100vh', fontFamily: 'Montserrat' }}
+        sx={sidebarListStyles}
         component="nav"
         aria-labelledby="nested-list-subheader"
       >

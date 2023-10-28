@@ -45,16 +45,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const data = await response.json();
     let { access_token: accessToken, refresh_token: refreshToken } = data;
 
-    console.error("CALLBACK: Access token:" + accessToken);
-    console.error("CALLBACK: Refresh token:" + refreshToken);
-
     cookieStore.set('accessToken', accessToken as string);
     cookieStore.set('refreshToken', refreshToken as string);
 
     return NextResponse.redirect(new URL('/home', req.url));
 
   } catch (error) {
-    console.error("Error exchanging authorization code for tokens:", error);
+    console.log("Error exchanging authorization code for tokens:", error);
     return Response.json({ error: "Server error" }, { status: 500 });
   }
 }
