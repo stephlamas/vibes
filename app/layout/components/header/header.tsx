@@ -87,7 +87,7 @@ export function Header() {
           >
             {settings.map((setting) => (
               <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+                <Typography textAlign="center" variant="PARAGRAPH_S">{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>
