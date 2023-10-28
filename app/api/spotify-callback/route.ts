@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -13,12 +12,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
       { status: 400 },
     );
   }
-
   
   const cookieStore = cookies();
-
-  //const refreshToken = cookieStore.get("refreshToken")?.value;
-  //const accesToken = cookieStore.get("accessToken")?.value;
 
   const requestBody = new URLSearchParams({
     grant_type: "authorization_code",
