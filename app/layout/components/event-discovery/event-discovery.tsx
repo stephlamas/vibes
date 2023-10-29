@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import EventCard from "../event-card/event-card";
 
+
 export function EventDiscovery() {
   return (
     <>
