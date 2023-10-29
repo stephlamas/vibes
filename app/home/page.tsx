@@ -1,22 +1,13 @@
+'use client'  
 import React from "react";
-import { Sidebar } from "../layout/components/sidebar/sidebar";
-import { Box } from "@mui/material";
-import Header from "../layout/components/header/header";
-import { homeBoxStyles, contentStyles } from "./styles/home.styles";
 import { Dashboard } from "../layout/components/dashboard/dashboard";
+import { Layout } from "../layout/components/Layout";
 
-const HomePage = () => {
-  return (
-    <Box sx={homeBoxStyles}>
-      <Header />
-      <Box sx={contentStyles}>
-        <Sidebar />
-        <Dashboard />
-      </Box>
-    </Box>
-  );
-};
-
-export default HomePage;
-
-
+export default function HomePage() {
+    
+    return (
+        <Layout>
+            <Dashboard />
+        </Layout>
+    );
+}

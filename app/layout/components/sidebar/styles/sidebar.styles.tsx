@@ -7,3 +7,8 @@ export const sidebarListStyles = {
   px: 2,
   pt: 2,
 };
+
+export const sidebarLinkStyles = {
+  textDecoration: "none",
+  color: "black",
+};
