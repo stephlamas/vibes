@@ -1,4 +1,4 @@
-export const eventCardStyles = { maxWidth: 310 };
+export const eventCardStyles = { maxWidth: 310, marginTop: '30px', };
 export const mobileEventCardStyles = { width: '90%', height: 260 };
 
 export const boxMobileEventCardStyles = {

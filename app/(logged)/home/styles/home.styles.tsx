@@ -1,7 +1,1 @@
-export const homeBoxStyles = { display: "flex", flexDirection: "column" };
-
-export const contentStyles = {
-  display: "flex",
-  flexDirection: "row",
-  flexGrow: 1,
-};
+export const homeBoxStyles = { paddingTop: 4, paddingBottom: 2 };

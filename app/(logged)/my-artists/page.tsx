@@ -1,4 +1,5 @@
 "use client";
+import ArtistCard from "@/app/layout/components/artist-card/artist-card";
 import { Typography } from "@mui/material";
 
 export default function MyArtists() {
@@ -10,6 +11,7 @@ export default function MyArtists() {
             <Typography variant="PARAGRAPH_XS">
                 Based on your Spotify listening history
             </Typography>
+            <ArtistCard />
         </>
     );
 }
