@@ -33,7 +33,19 @@ class SpotifyClient {
                 refreshToken: refreshToken
             })
         })
-        .then(r => r.json())
+        .then(response => {
+            if (response.ok && response.status !== 204) {
+                return response.json();
+            } else {
+                return response.text().then(text => {
+                    let errorMsg = `Network response was not ok. Status: ${response.status}`;
+                    if (text) {
+                        errorMsg += ` - Body: ${text}`;
+                    }
+                    throw new Error(errorMsg);
+                });
+            }
+        })
     }
 }
 

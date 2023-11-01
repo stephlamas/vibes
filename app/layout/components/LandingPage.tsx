@@ -22,8 +22,19 @@ export function LandingPage() {
   const clientId = process.env.CLIENT_ID;
   const redirectUri = process.env.REDIRECT_URI;
 
+  const scopes = [
+    'streaming',
+    'user-read-email',
+    'user-read-private',
+    'user-library-read',
+    'user-library-modify',
+    'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-top-read',
+  ].join(' ');
+
   const handleLoginButton = () => {
-    const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
+    const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes}`;
     window.location.href = spotifyAuthUrl;
   };
   return (

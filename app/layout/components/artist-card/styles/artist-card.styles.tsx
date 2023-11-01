@@ -6,7 +6,8 @@ export const ArtistCardStyles = {
     justifyContent: "center",
     alignItems: "center",
     marginTop: '20px',
-  };
+    width: '100%',
+};
   
   export const ArtistCardMediaStyles = {
     borderRadius: "50%",
