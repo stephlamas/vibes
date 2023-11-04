@@ -1,5 +1,6 @@
-"use client"; 
+"use client";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,21 +19,31 @@ import {
   boxTypographyStyles,
 } from "./styles/header.styles";
 import SpotifyClient from "../SpotifyClient";
+import { deleteAllCookies, redirectTo } from "@/core/helpers/cookies/cookie-service";
 
-const settings = ["Logout"];
 
-export function Header() {
-  const [data, setData] = React.useState<any>({} as any);
 
-  React.useEffect(() => {
+function deleteCookies() {
+  const deleteCookie = (name: any) => {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  };
+  deleteCookie("accessToken");
+  deleteCookie("refreshToken");
+}
 
-    const client = new SpotifyClient();
 
-    client.call("/me").then((j) => setData(j));
+const Header = () => {
+  const [data, setData] = useState<any>({} as any);
+
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const spotifyClient = new SpotifyClient();
+
+  useEffect(() => {
+    spotifyClient.call("/me").then((j) => setData(j));
   }, []);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null,
-  );
+
+  const settings = ["Logout"];
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -40,6 +51,28 @@ export function Header() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  type Actions = {
+    [key: string]: () => void;
+  };
+
+  const actions: Actions = {
+    Logout: () => {
+      deleteAllCookies();
+      redirectTo("/");
+      handleCloseUserMenu();
+    },
+  };
+
+  const handleMenuClick = (setting: string) => {
+    const action = actions[setting];
+    if (action) {
+      action();
+    } else {
+      console.error(`No action defined for setting: ${setting}`);
+    }
+    handleCloseUserMenu();
   };
 
   const user = {
@@ -61,7 +94,7 @@ export function Header() {
         </Typography>
 
         <Box sx={boxStyles}>
-          <Typography variant='PARAGRAPH_S_BOLD' sx={boxTypographyStyles}>
+          <Typography variant="PARAGRAPH_S_BOLD" sx={boxTypographyStyles}>
             {user.name}
           </Typography>
           <Tooltip title="Open settings">
@@ -86,8 +119,8 @@ export function Header() {
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" variant="PARAGRAPH_S">{setting}</Typography>
+              <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
+                <Typography textAlign="center">{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>
