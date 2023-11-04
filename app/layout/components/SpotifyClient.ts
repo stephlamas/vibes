@@ -1,8 +1,8 @@
 class SpotifyClient {
 
-    call(path : string) {
+    async call(path : string) {
 
-        this.refresh();
+        await this.refresh();
 
         let regex = /accessToken=(.[^;]*)/ig;
         let match = regex.exec(document.cookie);
@@ -46,6 +46,9 @@ class SpotifyClient {
                 });
             }
         })
+    }
+    getTopItems(type: string, time_range = 'long_term', limit = 50) {
+        return this.call(`/me/top/${type}?time_range=${time_range}&limit=${limit}`);
     }
 }
 

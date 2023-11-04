@@ -3,4 +3,5 @@ export const bottomNavStyles = {
     position: "fixed",
     bottom: 0,
     justifyContent: "space-around",
+    zIndex: 1000,
 };

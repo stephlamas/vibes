@@ -4,24 +4,27 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { ArtistCardStyles, ArtistCardMediaStyles } from "./styles/artist-card.styles";
+import { artistCardStyles, artistCardMediaStyles, artistCardActionStyles } from "./styles/artist-card.styles";
 
+type ArtistCardProps = {
+  name: string;
+  imageUrl: string;
+};
 
-
-export default function ArtistCard() {
+export default function ArtistCard({ artist }: { artist: ArtistCardProps}) {
   return (
-    <Card sx={ArtistCardStyles}>
-      <CardActionArea>
+    <Card sx={artistCardStyles}>
+      <CardActionArea sx={artistCardActionStyles}>
         <CardMedia
           component="img"
           height="140"
-          image="https://singersroom.com/wp-content/uploads/2023/02/Johnny-Cash-Songs.jpg"
+          image={artist.imageUrl}
           alt="artist-image"
-          sx={ArtistCardMediaStyles}
+          sx={artistCardMediaStyles}
         />
         <CardContent>
           <Typography gutterBottom variant="PARAGRAPH_S_BOLD" sx={{ justifyContent: "center" }}>
-            Artist name
+            {artist.name}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -12,6 +12,8 @@ export function EventDiscovery() {
             Based on your favorite artists
         </Typography>
       <EventCard />
+
+
     </>
   );
 }
