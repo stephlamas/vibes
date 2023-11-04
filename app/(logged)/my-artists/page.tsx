@@ -1,9 +1,9 @@
 "use client";
 import SpotifyClient from "@/app/layout/components/SpotifyClient";
 import ArtistCard from "@/app/layout/components/artist-card/artist-card";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useMediaQuery } from '@mui/material';
+import { useArtistsMainBoxStyles, artistCardStyles } from "./styles/my-artists.styles";
 
 type Artist = {
   id: string;
@@ -30,8 +30,6 @@ export default function MyArtists() {
       });
   }, []);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <>
@@ -42,17 +40,10 @@ export default function MyArtists() {
         Based on your Spotify listening history
       </Typography>
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 2,
-          mb: isMobile ? theme.spacing(10) : 0,
-        }}
+        sx={useArtistsMainBoxStyles()}
       >
         {topArtists.map((artist) => (
-           <Box key={artist.id} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+         <Box key={artist.id} sx={artistCardStyles}> 
             <ArtistCard
               artist={{
                 name: artist.name,
