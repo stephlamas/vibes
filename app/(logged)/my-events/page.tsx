@@ -7,7 +7,7 @@ export default function MyEvents() {
             <Typography variant="TITLE_S" component="h1">
                 My Events
             </Typography>
-            <Typography variant="PARAGRAPH_XS">
+            <Typography variant="PARAGRAPH_S">
                 Saved events
             </Typography>
         </>

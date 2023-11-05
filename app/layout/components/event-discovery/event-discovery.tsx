@@ -8,7 +8,7 @@ export function EventDiscovery() {
       <Typography variant="TITLE_S" component="h1">
         Upcoming shows for you
       </Typography>
-        <Typography variant="PARAGRAPH_XS">
+        <Typography variant="PARAGRAPH_S">
             Based on your favorite artists
         </Typography>
       <EventCard />
