@@ -6,16 +6,19 @@ export const useArtistsMainBoxStyles = () => {
   
     return {
       display: "flex",
-      flexDirection: isMobile ? "column" : "row",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 2,
-      mb: isMobile ? theme.spacing(10) : 0,
+      flexWrap: "wrap",
+      flexDirection: "row", 
+      alignItems: "flex-start", 
+      justifyContent: isMobile ? "center" : "flex-start",
+      gap: theme.spacing(2),
+      marginBottom: theme.spacing(10),
+      maxWidth: '100%',
     };
-  };
+};
 
 export const artistCardStyles = { 
-    width: '200px', 
+    width: '200px',
+    flex: '0 0 auto',
     display: 'flex', 
     justifyContent: 'center',
     '&:hover': {
