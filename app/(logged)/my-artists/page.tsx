@@ -1,9 +1,13 @@
 "use client";
 import SpotifyClient from "@/app/layout/components/SpotifyClient";
 import ArtistCard from "@/app/layout/components/artist-card/artist-card";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { artistsMainBoxStyles, artistCardStyles } from "./styles/my-artists.styles";
+import {
+  artistsMainBoxStyles,
+  artistCardStyles,
+  paginationButtonStyles,
+} from "./styles/my-artists.styles";
 
 type Artist = {
   id: string;
@@ -12,9 +16,13 @@ type Artist = {
   images: any;
 };
 
+const PAGE_SIZE = 10;
+
 export default function MyArtists() {
   const [topArtists, setTopArtists] = useState<Artist[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const spotifyClient = new SpotifyClient();
@@ -23,6 +31,7 @@ export default function MyArtists() {
       .getTopItems("artists")
       .then((data) => {
         setTopArtists(data.items as Artist[]);
+        setTotalPages(Math.ceil(data.items.length / PAGE_SIZE));
       })
       .catch((error) => {
         console.error(error);
@@ -30,6 +39,18 @@ export default function MyArtists() {
       });
   }, []);
 
+  const getCurrentPageArtists = () => {
+    const startIndex = currentPage * PAGE_SIZE;
+    return topArtists.slice(startIndex, startIndex + PAGE_SIZE);
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 0));
+  };
 
   return (
     <>
@@ -39,11 +60,9 @@ export default function MyArtists() {
       <Typography variant="PARAGRAPH_S">
         Based on your Spotify listening history
       </Typography>
-      <Box
-        sx={artistsMainBoxStyles()}
-      >
-        {topArtists.map((artist) => (
-         <Box key={artist.id} sx={artistCardStyles}> 
+      <Box sx={artistsMainBoxStyles()}>
+        {getCurrentPageArtists().map((artist) => (
+          <Box key={artist.id} sx={artistCardStyles}>
             <ArtistCard
               artist={{
                 name: artist.name,
@@ -53,6 +72,25 @@ export default function MyArtists() {
           </Box>
         ))}
       </Box>
+      <Box
+        sx={paginationButtonStyles}
+      >
+        <Button
+          onClick={goToPreviousPage}
+          disabled={currentPage === 0}
+          style={{ color: currentPage === 0 ? "gray" : "black" }}
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={goToNextPage}
+          disabled={currentPage >= totalPages - 1}
+          style={{ color: currentPage >= totalPages - 1 ? "gray" : "black" }}
+        >
+          Next
+        </Button>
+      </Box>
+
       {error && <Typography color="error">{error}</Typography>}
     </>
   );
