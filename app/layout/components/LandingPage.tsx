@@ -11,8 +11,9 @@ import {
   vibesBoxStyle,
   loginBoxStyle,
 } from "../styles/LandingPage.style";
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import Link from "@mui/material/Link";
+
 
 const LandingContainer = styled(Grid)({});
 const LandingBox = styled(Grid)({});
@@ -33,29 +34,19 @@ export function LandingPage() {
     'user-top-read',
   ].join(' ');
 
+
   const handleLoginButton = () => {
     const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes}`;
     window.location.href = spotifyAuthUrl;
   };
   return (
     <LandingContainer
-      sx={landingContainerStyle}
-      container
-      justifyContent="center"
+      sx={landingContainerStyle()}
     >
-      <LandingBox sx={vibesBoxStyle} item xs={12} sm={6} md={6} lg={2}>
+      <LandingBox sx={vibesBoxStyle} item xs={6} sm={6} md={6} lg={2}>
         <Typography variant="HEADLINE_L">VIBES</Typography>
       </LandingBox>
-      <LandingBox
-        sx={landingBoxStyle}
-        item
-        xs={12}
-        sm={6}
-        md={6}
-        lg={2}
-        justifyContent="center"
-        alignItems="center"
-      >
+      <LandingBox sx={landingBoxStyle} item xs={6} sm={6} md={6} lg={2}>
         <LoginBox sx={loginBoxStyle}>
           <Typography variant="TITLE_XS">
             <Link onClick={handleLoginButton}>

@@ -1,10 +1,23 @@
 import { createTypography } from "@/core/theme/typography";
 import { createPalette } from "@/core/theme/palette";
+import { useMediaQuery, useTheme } from '@mui/material';
 
 const { TITLE_XS, HEADLINE_L } = createTypography();
 const { pink, peach } = createPalette();
 
-export const landingContainerStyle = {  minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' };
+
+export const landingContainerStyle = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
+  return {
+  minHeight: '100vh', 
+  display: 'flex', 
+  justifyContent: 'center', 
+  alignItems: 'center',
+  flexDirection: isMobile ? "column" : "row" 
+  };
+};
 
 export const vibesBoxStyle = {
     ...HEADLINE_L, 

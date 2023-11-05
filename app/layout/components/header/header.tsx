@@ -120,7 +120,7 @@ const Header = () => {
           >
             {settings.map((setting) => (
               <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
-                <Typography textAlign="center">{setting}</Typography>
+                <Typography textAlign="center" variant='PARAGRAPH_XS'>{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>

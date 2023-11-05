@@ -3,7 +3,7 @@ import SpotifyClient from "@/app/layout/components/SpotifyClient";
 import ArtistCard from "@/app/layout/components/artist-card/artist-card";
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useArtistsMainBoxStyles, artistCardStyles } from "./styles/my-artists.styles";
+import { artistsMainBoxStyles, artistCardStyles } from "./styles/my-artists.styles";
 
 type Artist = {
   id: string;
@@ -40,7 +40,7 @@ export default function MyArtists() {
         Based on your Spotify listening history
       </Typography>
       <Box
-        sx={useArtistsMainBoxStyles()}
+        sx={artistsMainBoxStyles()}
       >
         {topArtists.map((artist) => (
          <Box key={artist.id} sx={artistCardStyles}> 
