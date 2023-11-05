@@ -7,6 +7,7 @@ import {
   artistsMainBoxStyles,
   artistCardStyles,
   paginationButtonStyles,
+  subtitleTypography
 } from "./styles/my-artists.styles";
 
 type Artist = {
@@ -57,7 +58,7 @@ export default function MyArtists() {
       <Typography variant="TITLE_S" component="h1">
         My Artists
       </Typography>
-      <Typography variant="PARAGRAPH_S">
+      <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
         Based on your Spotify listening history
       </Typography>
       <Box sx={artistsMainBoxStyles()}>

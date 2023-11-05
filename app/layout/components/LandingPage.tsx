@@ -11,7 +11,7 @@ import {
   vibesBoxStyle,
   loginBoxStyle,
 } from "../styles/LandingPage.style";
-import { Grid, useMediaQuery } from "@mui/material";
+import { Grid } from "@mui/material";
 import Link from "@mui/material/Link";
 
 
