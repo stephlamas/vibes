@@ -8,25 +8,30 @@ import { useMediaQuery, Theme, Box } from "@mui/material";
 import { mobileEventCardPriceStyles, mobileEventCardMediaStyles, eventCardMediaStyles, mobileEventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles, eventCardFavoriteButtonStyles } from "./styles/event-card.styles";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import moment from 'moment';
 
 type EventCardProps = {
-  key: string;
+  id: string;
   name: string;
   date: string;
-  price: number;
+  time: string;
+  price: number | string;
   currency: string;
   imageUrl: string;
   city: string;
   venue: string;
 };
 
-export default function EventCard({ key, name, date, price, currency, imageUrl, city, venue }: EventCardProps) {
+export default function EventCard({ id, name, date, price = 'TBD', currency, imageUrl, city, venue, time }: EventCardProps) {
+  const formattedDate = moment(date).format('ll')
+  const timeMoment = moment(time, 'HH:mm');
+  const formattedTime = timeMoment.format('HH:mm');
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   if (isMobile) {
     return (
       <Box sx={boxMobileEventCardStyles}>
-        <Card key={key} sx={mobileEventCardStyles}>
+        <Card key={id} sx={mobileEventCardStyles}>
           <CardMedia
             sx={mobileEventCardMediaStyles}
             image={imageUrl}
@@ -41,7 +46,10 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
               {name}
             </Typography>
             <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
-              {date}
+              {formattedDate}
+            </Typography>
+            <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
+              {formattedTime}
             </Typography>
             <Typography variant="PARAGRAPH_XS" color="text.secondary">
               {city} · {venue}
@@ -54,7 +62,7 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
   }
 
   return (
-    <Card sx={{ display: 'flex', width: '800px' }}>
+    <Card key={id} sx={{ display: 'flex', width: '800px' }}>
       <CardMedia
         component="img"
         image={imageUrl}
@@ -66,8 +74,11 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
           <Typography variant="PARAGRAPH_M_BOLD" noWrap>
             {name}
           </Typography>
-          <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
-            {date}
+          <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
+            {formattedDate}
+          </Typography>
+          <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
+            {formattedTime}
           </Typography>
           <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
             {city} · {venue}

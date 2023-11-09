@@ -8,6 +8,7 @@ interface Event {
   id: string;
   name: string;
   date: string;
+  time: string;
   price: number;
   currency: string;
   imageUrl: string;
@@ -81,8 +82,9 @@ export function EventDiscovery() {
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
             {events.map((event) => (
               <EventCard
-                key={event.id}
+                id={event.id}
                 name={event.name}
+                time={event.dates.start.localTime}
                 date={event.dates.start.localDate}
                 price={event.priceRanges?.[0]?.min}
                 currency={event.priceRanges?.[0]?.currency}
