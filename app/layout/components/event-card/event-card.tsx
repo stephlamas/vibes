@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useMediaQuery, Theme, Box } from "@mui/material";
-import { eventCardStyles, eventCardMediaStyles, eventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles } from "./styles/event-card.styles";
+import { mobileEventCardMediaStyles, eventCardMediaStyles, mobileEventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles, eventCardFavoriteButtonStyles } from "./styles/event-card.styles";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -17,9 +17,10 @@ type EventCardProps = {
   currency: string;
   imageUrl: string;
   city: string;
+  venue: string;
 };
 
-export default function EventCard({ key, name, date, price, currency, imageUrl, city }: EventCardProps) {
+export default function EventCard({ key, name, date, price, currency, imageUrl, city, venue }: EventCardProps) {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   if (isMobile) {
@@ -27,22 +28,25 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
       <Box sx={boxMobileEventCardStyles}>
         <Card key={key} sx={mobileEventCardStyles}>
           <CardMedia
-            sx={eventCardMediaStyles}
+            sx={mobileEventCardMediaStyles}
             image={imageUrl}
             title="event"
           >
-            <IconButton sx={eventCardFavoriteButtonStyles}>
+            <IconButton sx={mobileEventCardFavoriteButtonStyles}>
               <FavoriteBorderIcon />
             </IconButton>
           </CardMedia>
           <CardContent>
-            <Typography gutterBottom variant="PARAGRAPH_S_BOLD" component="div">
+            <Typography gutterBottom variant="PARAGRAPH_M_BOLD" component="div">
               {name}
             </Typography>
-            <Typography variant="PARAGRAPH_S" color="text.secondary">
-              {date} - {city}
+            <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
+              {date}
             </Typography>
-            <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency}{price}</Typography>
+            <Typography variant="PARAGRAPH_XS" color="text.secondary">
+              {city} - {venue}
+            </Typography>
+            <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency} {price}</Typography>
           </CardContent>
         </Card>
       </Box>
@@ -50,25 +54,34 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
   }
 
   return (
-    <Card key={key} sx={eventCardStyles}>
+    <Card sx={{ display: 'flex', width: '800px' }}>
       <CardMedia
-        sx={eventCardMediaStyles}
+        component="img"
         image={imageUrl}
-        title="event"
-      >
-        <IconButton sx={eventCardFavoriteButtonStyles}>
-          <FavoriteBorderIcon />
-        </IconButton>
-      </CardMedia>
-      <CardContent>
-        <Typography gutterBottom variant="PARAGRAPH_S_BOLD" component="div">
-          {name}
-        </Typography>
-        <Typography variant="PARAGRAPH_S" color="text.secondary">
-          {date} - {city}
-        </Typography>
-        <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency}{price}</Typography>
-      </CardContent>
+        alt={name}
+        sx={eventCardMediaStyles}
+      />
+      <Box sx={{ display: 'flex', flexDirection: 'column', flex: '1 0 auto' }}>
+        <CardContent sx={{ flex: '1 0 auto' }}>
+          <Typography variant="PARAGRAPH_M_BOLD" noWrap>
+            {name}
+          </Typography>
+          <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
+            {date}
+          </Typography>
+          <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
+            {city} - {venue}
+          </Typography>
+          <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>
+            {currency} {price}
+          </Typography>
+        </CardContent>
+        <Box sx={eventCardFavoriteButtonStyles}>
+          <IconButton aria-label="add to favorites">
+            <FavoriteBorderIcon />
+          </IconButton>
+        </Box>
+      </Box>
     </Card>
   );
 }

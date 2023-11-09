@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../SpotifyClient';
 import EventCard from '../event-card/event-card';
@@ -52,7 +52,7 @@ export function EventDiscovery() {
   }, [topArtists]);
 
   useEffect(() => {
-    console.log(events); 
+    console.log(events);
   }, [events]);
 
   return (
@@ -65,23 +65,22 @@ export function EventDiscovery() {
       </Typography>
       {events && events.length > 0 && (
         <>
-          <Typography variant="PARAGRAPH_XS" sx={subtitleTypography}>
-            {events.length} events found
-          </Typography>
-          {events.map((event) => (
-            <EventCard
-              key={event.id}
-              name={(event as any).name}
-              date={(event as any).dates.start.localDate}
-              price={(event as any).priceRanges?.[0]?.min}
-              currency={(event as any).priceRanges?.[0]?.currency}
-              imageUrl={(event as any).images?.[4]?.url}
-              city={(event as any)._embedded?.venues?.[0]?.city?.name}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+            {events.map((event) => (
+              <EventCard
+                key={event.id}
+                name={(event as any).name}
+                date={(event as any).dates.start.localDate}
+                price={(event as any).priceRanges?.[0]?.min}
+                currency={(event as any).priceRanges?.[0]?.currency}
+                imageUrl={(event as any).images?.[5]?.url}
+                city={(event as any)._embedded?.venues?.[0]?.city?.name}
+                venue={(event as any)._embedded?.venues?.[0].name}
               />
-          ))}
-
+            ))}
+          </Box>
         </>
       )}
     </>
-  );
-}
+  )
+};

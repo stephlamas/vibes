@@ -1,21 +1,31 @@
-export const eventCardStyles = { maxWidth: 310, marginTop: '30px', };
-export const mobileEventCardStyles = { width: '90%', height: 260 };
+export const mobileEventCardStyles = {
+  width: '90%',
+  minHeight: '100%',
+  marginBottom: '20px',
+  overflow: 'hidden',
+};
 
 export const boxMobileEventCardStyles = {
   display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   marginTop: '20px',
   width: '100%',
 };
 
-
-export const eventCardMediaStyles = {
-  height: 140,
+export const mobileEventCardMediaStyles = {
+  height: 141,
   position: "relative",
 };
 
-export const eventCardFavoriteButtonStyles = {
+export const eventCardMediaStyles = {
+  height: '100%',
+  width: 260,
+  position: "relative",
+};
+
+export const mobileEventCardFavoriteButtonStyles = {
   position: "absolute",
   top: 8,
   right: 8,
@@ -26,5 +36,12 @@ export const eventCardFavoriteButtonStyles = {
 };
 
 export const eventCardPriceStyles = {
-    marginTop: '16px',
+  marginTop: '16px',
 };
+
+export const eventCardFavoriteButtonStyles = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  pr: 1,
+  pb: 1
+}
