@@ -22,6 +22,34 @@ type EventCardProps = {
   venue: string;
 };
 
+function formatCurrency(price: number | string, currency: string): string {
+  const currencySymbols: Record<string, string> = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+    JPY: '¥',
+  };
+
+  if (isNaN(Number(price))) {
+    return price.toString();
+  }
+
+  const currencySymbol = currencySymbols[currency] || '';
+
+  const formattedPrice = new Intl.NumberFormat(undefined, {
+    style: 'currency',
+    currency: currency,
+    currencyDisplay: 'symbol',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(Number(price));
+
+  const numericPart = formattedPrice.replace(/[^\d.,]/g, '');
+
+  return `${currencySymbol}${numericPart}`;
+}
+
+
 export default function EventCard({ id, name, date, price = 'TBD', currency, imageUrl, city, venue, time }: EventCardProps) {
   const formattedDate = moment(date).format('ll')
   const timeMoment = moment(time, 'HH:mm');
@@ -54,7 +82,7 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
             <Typography variant="PARAGRAPH_XS" color="text.secondary">
               {city} · {venue}
             </Typography>
-            <Typography variant="PARAGRAPH_S_BOLD" sx={mobileEventCardPriceStyles}>{currency} {price}</Typography>
+            <Typography variant="PARAGRAPH_S_BOLD" sx={mobileEventCardPriceStyles}>{formatCurrency(price, currency)}</Typography>
           </CardContent>
         </Card>
       </Box>
@@ -86,7 +114,7 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
         </CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 1 }}>
           <Typography variant="PARAGRAPH_S_BOLD" sx={eventCardPriceStyles}>
-            {currency} {price}
+           {formatCurrency(price, currency)}
           </Typography>
           <IconButton aria-label="add to favorites">
             <FavoriteBorderIcon />
