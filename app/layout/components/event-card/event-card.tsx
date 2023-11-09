@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useMediaQuery, Theme, Box } from "@mui/material";
-import { mobileEventCardMediaStyles, eventCardMediaStyles, mobileEventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles, eventCardFavoriteButtonStyles } from "./styles/event-card.styles";
+import { mobileEventCardPriceStyles, mobileEventCardMediaStyles, eventCardMediaStyles, mobileEventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles, eventCardFavoriteButtonStyles } from "./styles/event-card.styles";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -46,7 +46,7 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
             <Typography variant="PARAGRAPH_XS" color="text.secondary">
               {city} · {venue}
             </Typography>
-            <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency} {price}</Typography>
+            <Typography variant="PARAGRAPH_S_BOLD" sx={mobileEventCardPriceStyles}>{currency} {price}</Typography>
           </CardContent>
         </Card>
       </Box>
@@ -72,11 +72,11 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
           <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
             {city} · {venue}
           </Typography>
-          <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>
+        </CardContent>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 1 }}>
+          <Typography variant="PARAGRAPH_S_BOLD" sx={eventCardPriceStyles}>
             {currency} {price}
           </Typography>
-        </CardContent>
-        <Box sx={eventCardFavoriteButtonStyles}>
           <IconButton aria-label="add to favorites">
             <FavoriteBorderIcon />
           </IconButton>
@@ -85,4 +85,3 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
     </Card>
   );
 }
-

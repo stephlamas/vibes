@@ -35,8 +35,12 @@ export const mobileEventCardFavoriteButtonStyles = {
   },
 };
 
-export const eventCardPriceStyles = {
+export const mobileEventCardPriceStyles = {
   marginTop: '16px',
+};
+
+export const eventCardPriceStyles = {
+  marginLeft: '10px',
 };
 
 export const eventCardFavoriteButtonStyles = {
