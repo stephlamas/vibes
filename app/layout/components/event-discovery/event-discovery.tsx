@@ -55,6 +55,9 @@ export function EventDiscovery() {
       Promise.all(eventsPromises)
         .then(eventsArrays => {
           const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
+          const startDate = (evt : any) => new Date(evt.dates.start.localDate) as Date;
+          const sortEvents = (e1 : any, e2 : any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
+          allEvents.sort(sortEvents);
           setEvents(allEvents);
         })
         .catch(console.error);
