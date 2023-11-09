@@ -9,16 +9,26 @@ import { eventCardStyles, eventCardMediaStyles, eventCardFavoriteButtonStyles, e
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-export default function EventCard() {
+type EventCardProps = {
+  key: string;
+  name: string;
+  date: string;
+  price: number;
+  currency: string;
+  imageUrl: string;
+  city: string;
+};
+
+export default function EventCard({ key, name, date, price, currency, imageUrl, city }: EventCardProps) {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   if (isMobile) {
     return (
       <Box sx={boxMobileEventCardStyles}>
-        <Card sx={mobileEventCardStyles}>
+        <Card key={key} sx={mobileEventCardStyles}>
           <CardMedia
             sx={eventCardMediaStyles}
-            image="https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-02.jpg"
+            image={imageUrl}
             title="event"
           >
             <IconButton sx={eventCardFavoriteButtonStyles}>
@@ -27,12 +37,12 @@ export default function EventCard() {
           </CardMedia>
           <CardContent>
             <Typography gutterBottom variant="PARAGRAPH_S_BOLD" component="div">
-              Event
+              {name}
             </Typography>
             <Typography variant="PARAGRAPH_S" color="text.secondary">
-              Date and location
+              {date} - {city}
             </Typography>
-            <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>Price</Typography>
+            <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency}{price}</Typography>
           </CardContent>
         </Card>
       </Box>
@@ -40,10 +50,10 @@ export default function EventCard() {
   }
 
   return (
-    <Card sx={eventCardStyles}>
+    <Card key={key} sx={eventCardStyles}>
       <CardMedia
         sx={eventCardMediaStyles}
-        image="https://indieground.net/wp-content/uploads/2023/03/Freebie-GradientTextures-Preview-02.jpg"
+        image={imageUrl}
         title="event"
       >
         <IconButton sx={eventCardFavoriteButtonStyles}>
@@ -52,12 +62,12 @@ export default function EventCard() {
       </CardMedia>
       <CardContent>
         <Typography gutterBottom variant="PARAGRAPH_S_BOLD" component="div">
-          Event
+          {name}
         </Typography>
         <Typography variant="PARAGRAPH_S" color="text.secondary">
-          Date and location
+          {date} - {city}
         </Typography>
-        <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>Price</Typography>
+        <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency}{price}</Typography>
       </CardContent>
     </Card>
   );

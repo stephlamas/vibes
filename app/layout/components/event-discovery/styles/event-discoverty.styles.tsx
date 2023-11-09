@@ -1,3 +1,4 @@
 export const subtitleTypography = {
-    marginTop: '12px'
+    marginTop: '12px',
+    display: 'flex'
 }
