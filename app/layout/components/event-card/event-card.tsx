@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useMediaQuery, Theme, Box } from "@mui/material";
-import { mobileEventCardPriceStyles, mobileEventCardMediaStyles, eventCardMediaStyles, mobileEventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles, eventCardFavoriteButtonStyles } from "./styles/event-card.styles";
+import { eventCardStyles, mobileEventCardPriceStyles, mobileEventCardMediaStyles, eventCardMediaStyles, mobileEventCardFavoriteButtonStyles, eventCardPriceStyles, mobileEventCardStyles, boxMobileEventCardStyles, eventCardFavoriteButtonStyles } from "./styles/event-card.styles";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import moment from 'moment';
@@ -90,7 +90,7 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
   }
 
   return (
-    <Card key={id} sx={{ display: 'flex', width: '800px' }}>
+    <Card key={id} sx={eventCardStyles}>
       <CardMedia
         component="img"
         image={imageUrl}

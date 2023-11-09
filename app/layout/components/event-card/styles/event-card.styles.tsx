@@ -3,6 +3,7 @@ export const mobileEventCardStyles = {
   minHeight: '100%',
   marginBottom: '20px',
   overflow: 'hidden',
+  borderRadius: '10px',
 };
 
 export const boxMobileEventCardStyles = {
@@ -37,6 +38,11 @@ export const mobileEventCardFavoriteButtonStyles = {
 
 export const mobileEventCardPriceStyles = {
   marginTop: '16px',
+};
+
+export const eventCardStyles = { display: 'flex', 
+width: '800px', 
+borderRadius: '10px' 
 };
 
 export const eventCardPriceStyles = {
