@@ -44,7 +44,7 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
               {date}
             </Typography>
             <Typography variant="PARAGRAPH_XS" color="text.secondary">
-              {city} - {venue}
+              {city} · {venue}
             </Typography>
             <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>{currency} {price}</Typography>
           </CardContent>
@@ -70,7 +70,7 @@ export default function EventCard({ key, name, date, price, currency, imageUrl, 
             {date}
           </Typography>
           <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
-            {city} - {venue}
+            {city} · {venue}
           </Typography>
           <Typography variant="PARAGRAPH_S" sx={eventCardPriceStyles}>
             {currency} {price}

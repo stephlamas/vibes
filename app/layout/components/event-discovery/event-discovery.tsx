@@ -6,6 +6,16 @@ import EventCard from '../event-card/event-card';
 
 interface Event {
   id: string;
+  name: string;
+  date: string;
+  price: number;
+  currency: string;
+  imageUrl: string;
+  city: string;
+  venue: string;
+  images: any[];
+  _embedded: any;
+  [key: string]: any;
 }
 
 type Artist = {
@@ -65,17 +75,17 @@ export function EventDiscovery() {
       </Typography>
       {events && events.length > 0 && (
         <>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
             {events.map((event) => (
               <EventCard
                 key={event.id}
-                name={(event as any).name}
-                date={(event as any).dates.start.localDate}
-                price={(event as any).priceRanges?.[0]?.min}
-                currency={(event as any).priceRanges?.[0]?.currency}
-                imageUrl={(event as any).images?.[5]?.url}
-                city={(event as any)._embedded?.venues?.[0]?.city?.name}
-                venue={(event as any)._embedded?.venues?.[0].name}
+                name={event.name}
+                date={event.dates.start.localDate}
+                price={event.priceRanges?.[0]?.min}
+                currency={event.priceRanges?.[0]?.currency}
+                imageUrl={event.images?.[5]?.url}
+                city={event._embedded?.venues?.[0]?.city?.name}
+                venue={event._embedded?.venues?.[0].name}
               />
             ))}
           </Box>

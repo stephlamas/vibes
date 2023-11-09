@@ -43,5 +43,6 @@ export const paginationButtonStyles = {
 };
 
 export const subtitleTypography = { 
-  marginTop: '12px' 
+  marginTop: '12px',
+  color: 'text.secondary',
 }

@@ -1,4 +1,5 @@
 export const subtitleTypography = {
     marginTop: '12px',
-    display: 'flex'
+    display: 'flex',
+    color: 'text.secondary',
 }
