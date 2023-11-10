@@ -44,7 +44,7 @@ export function LandingPage() {
       sx={landingContainerStyle()}
     >
       <LandingBox sx={vibesBoxStyle} item xs={6} sm={6} md={6} lg={2}>
-        <Typography variant="HEADLINE_L">VIBES</Typography>
+        <Typography variant="HEADLINE_XL">VIBES</Typography>
       </LandingBox>
       <LandingBox sx={landingBoxStyle} item xs={6} sm={6} md={6} lg={2}>
         <LoginBox sx={loginBoxStyle}>

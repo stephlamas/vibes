@@ -17,7 +17,7 @@ type Artist = {
   images: any;
 };
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 16;
 
 export default function MyArtists() {
   const [topArtists, setTopArtists] = useState<Artist[]>([]);
