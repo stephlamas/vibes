@@ -46,7 +46,7 @@ export const mobileEventCardPriceStyles = {
 export const eventCardStyles = {
   display: 'flex',
   width: '800px',
-  borderRadius: '10px'
+  borderRadius: '10px',
 };
 
 export const eventCardPriceStyles = {

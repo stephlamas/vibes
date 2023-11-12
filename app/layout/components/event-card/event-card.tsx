@@ -106,13 +106,13 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
           <Typography variant="PARAGRAPH_M_BOLD" noWrap>
             {name}
           </Typography>
-          <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
+          <Typography variant="PARAGRAPH_S" noWrap sx={{ color: "text.secondary", marginTop: '6px' }}>
             {formattedDate}
           </Typography>
-          <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
+          <Typography variant="PARAGRAPH_S" noWrap sx={{ color: "text.secondary", marginTop: '6px' }}>
             {formattedTime}
           </Typography>
-          <Typography variant="PARAGRAPH_S" noWrap color="text.secondary">
+          <Typography variant="PARAGRAPH_S" noWrap sx={{ color: "text.secondary", marginTop: '6px' }}>
             {city} · {venue}
           </Typography>
         </CardContent>
