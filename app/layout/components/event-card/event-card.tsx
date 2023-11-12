@@ -27,7 +27,9 @@ function formatCurrency(price: number | string, currency: string): string {
     USD: '$',
     EUR: '€',
     GBP: '£',
-    JPY: '¥',
+    CAD: 'C$',
+    AUD: 'A$',
+    MXN: 'MX$',
   };
 
   if (isNaN(Number(price))) {
@@ -56,6 +58,11 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
   const formattedTime = timeMoment.format('HH:mm');
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
+  const typographyMargin = {
+    marginBottom: '8px', 
+  };
+
+
   if (isMobile) {
     return (
       <Box sx={boxMobileEventCardStyles}>
@@ -63,26 +70,23 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
           <CardMedia
             sx={mobileEventCardMediaStyles}
             image={imageUrl}
-            title="event"
+            title={name}
           >
             <IconButton sx={mobileEventCardFavoriteButtonStyles}>
               <FavoriteBorderIcon />
             </IconButton>
           </CardMedia>
-          <CardContent>
+          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <Typography gutterBottom variant="PARAGRAPH_M_BOLD" component="div">
               {name}
             </Typography>
-            <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
-              {formattedDate}
+            <Typography variant="PARAGRAPH_S" noWrap sx={{ color: "text.secondary", marginTop: '6px' }}>
+              {formattedDate} · {formattedTime}
             </Typography>
-            <Typography variant="PARAGRAPH_XS" noWrap color="text.secondary">
-              {formattedTime}
-            </Typography>
-            <Typography variant="PARAGRAPH_XS" color="text.secondary">
+            <Typography variant="PARAGRAPH_S" sx={{ color: "text.secondary", marginTop: '6px' }}>
               {city} · {venue}
             </Typography>
-            <Typography variant="PARAGRAPH_S_BOLD" sx={mobileEventCardPriceStyles}>{formatCurrency(price, currency)}</Typography>
+            <Typography variant="PARAGRAPH_M_BOLD" sx={mobileEventCardPriceStyles}>{formatCurrency(price, currency)}</Typography>
           </CardContent>
         </Card>
       </Box>

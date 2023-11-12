@@ -9,16 +9,19 @@ export const mobileEventCardStyles = {
 export const boxMobileEventCardStyles = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
   alignItems: "center",
   marginTop: '20px',
   width: '100%',
+  height: '100%',
 };
 
 export const mobileEventCardMediaStyles = {
-  height: 141,
+  height: 190, 
+  width: '100%',
   position: "relative",
+  backgroundPosition: 'top'
 };
+
 
 export const eventCardMediaStyles = {
   height: '100%',
@@ -37,12 +40,13 @@ export const mobileEventCardFavoriteButtonStyles = {
 };
 
 export const mobileEventCardPriceStyles = {
-  marginTop: '16px',
+  pt: 3,
 };
 
-export const eventCardStyles = { display: 'flex', 
-width: '800px', 
-borderRadius: '10px' 
+export const eventCardStyles = {
+  display: 'flex',
+  width: '800px',
+  borderRadius: '10px'
 };
 
 export const eventCardPriceStyles = {
