@@ -83,6 +83,7 @@ export function EventDiscovery() {
             {events.map((event) => (
               <EventCard
                 id={event.id}
+                key={event.id}
                 name={event.name}
                 time={event.dates.start.localTime}
                 date={event.dates.start.localDate}
