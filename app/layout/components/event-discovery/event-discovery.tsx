@@ -48,7 +48,7 @@ export function EventDiscovery() {
   useEffect(() => {
     if (topArtists.length) {
       const eventsPromises = topArtists.map((artist) =>
-        fetch(`https://app.ticketmaster.com/discovery/v2/events.json?keyword=${artist.name}&apikey=${process.env.NEXT_PUBLIC_TM_API_KEY}`)
+      fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
           .then(response => response.json())
           .catch(err => console.error(err))
       );
