@@ -117,11 +117,11 @@ export default function EventCard({ id, name, date, price = 'TBD', currency, ima
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 1 }}>
-          <Typography variant="PARAGRAPH_S_BOLD" sx={eventCardPriceStyles}>
+          <Typography variant="PARAGRAPH_M_BOLD" sx={eventCardPriceStyles}>
            {formatCurrency(price, currency)}
           </Typography>
           <IconButton aria-label="add to favorites">
-            <FavoriteBorderIcon />
+            <FavoriteBorderIcon sx={{ color: 'pink.4' }} />
           </IconButton>
         </Box>
       </Box>
