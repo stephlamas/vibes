@@ -1,7 +1,7 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { bottomNavStyles } from "./styles/bottom-nav.styles";
-import { HomeIcon } from "../icons/sidebar/Home";
-import { EventsIcon } from "../icons/sidebar/Events";
+import { HomeIcon } from "../icons/sidebar/Events";
+import { EventsIcon } from "../icons/sidebar/My-events";
 import { ArtistsIcon } from "../icons/sidebar/Artists";
 import Link from "next/link";
 export function BottomNav() {

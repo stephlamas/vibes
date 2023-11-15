@@ -10,8 +10,8 @@ import {
 import { sidebarListStyles, sidebarLinkStyles } from "./styles/sidebar.styles";
 import { Theme } from "@mui/material/styles";
 import { BottomNav } from "../bottom-nav/bottom-nav";
-import { HomeIcon } from "../icons/sidebar/Home";
-import { EventsIcon } from "../icons/sidebar/Events";
+import { HomeIcon } from "../icons/sidebar/Events";
+import { EventsIcon } from "../icons/sidebar/My-events";
 import { ArtistsIcon } from "../icons/sidebar/Artists";
 import Link from "next/link";
 
