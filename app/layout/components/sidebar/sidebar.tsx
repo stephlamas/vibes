@@ -30,14 +30,14 @@ export function Sidebar() {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <Link href="/home" passHref style={sidebarLinkStyles}>
+      <Link href="/events" passHref style={sidebarLinkStyles}>
         <ListItemButton>
           <ListItemIcon sx={{ color: "darkGray" }}>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText>
             <Typography variant="PARAGRAPH_M">
-              Home
+              Upcoming events
             </Typography>
           </ListItemText>
         </ListItemButton>

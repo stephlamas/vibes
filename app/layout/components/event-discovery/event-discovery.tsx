@@ -68,11 +68,19 @@ export function EventDiscovery() {
   useEffect(() => {
     console.log(events);
   }, [events]);
+  useEffect(() => {
+    console.log("Events:", events);
+    if (events.length > 0) {
+      events.forEach((event) => {
+        console.log("Event ID:", event.id);
+      });
+    }
+  }, [events]);
 
   return (
     <>
       <Typography variant="TITLE_S" component="h1">
-        Upcoming shows for you
+        Upcoming events for you
       </Typography>
       <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
         Based on your favorite artists

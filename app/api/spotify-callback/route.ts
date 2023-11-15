@@ -43,7 +43,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     cookieStore.set('accessToken', accessToken as string);
     cookieStore.set('refreshToken', refreshToken as string);
 
-    return NextResponse.redirect(new URL('/home', req.url));
+    return NextResponse.redirect(new URL('/events', req.url));
 
   } catch (error) {
     console.log("Error exchanging authorization code for tokens:", error);

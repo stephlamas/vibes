@@ -7,11 +7,11 @@ import Link from "next/link";
 export function BottomNav() {
   return (
     <BottomNavigation showLabels sx={bottomNavStyles}>
-      <Link href="/home" passHref>
+      <Link href="/events" passHref>
         <BottomNavigationAction
           icon={<HomeIcon />}
-          label="Home"
-          value="home"
+          label="events"
+          value="events"
         />
       </Link>
 

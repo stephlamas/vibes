@@ -15,7 +15,8 @@ export const landingContainerStyle = () => {
   display: 'flex', 
   justifyContent: 'center', 
   alignItems: 'center',
-  flexDirection: isMobile ? "column" : "row" 
+  flexDirection: isMobile ? "column" : "row" ,
+  gap: 4,
   };
 };
 
