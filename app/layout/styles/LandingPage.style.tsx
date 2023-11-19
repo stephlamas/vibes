@@ -1,5 +1,5 @@
 import { createTypography } from "@/core/theme/typography";
-import { useMediaQuery, Theme, useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const { TITLE_XS, HEADLINE_L } = createTypography();
 
