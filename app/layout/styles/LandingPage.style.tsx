@@ -1,4 +1,5 @@
 import { createTypography } from "@/core/theme/typography";
+import { useMediaQuery, Theme, useTheme } from "@mui/material";
 
 const { TITLE_XS, HEADLINE_L } = createTypography();
 
@@ -11,20 +12,25 @@ export const landingContainerStyle = {
   gap: '3em',
 };
 
-export const landingTitleBoxStyle = {
-  ...HEADLINE_L,
-  width: '600px',
-  height: '200px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '8px',
-  padding: '2em',
-  backgroundImage: 'url(/images/landing-box.png)',
-  backgroundSize: 'cover',
-  backgroundPosition: 'end',
-  backgroundRepeat: 'no-repeat',
+export const landingTitleBoxStyle = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return {
+    ...HEADLINE_L,
+    width: isMobile ? '400px' : '600px',
+    height: '200px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '8px',
+    padding: '2em',
+    backgroundImage: 'url(/images/landing-box.png)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'end',
+    backgroundRepeat: 'no-repeat',
+  };
 };
 
 export const loginBoxStyle = {
