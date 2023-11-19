@@ -1,5 +1,6 @@
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
+      HEADLINE_XXL: true;
       HEADLINE_XL: true;
       HEADLINE_L: true;
       HEADLINE_M: true;
@@ -23,6 +24,12 @@ declare module '@mui/material/Typography' {
   
   export const createTypography = () => {
     return {
+      HEADLINE_XXL: {
+        fontFamily: ['Space Mono', 'Roboto', 'sans-serif'].join(','),
+        fontWeight: 700,
+        fontSize: '80px',
+        lineHeight: '84px',
+      },
       HEADLINE_XL: {
         fontFamily: ['Space Mono', 'Roboto', 'sans-serif'].join(','),
         fontWeight: 700,

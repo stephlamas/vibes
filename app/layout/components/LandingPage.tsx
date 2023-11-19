@@ -7,8 +7,7 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import Typography from "@mui/material/Typography";
 import {
   landingContainerStyle,
-  landingBoxStyle,
-  vibesBoxStyle,
+  landingTitleBoxStyle,
   loginBoxStyle,
 } from "../styles/LandingPage.style";
 import { Grid } from "@mui/material";
@@ -16,8 +15,8 @@ import Link from "@mui/material/Link";
 
 
 const LandingContainer = styled(Grid)({});
-const LandingBox = styled(Grid)({});
-const LoginBox = styled("div")({});
+const LandingTitleBox = styled(Grid)({});
+const LoginBox = styled(Grid)({});
 
 export function LandingPage() {
   const clientId = process.env.CLIENT_ID;
@@ -41,12 +40,11 @@ export function LandingPage() {
   };
   return (
     <LandingContainer
-      sx={landingContainerStyle()}
+      sx={landingContainerStyle}
     >
-      <LandingBox sx={vibesBoxStyle} item xs={6} sm={6} md={6} lg={2}>
-        <Typography variant="HEADLINE_XL">VIBES</Typography>
-      </LandingBox>
-      <LandingBox sx={landingBoxStyle} item xs={6} sm={6} md={6} lg={2}>
+      <LandingTitleBox sx={landingTitleBoxStyle} item xs={6} sm={6} md={6} lg={2}>
+        <Typography variant="HEADLINE_XXL">VIBES</Typography>
+      </LandingTitleBox>
         <LoginBox sx={loginBoxStyle}>
           <Typography variant="TITLE_XS">
             <Link onClick={handleLoginButton}>
@@ -59,7 +57,6 @@ export function LandingPage() {
             </Link>
           </Typography>
         </LoginBox>
-      </LandingBox>
     </LandingContainer>
   );
 }

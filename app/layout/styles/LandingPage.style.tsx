@@ -1,63 +1,41 @@
 import { createTypography } from "@/core/theme/typography";
-import { createPalette } from "@/core/theme/palette";
-import { useMediaQuery, useTheme } from '@mui/material';
 
 const { TITLE_XS, HEADLINE_L } = createTypography();
-const { pink, peach } = createPalette();
 
-
-export const landingContainerStyle = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
-  return {
-  minHeight: '100vh', 
-  display: 'flex', 
-  justifyContent: 'center', 
+export const landingContainerStyle = {
+  minHeight: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
   alignItems: 'center',
-  flexDirection: isMobile ? "column" : "row" ,
-  gap: 4,
-  };
+  flexDirection: "column",
+  gap: '3em',
 };
 
-export const vibesBoxStyle = {
-    ...HEADLINE_L, 
-    width: '200px',
-    height: '200px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '8px',
-    padding: '2em',
-  }
+export const landingTitleBoxStyle = {
+  ...HEADLINE_L,
+  width: '600px',
+  height: '200px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '8px',
+  padding: '2em',
+  backgroundImage: 'url(/images/landing-box.png)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'end',
+  backgroundRepeat: 'no-repeat',
+};
 
-  export const landingBoxStyle = {
-    width: '300px',
-    height: '200px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '8px',
-    padding: '2em',
-    position: 'relative', 
-    background: `linear-gradient(135deg, ${peach['1']} 0%, ${pink['5']}  100%)`,
-    border: '1px solid rgba(255, 255, 255, 0.2)',
-    backdropFilter: 'blur(3000px)',
-  };
-
-  export const loginBoxStyle = {
-    ...TITLE_XS,
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: '8px',
-    background: 'rgba(255, 255, 255, 0.25)',
-    cursor: 'pointer',
-    padding: '1em',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    margin: '.5em',
-    width: '100%',
-  };
-  
+export const loginBoxStyle = {
+  ...TITLE_XS,
+  display: 'flex',
+  borderRadius: '8px',
+  background: 'rgba(255, 255, 255, 0.25)',
+  cursor: 'pointer',
+  padding: '.5em',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  margin: '.5em',
+  width: '240px',
+};
