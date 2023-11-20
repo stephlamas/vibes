@@ -1,9 +1,11 @@
 export const mobileEventCardStyles = {
-  width: '90%',
-  minHeight: '100%',
-  marginBottom: '20px',
-  overflow: 'hidden',
-  borderRadius: '10px',
+  width: "500px",
+  minHeight: "100%",
+  marginBottom: "20px",
+  overflow: "hidden",
+  borderRadius: "10px",
+  display: "flex",  
+  flexDirection: "column", 
 };
 
 export const boxMobileEventCardStyles = {
