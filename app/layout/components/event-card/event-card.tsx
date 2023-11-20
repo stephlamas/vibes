@@ -89,7 +89,7 @@ export default function EventCard({
   if (isMobile) {
     return (
       <Box sx={boxMobileEventCardStyles}>
-        <Link href={eventLink} passHref style={{ textDecoration: 'none' }}>
+        <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
           <Card key={id} sx={mobileEventCardStyles}>
             <CardMedia
               sx={mobileEventCardMediaStyles}
@@ -141,56 +141,60 @@ export default function EventCard({
   }
 
   return (
-    <Card key={id} sx={eventCardStyles}>
-      <CardMedia
-        component="img"
-        image={imageUrl}
-        alt={name}
-        sx={eventCardMediaStyles}
-      />
-      <Box sx={{ display: "flex", flexDirection: "column", flex: "1 0 auto" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography variant="PARAGRAPH_M_BOLD" noWrap>
-            {name}
-          </Typography>
-          <Typography
-            variant="PARAGRAPH_S"
-            noWrap
-            sx={{ color: "text.secondary", marginTop: "6px" }}
-          >
-            {formattedDate}
-          </Typography>
-          <Typography
-            variant="PARAGRAPH_S"
-            noWrap
-            sx={{ color: "text.secondary", marginTop: "6px" }}
-          >
-            {formattedTime}
-          </Typography>
-          <Typography
-            variant="PARAGRAPH_S"
-            noWrap
-            sx={{ color: "text.secondary", marginTop: "6px" }}
-          >
-            {city} · {venue}
-          </Typography>
-        </CardContent>
+    <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
+      <Card key={id} sx={eventCardStyles}>
+        <CardMedia
+          component="img"
+          image={imageUrl}
+          alt={name}
+          sx={eventCardMediaStyles}
+        />
         <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: 1,
-          }}
+          sx={{ display: "flex", flexDirection: "column", flex: "1 0 auto" }}
         >
-          <Typography variant="PARAGRAPH_M_BOLD" sx={eventCardPriceStyles}>
-            {formatCurrency(price, currency)}
-          </Typography>
-          <IconButton aria-label="add to favorites">
-            <FavoriteBorderIcon sx={{ color: "pink.4" }} />
-          </IconButton>
+          <CardContent sx={{ flex: "1 0 auto" }}>
+            <Typography variant="PARAGRAPH_M_BOLD" noWrap>
+              {name}
+            </Typography>
+            <Typography
+              variant="PARAGRAPH_S"
+              noWrap
+              sx={{ color: "text.secondary", marginTop: "6px" }}
+            >
+              {formattedDate}
+            </Typography>
+            <Typography
+              variant="PARAGRAPH_S"
+              noWrap
+              sx={{ color: "text.secondary", marginTop: "6px" }}
+            >
+              {formattedTime}
+            </Typography>
+            <Typography
+              variant="PARAGRAPH_S"
+              noWrap
+              sx={{ color: "text.secondary", marginTop: "6px" }}
+            >
+              {city} · {venue}
+            </Typography>
+          </CardContent>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: 1,
+            }}
+          >
+            <Typography variant="PARAGRAPH_M_BOLD" sx={eventCardPriceStyles}>
+              {formatCurrency(price, currency)}
+            </Typography>
+            <IconButton aria-label="add to favorites">
+              <FavoriteBorderIcon sx={{ color: "pink.4" }} />
+            </IconButton>
+          </Box>
         </Box>
-      </Box>
-    </Card>
+      </Card>
+    </Link>
   );
 }

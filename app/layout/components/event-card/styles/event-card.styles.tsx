@@ -26,8 +26,9 @@ export const mobileEventCardMediaStyles = {
 
 
 export const eventCardMediaStyles = {
-  height: '100%',
-  width: 260,
+  aspectRatio: '16/9',
+  height: 190,
+  width: 280,
   position: "relative",
 };
 
