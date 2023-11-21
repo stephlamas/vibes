@@ -10,9 +10,9 @@ import {
 import { sidebarListStyles, sidebarLinkStyles } from "./styles/sidebar.styles";
 import { Theme } from "@mui/material/styles";
 import { BottomNav } from "../bottom-nav/bottom-nav";
-import { HomeIcon } from "../icons/sidebar/Events";
-import { EventsIcon } from "../icons/sidebar/My-events";
-import { ArtistsIcon } from "../icons/sidebar/Artists";
+import { FireIcon } from "../icons/navigation/Fire";
+import { EventsIcon } from "../icons/navigation/My-events";
+import { ArtistsIcon } from "../icons/navigation/Artists";
 import Link from "next/link";
 
 export function Sidebar() {
@@ -33,7 +33,7 @@ export function Sidebar() {
       <Link href="/events" passHref style={sidebarLinkStyles}>
         <ListItemButton>
           <ListItemIcon sx={{ color: "darkGray" }}>
-            <HomeIcon />
+            <FireIcon />
           </ListItemIcon>
           <ListItemText>
             <Typography variant="PARAGRAPH_M">

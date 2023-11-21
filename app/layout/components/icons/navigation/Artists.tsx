@@ -4,8 +4,8 @@ export function ArtistsIcon() {
   return (
     <svg 
       fill="#000000" 
-      width="32"
-      height="32" 
+      width="30"
+      height="30" 
       viewBox="0 0 508 508" 
     >
       <g>

@@ -80,10 +80,6 @@ export default function EventCard({
     theme.breakpoints.down("sm"),
   );
 
-  const typographyMargin = {
-    marginBottom: "8px",
-  };
-
   const eventLink = `/events/${id}`;
 
   if (isMobile) {

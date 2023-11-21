@@ -2,7 +2,7 @@ import { SvgIcon } from '@mui/material';
 
 export function HomeIcon() {
   return (
-    <SvgIcon sx={{ p: 0, width: '32px', height: '32px' }}>
+    <SvgIcon sx={{ p: 0, width: '30px', height: '30px' }}>
       <svg
         width="32"
         height="32"
