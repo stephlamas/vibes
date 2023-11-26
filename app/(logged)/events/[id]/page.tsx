@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { getEventById } from '@/core/services/events-service';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
+import moment from "moment";
+import { LocationIcon } from '@/app/layout/components/icons/events/Location';
 
 function formatCurrency(price: number | string | undefined, currency: string): string {
     const currencySymbols: Record<string, string> = {
@@ -35,6 +37,11 @@ function formatCurrency(price: number | string | undefined, currency: string): s
 
 export default function EventPage({ params }: any) {
     const [eventData, setEventData] = useState<any>({});
+    const date = eventData?.dates?.start?.localDate;
+    const formattedDate = moment(date).format("ll");
+    const time = eventData?.dates?.start?.localTime;
+    const timeMoment = moment(time, "HH:mm");
+    const formattedTime = timeMoment.format("HH:mm");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,13 +75,22 @@ export default function EventPage({ params }: any) {
                     <Box>
                         <Typography variant="TITLE_S" mt={2} mb={2}>{eventData.name}</Typography>
                         <Box>
-                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData?.dates?.start?.localDate}</Typography>
-                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData?.dates?.start?.localTime}</Typography>
+                            <Typography variant="PARAGRAPH_S" mb={1}>{formattedDate}</Typography>
+                            <Typography variant="PARAGRAPH_S" mb={1}>{formattedTime}</Typography>
                             <Typography variant="PARAGRAPH_S" mb={1}>
                                 {formatCurrency(eventData?.priceRanges?.[0]?.min, eventData?.priceRanges?.[0]?.currency)}
                             </Typography>
-                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData._embedded?.venues?.[0]?.city?.name}</Typography>
-                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData._embedded?.venues?.[0].name}</Typography>
+                            <Box display="flex" alignItems="center" gap={1}>
+                                <LocationIcon />
+                                <Box>
+                                    <Typography variant="PARAGRAPH_S_BOLD" component="div" sx={{ mb: 0 }}>
+                                        {eventData._embedded?.venues?.[0].name}
+                                    </Typography>
+                                    <Typography variant="PARAGRAPH_S">
+                                        {eventData._embedded?.venues?.[0]?.city?.name}
+                                    </Typography>
+                                </Box>
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
