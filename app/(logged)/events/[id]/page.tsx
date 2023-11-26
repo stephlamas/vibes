@@ -7,6 +7,7 @@ import moment from "moment";
 import { LocationIcon } from '@/app/layout/components/icons/events/Location';
 import { CashIcon } from '@/app/layout/components/icons/events/Cash';
 import { TicketIcon } from '@/app/layout/components/icons/events/Ticket';
+import { TicketmasterIcon } from '@/app/layout/components/icons/events/Ticketmaster';
 
 function formatCurrency(price: number | string | undefined, currency: string): string {
     const currencySymbols: Record<string, string> = {
@@ -36,6 +37,8 @@ function formatCurrency(price: number | string | undefined, currency: string): s
 
     return `${currencySymbol}${numericPart}`;
 }
+
+
 
 export default function EventPage({ params }: any) {
     const [eventData, setEventData] = useState<any>({});
@@ -80,7 +83,8 @@ export default function EventPage({ params }: any) {
                             <Box display="flex" alignItems="center" gap={1}>
                                 <TicketIcon />
                                 <Box>
-                                <Typography variant="PARAGRAPH_S_BOLD" mb={1}>Tickets</Typography>
+                                    <Typography variant="PARAGRAPH_S_BOLD" mb={1}>Tickets</Typography>
+                                    <Typography variant="PARAGRAPH_S" mb={1}><TicketmasterIcon />{eventData.url}</Typography>
                                 </Box>
                             </Box>
                             <Typography variant="PARAGRAPH_S" mb={1}>{formattedDate}</Typography>
@@ -96,6 +100,7 @@ export default function EventPage({ params }: any) {
                                     </Typography>
                                     <Typography variant="PARAGRAPH_S">
                                         {eventData._embedded?.venues?.[0]?.city?.name}
+                                        {console.log(eventData)}
                                     </Typography>
                                 </Box>
                             </Box>
