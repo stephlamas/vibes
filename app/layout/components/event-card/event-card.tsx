@@ -14,7 +14,6 @@ import {
   eventCardPriceStyles,
   mobileEventCardStyles,
   boxMobileEventCardStyles,
-  eventCardFavoriteButtonStyles,
 } from "./styles/event-card.styles";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";

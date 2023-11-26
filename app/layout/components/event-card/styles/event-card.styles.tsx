@@ -55,10 +55,3 @@ export const eventCardStyles = {
 export const eventCardPriceStyles = {
   marginLeft: '10px',
 };
-
-export const eventCardFavoriteButtonStyles = {
-  display: 'flex',
-  justifyContent: 'flex-end',
-  pr: 1,
-  pb: 1
-}
