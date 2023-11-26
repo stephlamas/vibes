@@ -93,8 +93,8 @@ export function EventDiscovery() {
                 id={event.id}
                 key={event.id}
                 name={event.name}
-                time={event.dates.start.localTime}
-                date={event.dates.start.localDate}
+                time={event.dates?.start?.localTime}
+                date={event.dates?.start?.localDate}
                 price={event.priceRanges?.[0]?.min}
                 currency={event.priceRanges?.[0]?.currency}
                 imageUrl={event.images?.[8]?.url}
