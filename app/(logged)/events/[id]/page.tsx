@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import moment from "moment";
 import { LocationIcon } from '@/app/layout/components/icons/events/Location';
+import { CashIcon } from '@/app/layout/components/icons/events/Cash';
+import { TicketIcon } from '@/app/layout/components/icons/events/Ticket';
 
 function formatCurrency(price: number | string | undefined, currency: string): string {
     const currencySymbols: Record<string, string> = {
@@ -75,6 +77,12 @@ export default function EventPage({ params }: any) {
                     <Box>
                         <Typography variant="TITLE_S" mt={2} mb={2}>{eventData.name}</Typography>
                         <Box>
+                            <Box display="flex" alignItems="center" gap={1}>
+                                <TicketIcon />
+                                <Box>
+                                <Typography variant="PARAGRAPH_S_BOLD" mb={1}>Tickets</Typography>
+                                </Box>
+                            </Box>
                             <Typography variant="PARAGRAPH_S" mb={1}>{formattedDate}</Typography>
                             <Typography variant="PARAGRAPH_S" mb={1}>{formattedTime}</Typography>
                             <Typography variant="PARAGRAPH_S" mb={1}>
