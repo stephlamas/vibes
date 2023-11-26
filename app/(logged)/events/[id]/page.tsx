@@ -87,11 +87,11 @@ export default function EventPage({ params }: any) {
                                         <Link href={eventData.url} passHref style={{ textDecoration: 'none', color: 'black' }}>
                                             <Typography variant="PARAGRAPH_S" mb={2} >
                                                <TicketmasterIcon />
-                                                <span style={{ marginLeft: '8px' }}>Buy tickets</span>
+                                                <Typography variant="PARAGRAPH_S" style={{ marginLeft: '8px' }} color='neutral.7'>Buy tickets</Typography>
                                             </Typography>
                                         </Link>
                                     ) : (
-                                        <Typography variant="PARAGRAPH_S" mb={1}>
+                                            <Typography variant="PARAGRAPH_S" mb={1} color='neutral.7'>
                                             Ticket information not available.
                                         </Typography>
                                     )}
@@ -103,7 +103,7 @@ export default function EventPage({ params }: any) {
                                     <Typography variant="PARAGRAPH_S_BOLD" mb={1}>
                                         {formattedDate}
                                     </Typography>
-                                    <Typography variant="PARAGRAPH_S" mb={2}>
+                                    <Typography variant="PARAGRAPH_S" mb={2} color='neutral.7'>
                                         {formattedTime}
                                     </Typography>
                                 </Box>
@@ -111,10 +111,10 @@ export default function EventPage({ params }: any) {
                             <Box display="flex" alignItems="start" gap={1}>
                                 <LocationIcon />
                                 <Box>
-                                    <Typography variant="PARAGRAPH_S_BOLD" component="div" sx={{ mb: 0 }}>
+                                    <Typography variant="PARAGRAPH_S_BOLD" mb={1}>
                                         {eventData._embedded?.venues?.[0].name}
                                     </Typography>
-                                    <Typography variant="PARAGRAPH_S">
+                                    <Typography variant="PARAGRAPH_S" color='neutral.7'>
                                         {eventData._embedded?.venues?.[0]?.city?.name}
                                     </Typography>
                                 </Box>
