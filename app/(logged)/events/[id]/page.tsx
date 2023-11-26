@@ -8,6 +8,7 @@ import { LocationIcon } from '@/app/layout/components/icons/events/Location';
 import { TicketIcon } from '@/app/layout/components/icons/events/Ticket';
 import { TicketmasterIcon } from '@/app/layout/components/icons/events/Ticketmaster';
 import Link from 'next/link';
+import { EventsIcon } from '@/app/layout/components/icons/navigation/My-events';
 
 function formatCurrency(price: number | string | undefined, currency: string): string {
     const currencySymbols: Record<string, string> = {
@@ -81,11 +82,12 @@ export default function EventPage({ params }: any) {
                             <Box display="flex" alignItems="start" gap={1}>
                                 <TicketIcon />
                                 <Box>
-                                    <Typography variant="PARAGRAPH_S_BOLD" mb={1}>Tickets</Typography>
+                                    <Typography variant="PARAGRAPH_M_BOLD" mb={1}> {formatCurrency(eventData?.priceRanges?.[0]?.min, eventData?.priceRanges?.[0]?.currency)}</Typography>
                                     {eventData.url ? (
-                                        <Link href={eventData.url} passHref>
-                                            <Typography variant="PARAGRAPH_S" component="a" mb={1}>
-                                                <TicketmasterIcon />
+                                        <Link href={eventData.url} passHref style={{ textDecoration: 'none', color: 'black' }}>
+                                            <Typography variant="PARAGRAPH_S" mb={2} >
+                                               <TicketmasterIcon />
+                                                <span style={{ marginLeft: '8px' }}>Buy tickets</span>
                                             </Typography>
                                         </Link>
                                     ) : (
@@ -95,11 +97,17 @@ export default function EventPage({ params }: any) {
                                     )}
                                 </Box>
                             </Box>
-                            <Typography variant="PARAGRAPH_S" mb={1}>{formattedDate}</Typography>
-                            <Typography variant="PARAGRAPH_S" mb={1}>{formattedTime}</Typography>
-                            <Typography variant="PARAGRAPH_S" mb={1}>
-                                {formatCurrency(eventData?.priceRanges?.[0]?.min, eventData?.priceRanges?.[0]?.currency)}
-                            </Typography>
+                            <Box display="flex" alignItems="start" gap={1}>
+                                <EventsIcon />
+                                <Box>
+                                    <Typography variant="PARAGRAPH_S_BOLD" mb={1}>
+                                        {formattedDate}
+                                    </Typography>
+                                    <Typography variant="PARAGRAPH_S" mb={2}>
+                                        {formattedTime}
+                                    </Typography>
+                                </Box>
+                            </Box>
                             <Box display="flex" alignItems="start" gap={1}>
                                 <LocationIcon />
                                 <Box>
@@ -108,7 +116,6 @@ export default function EventPage({ params }: any) {
                                     </Typography>
                                     <Typography variant="PARAGRAPH_S">
                                         {eventData._embedded?.venues?.[0]?.city?.name}
-                                        {console.log(eventData)}
                                     </Typography>
                                 </Box>
                             </Box>
