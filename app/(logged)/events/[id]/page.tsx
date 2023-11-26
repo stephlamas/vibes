@@ -4,7 +4,7 @@ import { getEventById } from '@/core/services/events-service';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 
-function formatCurrency(price: number | string, currency: string): string {
+function formatCurrency(price: number | string | undefined, currency: string): string {
     const currencySymbols: Record<string, string> = {
         USD: "$",
         EUR: "€",
@@ -15,7 +15,7 @@ function formatCurrency(price: number | string, currency: string): string {
     };
 
     if (isNaN(Number(price))) {
-        return price.toString();
+        return price ? price.toString() : "";
     }
 
     const currencySymbol = currencySymbols[currency] || "";
@@ -66,16 +66,16 @@ export default function EventPage({ params }: any) {
                         />
                     )}
                     <Box>
-                        <Typography variant="TITLE_S">{eventData.name}</Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant="PARAGRAPH_S">{eventData?.dates?.start?.localDate}</Typography>
-                        <Typography variant="PARAGRAPH_S">{eventData?.dates?.start?.localTime}</Typography>
-                        <Typography variant="PARAGRAPH_S">
-                            {formatCurrency(eventData.priceRanges?.[0]?.min, eventData.priceRanges?.[0]?.currency)}
-                        </Typography>
-                        <Typography variant="PARAGRAPH_S">{eventData._embedded?.venues?.[0]?.city?.name}</Typography>
-                        <Typography variant="PARAGRAPH_S">{eventData._embedded?.venues?.[0].name}</Typography>
+                        <Typography variant="TITLE_S" mt={2} mb={2}>{eventData.name}</Typography>
+                        <Box>
+                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData?.dates?.start?.localDate}</Typography>
+                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData?.dates?.start?.localTime}</Typography>
+                            <Typography variant="PARAGRAPH_S" mb={1}>
+                                {formatCurrency(eventData?.priceRanges?.[0]?.min, eventData?.priceRanges?.[0]?.currency)}
+                            </Typography>
+                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData._embedded?.venues?.[0]?.city?.name}</Typography>
+                            <Typography variant="PARAGRAPH_S" mb={1}>{eventData._embedded?.venues?.[0].name}</Typography>
+                        </Box>
                     </Box>
                 </Box>
             )}
