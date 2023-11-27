@@ -65,17 +65,6 @@ export function EventDiscovery() {
     }
   }, [topArtists]);
 
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
-  useEffect(() => {
-    console.log("Events:", events);
-    if (events.length > 0) {
-      events.forEach((event) => {
-        console.log("Event ID:", event.id);
-      });
-    }
-  }, [events]);
 
   return (
     <>

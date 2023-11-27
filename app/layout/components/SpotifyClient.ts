@@ -50,6 +50,11 @@ class SpotifyClient {
     getTopItems(type: string, time_range = 'long_term', limit = 50) {
         return this.call(`/me/top/${type}?time_range=${time_range}&limit=${limit}`);
     }
+
+    async getUserId() {
+        const userData = await this.call('/me');
+        return userData.id;
+    }
 }
 
 export default SpotifyClient;
