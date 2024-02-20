@@ -44,6 +44,7 @@ export const mobileEventCardFavoriteButtonStyles = {
 
 export const mobileEventCardPriceStyles = {
   pt: 3,
+  color: "text.primary",
 };
 
 export const eventCardStyles = {

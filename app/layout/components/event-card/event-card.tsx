@@ -1,10 +1,16 @@
-"use client";
 import * as React from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useMediaQuery, Theme, Box } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import moment from "moment";
+import Link from "next/link";
+
 import {
   eventCardStyles,
   mobileEventCardPriceStyles,
@@ -15,10 +21,6 @@ import {
   mobileEventCardStyles,
   boxMobileEventCardStyles,
 } from "./styles/event-card.styles";
-import IconButton from "@mui/material/IconButton";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import moment from "moment";
-import Link from "next/link";
 
 type EventCardProps = {
   id: string;
@@ -81,20 +83,26 @@ export default function EventCard({
 
   const eventLink = `/events/${id}`;
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorite((prevState) => !prevState);
+  };
+
   if (isMobile) {
     return (
       <Box sx={boxMobileEventCardStyles}>
-        <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
-          <Card key={id} sx={mobileEventCardStyles}>
-            <CardMedia
-              sx={mobileEventCardMediaStyles}
-              image={imageUrl}
-              title={name}
-            >
-              <IconButton sx={mobileEventCardFavoriteButtonStyles}>
-                <FavoriteBorderIcon />
-              </IconButton>
-            </CardMedia>
+        <Card key={id} sx={mobileEventCardStyles}>
+          <CardMedia
+            sx={mobileEventCardMediaStyles}
+            image={imageUrl}
+            title={name}
+          >
+            <IconButton sx={mobileEventCardFavoriteButtonStyles} onClick={toggleFavorite}>
+              {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            </IconButton>
+          </CardMedia>
+          <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
             <CardContent
               sx={{
                 display: "flex",
@@ -106,7 +114,7 @@ export default function EventCard({
                 gutterBottom
                 variant="PARAGRAPH_M_BOLD"
                 component="div"
-              >
+                sx={{ color: "text.primary" }} >
                 {name}
               </Typography>
               <Typography
@@ -129,67 +137,65 @@ export default function EventCard({
                 {formatCurrency(price, currency)}
               </Typography>
             </CardContent>
-          </Card>
-        </Link>
+          </Link>
+        </Card>
       </Box>
     );
   }
 
   return (
-    <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
-      <Card key={id} sx={eventCardStyles}>
-        <CardMedia
-          component="img"
-          image={imageUrl}
-          alt={name}
-          sx={eventCardMediaStyles}
-        />
-        <Box
-          sx={{ display: "flex", flexDirection: "column", flex: "1 0 auto" }}
-        >
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="PARAGRAPH_M_BOLD" noWrap>
-              {name}
-            </Typography>
-            <Typography
-              variant="PARAGRAPH_S"
-              noWrap
-              sx={{ color: "text.secondary", marginTop: "6px" }}
-            >
-              {formattedDate}
-            </Typography>
-            <Typography
-              variant="PARAGRAPH_S"
-              noWrap
-              sx={{ color: "text.secondary", marginTop: "6px" }}
-            >
-              {formattedTime}
-            </Typography>
-            <Typography
-              variant="PARAGRAPH_S"
-              noWrap
-              sx={{ color: "text.secondary", marginTop: "6px" }}
-            >
-              {city} · {venue}
-            </Typography>
-          </CardContent>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: 1,
-            }}
+    <Card key={id} sx={eventCardStyles}>
+      <CardMedia
+        component="img"
+        image={imageUrl}
+        alt={name}
+        sx={eventCardMediaStyles}
+      />
+      <Box
+        sx={{ display: "flex", flexDirection: "column", flex: "1 0 auto" }}
+      >
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography variant="PARAGRAPH_M_BOLD" noWrap>
+            {name}
+          </Typography>
+          <Typography
+            variant="PARAGRAPH_S"
+            noWrap
+            sx={{ color: "text.secondary", marginTop: "6px" }}
           >
-            <Typography variant="PARAGRAPH_M_BOLD" sx={eventCardPriceStyles}>
-              {formatCurrency(price, currency)}
-            </Typography>
-            <IconButton aria-label="add to favorites">
-              <FavoriteBorderIcon sx={{ color: "pink.4" }} />
-            </IconButton>
-          </Box>
+            {formattedDate}
+          </Typography>
+          <Typography
+            variant="PARAGRAPH_S"
+            noWrap
+            sx={{ color: "text.secondary", marginTop: "6px" }}
+          >
+            {formattedTime}
+          </Typography>
+          <Typography
+            variant="PARAGRAPH_S"
+            noWrap
+            sx={{ color: "text.secondary", marginTop: "6px" }}
+          >
+            {city} · {venue}
+          </Typography>
+        </CardContent>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: 1,
+          }}
+        >
+          <Typography variant="PARAGRAPH_M_BOLD" sx={eventCardPriceStyles}>
+            {formatCurrency(price, currency)}
+          </Typography>
+          <IconButton aria-label="add to favorites" onClick={toggleFavorite}>
+            {isFavorite ? <FavoriteIcon sx={{ color: "pink.4" }} /> : <FavoriteBorderIcon />}
+          </IconButton>
         </Box>
-      </Card>
-    </Link>
+      </Box>
+    </Card>
   );
 }

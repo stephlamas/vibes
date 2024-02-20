@@ -78,6 +78,9 @@ export function EventDiscovery() {
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
             {events.map((event) => (
+              console.log(event._embedded?.venues?.[0]?.name),
+              console.log(event._embedded?.venues?.name),
+              console.log('EVENT DATA:', event._embedded),
               <EventCard
                 id={event.id}
                 key={event.id}
@@ -88,7 +91,7 @@ export function EventDiscovery() {
                 currency={event.priceRanges?.[0]?.currency}
                 imageUrl={event.images?.[8]?.url}
                 city={event._embedded?.venues?.[0]?.city?.name}
-                venue={event._embedded?.venues?.[0].name}
+                venue={event._embedded?.venues?.[0]?.name}
               />
             ))}
           </Box>
