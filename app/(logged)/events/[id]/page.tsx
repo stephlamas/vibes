@@ -2,13 +2,15 @@
 import { useEffect, useState } from "react";
 import { getEventById } from "@/core/services/events-service";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import moment from "moment";
 import { LocationIcon } from "@/app/layout/components/icons/events/Location";
 import { TicketIcon } from "@/app/layout/components/icons/events/Ticket";
 import { TicketmasterIcon } from "@/app/layout/components/icons/events/Ticketmaster";
 import Link from "next/link";
 import { EventsIcon } from "@/app/layout/components/icons/navigation/My-events";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 function formatCurrency(
   price: number | string | undefined,
@@ -51,6 +53,13 @@ export default function EventPage({ params }: any) {
   const timeMoment = moment(time, "HH:mm");
   const formattedTime = timeMoment.format("HH:mm");
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setIsFavorite((prevState) => !prevState);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,6 +76,7 @@ export default function EventPage({ params }: any) {
   return (
     <Box>
       {eventData && (
+        console.log("EVENT DATA", eventData),
         <Box>
           {eventData.images && eventData.images.length > 0 && (
             <Box
@@ -81,9 +91,29 @@ export default function EventPage({ params }: any) {
             />
           )}
           <Box>
-            <Typography variant="TITLE_S" mt={3} mb={3}>
-              {eventData.name}
-            </Typography>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="TITLE_S" mt={3} mb={3}>
+                  {eventData.name}
+                </Typography>
+                <IconButton disableTouchRipple aria-label="add to favorites" onClick={toggleFavorite}>
+                  {isFavorite ? (
+                    <>
+                      <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
+                        Remove
+                      </Typography>
+                      <FavoriteIcon sx={{ color: "pink.4" }} />
+                    </>
+                  ) : (
+                    <>
+                      <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
+                        Save
+                      </Typography>
+                      <FavoriteBorderIcon />
+                    </>
+                  )}
+                </IconButton>
+              </Box>
+
             <Box>
               <Box display="flex" alignItems="start" gap={1}>
                 <LocationIcon />
