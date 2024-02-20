@@ -44,6 +44,7 @@ function formatCurrency(
 
 export default function EventPage({ params }: any) {
   const [eventData, setEventData] = useState<any>({});
+  console.log(eventData);
   const date = eventData?.dates?.start?.localDate;
   const formattedDate = moment(date).format("ll");
   const time = eventData?.dates?.start?.localTime;
@@ -91,7 +92,7 @@ export default function EventPage({ params }: any) {
                     {eventData._embedded?.venues?.[0].name}
                   </Typography>
                   <Typography variant="PARAGRAPH_S" mb={3} color="neutral.7">
-                    {eventData._embedded?.venues?.[0]?.city?.name} · {eventData._embedded?.venues?.[0]?.state?.name}
+                    {eventData._embedded?.venues?.[0]?.city?.name} · {eventData._embedded?.venues?.[0]?.state?.name} {eventData._embedded?.venues?.[0]?.country?.name}
                   </Typography>
                 </Box>
               </Box>
