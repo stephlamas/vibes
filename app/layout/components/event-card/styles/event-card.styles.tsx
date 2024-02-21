@@ -1,10 +1,10 @@
 export const mobileEventCardStyles = {
   width: "500px",
-  minHeight: "100%",
+  height: 360,
   marginBottom: "20px",
   overflow: "hidden",
   borderRadius: "10px",
-  display: "flex",  
+  display: "flex",
   flexDirection: "column", 
 };
 
@@ -12,13 +12,12 @@ export const boxMobileEventCardStyles = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  marginTop: '20px',
-  width: '100%',
-  height: '100%',
+  justifyContent: "center",
+  minWidth: "50vh",
 };
 
 export const mobileEventCardMediaStyles = {
-  height: 190, 
+  height: 200, 
   width: '100%',
   position: "relative",
   backgroundPosition: 'top'
@@ -56,3 +55,10 @@ export const eventCardStyles = {
 export const eventCardPriceStyles = {
   marginLeft: '10px',
 };
+
+
+export const subtitleTypography = {
+  marginTop: '12px',
+  display: 'flex',
+  color: 'text.secondary',
+}
