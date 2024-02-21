@@ -91,7 +91,7 @@ export default function EventPage({ params }: any) {
             />
           )}
           <Box>
-              <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box display="flex" justifyContent="space-between" alignItems="center" justifyItems="center">
                 <Typography variant="TITLE_S" mt={3} mb={3}>
                   {eventData.name}
                 </Typography>

@@ -159,7 +159,17 @@ export default function EventCard({
           sx={{ display: "flex", flexDirection: "column", flex: "1 0 auto" }}
         >
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="PARAGRAPH_M_BOLD" noWrap>
+            <Typography variant="PARAGRAPH_M_BOLD" 
+              noWrap 
+              sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "normal",
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 1,
+              maxWidth: "530px",
+            }}>
               {name}
             </Typography>
             <Typography
@@ -179,10 +189,22 @@ export default function EventCard({
             <Typography
               variant="PARAGRAPH_S"
               noWrap
-              sx={{ color: "text.secondary", marginTop: "6px" }}
+              sx={{
+                color: "text.secondary",
+                marginTop: "6px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "normal",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+                maxWidth: "520px",
+              }}
             >
               {city} · {venue} {country}
             </Typography>
+
+
           </CardContent>
           <Box
             sx={{
@@ -195,7 +217,10 @@ export default function EventCard({
             <Typography variant="PARAGRAPH_M_BOLD" sx={eventCardPriceStyles}>
               {formatCurrency(price, currency)}
             </Typography>
-            <IconButton aria-label="add to favorites" onClick={toggleFavorite}>
+            <IconButton
+              aria-label="add to favorites"
+              onClick={toggleFavorite}
+            >
               {isFavorite ? <FavoriteIcon sx={{ color: "pink.4" }} /> : <FavoriteBorderIcon />}
             </IconButton>
           </Box>
