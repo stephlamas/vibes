@@ -45,9 +45,28 @@ function formatCurrency(
   return `${currencySymbol}${numericPart}`;
 }
 
+function favoritesClient() {
+  const res = 'http://localhost:3000/api/user-favorite-event';
+  return {
+    fav: async function(userId: any, eventId: any) {
+      const cfg = { method: 'POST', body: JSON.stringify({ userId, eventId }) };
+      await fetch(res, cfg);
+    },
+    unfav: async function(userId: any, eventId: any) {
+      const cfg = { method: 'DELETE', body: JSON.stringify({ userId, eventId }) };
+      await fetch(res, cfg);
+
+    },
+    isFav: async function(userId: any, eventId: any) {
+      const r = await fetch(`${res}?userId=${userId}&eventId=${eventId}`);
+      const j = await r.json();
+      return j.isFavorite;
+    }
+  }
+}
+
 export default function EventPage({ params }: any) {
   const [eventData, setEventData] = useState<any>({});
-  console.log(eventData);
   const date = eventData?.dates?.start?.localDate;
   const formattedDate = moment(date).format("ll");
   const time = eventData?.dates?.start?.localTime;
@@ -56,6 +75,7 @@ export default function EventPage({ params }: any) {
 
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const favClient = favoritesClient();
   const spotifyClient = new SpotifyClient();
 
   const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -66,7 +86,13 @@ export default function EventPage({ params }: any) {
         userId: spotifyUserId,
         eventId: eventData.id,
       };
-      await fetch('http://localhost:3000/api/save-favorite-event', { method: 'POST', body: JSON.stringify(requestBody) });
+
+      if(isFavorite) {
+        favClient.unfav(spotifyUserId, eventData.id);
+      } else {
+        favClient.fav(spotifyUserId, eventData.id);
+      }
+      
       setIsFavorite(prevState => !prevState);
     } catch (error) {
       console.error(error);
@@ -75,21 +101,19 @@ export default function EventPage({ params }: any) {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const result = await getEventById(params.id);
-        setEventData(result);
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      const event = await getEventById(params.id);
+      const spotifyUserId = await spotifyClient.getUserId();
+      const isFav = await favClient.isFav(spotifyUserId, event.id);
+      setEventData(event);
+      setIsFavorite(isFav);
     };
-
     fetchData();
+
   }, [params.id]);
 
   return (
     <Box>
       {eventData && (
-        console.log("EVENT DATA", eventData),
         <Box>
           {eventData.images && eventData.images.length > 0 && (
             <Box
