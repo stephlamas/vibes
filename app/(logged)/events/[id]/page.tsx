@@ -11,6 +11,7 @@ import Link from "next/link";
 import { EventsIcon } from "@/app/layout/components/icons/navigation/My-events";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SpotifyClient from "@/app/layout/components/SpotifyClient";
 
 function formatCurrency(
   price: number | string | undefined,
@@ -55,9 +56,21 @@ export default function EventPage({ params }: any) {
 
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const toggleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setIsFavorite((prevState) => !prevState);
+  const spotifyClient = new SpotifyClient();
+
+  const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const spotifyUserId = await spotifyClient.getUserId();
+      e.preventDefault();
+      const requestBody = {
+        userId: spotifyUserId,
+        eventId: eventData.id,
+      };
+      await fetch('http://localhost:3000/api/save-favorite-event', { method: 'POST', body: JSON.stringify(requestBody) });
+      setIsFavorite(prevState => !prevState);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

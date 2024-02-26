@@ -50,6 +50,10 @@ export const eventCardStyles = {
   display: 'flex',
   width: '900px',
   borderRadius: '16px',
+  transition: "box-shadow 0.3s ease",
+  "&:hover": {
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+  },
 };
 
 export const eventCardPriceStyles = {
