@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
-import SpotifyClient from '../SpotifyClient';
+import SpotifyClient from '../../../../core/clients/spotify-client';
 import EventCard from '../event-card/event-card';
 
 interface Event {
@@ -48,7 +48,7 @@ export function EventDiscovery() {
   useEffect(() => {
     if (topArtists.length) {
       const eventsPromises = topArtists.map((artist) =>
-      fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
+        fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
           .then(response => response.json())
           .catch(err => console.error(err))
       );
@@ -56,8 +56,8 @@ export function EventDiscovery() {
       Promise.all(eventsPromises)
         .then(eventsArrays => {
           const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
-          const startDate = (evt : any) => new Date(evt.dates.start.localDate) as Date;
-          const sortEvents = (e1 : any, e2 : any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
+          const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
+          const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
           allEvents.sort(sortEvents);
           setEvents(allEvents);
         })

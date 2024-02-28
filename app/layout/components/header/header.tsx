@@ -18,7 +18,7 @@ import {
   menuStyles,
   boxTypographyStyles,
 } from "./styles/header.styles";
-import SpotifyClient from "../SpotifyClient";
+import SpotifyClient from "../../../../core/clients/spotify-client";
 import { deleteAllCookies, redirectTo } from "@/core/helpers/cookies/cookie-service";
 
 

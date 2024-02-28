@@ -1,5 +1,5 @@
 "use client";
-import SpotifyClient from "@/app/layout/components/SpotifyClient";
+import SpotifyClient from "@/core/clients/spotify-client";
 import ArtistCard from "@/app/layout/components/artist-card/artist-card";
 import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";

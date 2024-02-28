@@ -12,6 +12,7 @@ import {
 } from "../styles/LandingPage.style";
 import { Grid } from "@mui/material";
 import Link from "@mui/material/Link";
+import "animate.css";
 
 
 const LandingContainer = styled(Grid)({});
@@ -43,7 +44,7 @@ export function LandingPage() {
       sx={landingContainerStyle}
     >
       <LandingTitleBox sx={landingTitleBoxStyle} item xs={6} sm={6} md={6} lg={2}>
-        <Typography variant="HEADLINE_XXL">VIBES</Typography>
+        <Typography variant="HEADLINE_XXL" className="animate__animated animate__flash">VIBES</Typography>
       </LandingTitleBox>
         <LoginBox sx={loginBoxStyle}>
           <Typography variant="TITLE_XS">

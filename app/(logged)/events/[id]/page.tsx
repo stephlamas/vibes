@@ -11,7 +11,8 @@ import Link from "next/link";
 import { EventsIcon } from "@/app/layout/components/icons/navigation/My-events";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import SpotifyClient from "@/app/layout/components/SpotifyClient";
+import SpotifyClient from "@/core/clients/spotify-client";
+import favoritesClient from "@/core/clients/favorites-client";
 
 function formatCurrency(
   price: number | string | undefined,
@@ -45,26 +46,6 @@ function formatCurrency(
   return `${currencySymbol}${numericPart}`;
 }
 
-function favoritesClient() {
-  const res = 'http://localhost:3000/api/user-favorite-event';
-  return {
-    fav: async function(userId: any, eventId: any) {
-      const cfg = { method: 'POST', body: JSON.stringify({ userId, eventId }) };
-      await fetch(res, cfg);
-    },
-    unfav: async function(userId: any, eventId: any) {
-      const cfg = { method: 'DELETE', body: JSON.stringify({ userId, eventId }) };
-      await fetch(res, cfg);
-
-    },
-    isFav: async function(userId: any, eventId: any) {
-      const r = await fetch(`${res}?userId=${userId}&eventId=${eventId}`);
-      const j = await r.json();
-      return j.isFavorite;
-    }
-  }
-}
-
 export default function EventPage({ params }: any) {
   const [eventData, setEventData] = useState<any>({});
   const date = eventData?.dates?.start?.localDate;
@@ -87,12 +68,12 @@ export default function EventPage({ params }: any) {
         eventId: eventData.id,
       };
 
-      if(isFavorite) {
+      if (isFavorite) {
         favClient.unfav(spotifyUserId, eventData.id);
       } else {
         favClient.fav(spotifyUserId, eventData.id);
       }
-      
+
       setIsFavorite(prevState => !prevState);
     } catch (error) {
       console.error(error);
@@ -128,28 +109,28 @@ export default function EventPage({ params }: any) {
             />
           )}
           <Box>
-              <Box display="flex" justifyContent="space-between" alignItems="center" justifyItems="center">
-                <Typography variant="TITLE_S" mt={3} mb={3}>
-                  {eventData.name}
-                </Typography>
-                <IconButton disableTouchRipple aria-label="add to favorites" onClick={toggleFavorite}>
-                  {isFavorite ? (
-                    <>
-                      <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
-                        Remove
-                      </Typography>
-                      <FavoriteIcon sx={{ color: "pink.4" }} />
-                    </>
-                  ) : (
-                    <>
-                      <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
-                        Save
-                      </Typography>
-                      <FavoriteBorderIcon />
-                    </>
-                  )}
-                </IconButton>
-              </Box>
+            <Box display="flex" justifyContent="space-between" alignItems="center" justifyItems="center">
+              <Typography variant="TITLE_S" mt={3} mb={3}>
+                {eventData.name}
+              </Typography>
+              <IconButton disableTouchRipple aria-label="add to favorites" onClick={toggleFavorite}>
+                {isFavorite ? (
+                  <>
+                    <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
+                      Remove
+                    </Typography>
+                    <FavoriteIcon sx={{ color: "pink.4" }} />
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
+                      Save
+                    </Typography>
+                    <FavoriteBorderIcon />
+                  </>
+                )}
+              </IconButton>
+            </Box>
 
             <Box>
               <Box display="flex" alignItems="start" gap={1}>
