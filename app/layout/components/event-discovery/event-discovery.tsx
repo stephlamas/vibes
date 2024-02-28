@@ -77,10 +77,10 @@ export function EventDiscovery() {
       {events && events.length > 0 && (
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
-            {events.map((event) => (
+            {events.map((event, index) => (
               <EventCard
                 id={event.id}
-                key={event.id}
+                key={index}
                 name={event.name}
                 time={event.dates?.start?.localTime}
                 date={event.dates?.start?.localDate}
