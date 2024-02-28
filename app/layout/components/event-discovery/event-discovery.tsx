@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../../../../core/clients/spotify-client';
 import EventCard from '../event-card/event-card';
@@ -30,6 +30,8 @@ export function EventDiscovery() {
   const [topArtists, setTopArtists] = useState<Artist[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const spotifyClient = new SpotifyClient();
@@ -38,6 +40,7 @@ export function EventDiscovery() {
       .getTopItems("artists")
       .then((data) => {
         setTopArtists(data.items);
+        setTotalPages(Math.ceil(data.items.length / PAGE_SIZE));
       })
       .catch((error) => {
         console.error(error);
@@ -65,6 +68,20 @@ export function EventDiscovery() {
     }
   }, [topArtists]);
 
+  const PAGE_SIZE = 20;
+
+  const getCurrentPageEvents = () => {
+    const startIndex = currentPage * PAGE_SIZE;
+    return events.slice(startIndex, startIndex + PAGE_SIZE);
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 0));
+  };
 
   return (
     <>
@@ -77,7 +94,7 @@ export function EventDiscovery() {
       {events && events.length > 0 && (
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
-            {events.map((event, index) => (
+            {getCurrentPageEvents().map((event, index) => (
               <EventCard
                 id={event.id}
                 key={index}
@@ -92,6 +109,22 @@ export function EventDiscovery() {
                 country={event._embedded?.venues?.[0]?.country?.name}
               />
             ))}
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
+            <Button
+              onClick={goToPreviousPage}
+              disabled={currentPage === 0}
+              style={{ color: currentPage === 0 ? "gray" : "black" }}
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={goToNextPage}
+              disabled={currentPage >= totalPages - 1}
+              style={{ color: currentPage >= totalPages - 1 ? "gray" : "black", marginLeft: '8px' }}
+            >
+              Next
+            </Button>
           </Box>
         </>
       )}

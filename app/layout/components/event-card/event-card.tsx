@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,6 +10,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import moment from "moment";
 import Link from "next/link";
+import SpotifyClient from "@/core/clients/spotify-client";
+import favoritesClient from "@/core/clients/favorites-client";
 
 import {
   eventCardStyles,
@@ -86,10 +88,37 @@ export default function EventCard({
   const eventLink = `/events/${id}`;
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const toggleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setIsFavorite((prevState) => !prevState);
+  const favClient = favoritesClient();
+  const spotifyClient = new SpotifyClient();
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+        const spotifyUserId = await spotifyClient.getUserId();
+        const isFav = await favClient.isFav(spotifyUserId, id);
+        setIsFavorite(isFav);
+        setLoading(false);
+    };
+
+    fetchFavorites();
+  }, []);
+
+  const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const spotifyUserId = await spotifyClient.getUserId();
+
+      if (isFavorite) {
+        favClient.unfav(spotifyUserId, id);
+      } else {
+        favClient.fav(spotifyUserId, id);
+      }
+
+      setIsFavorite((prevState) => !prevState);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (isMobile) {
@@ -159,17 +188,17 @@ export default function EventCard({
           sx={{ display: "flex", flexDirection: "column", flex: "1 0 auto" }}
         >
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography variant="PARAGRAPH_M_BOLD" 
-              noWrap 
+            <Typography variant="PARAGRAPH_M_BOLD"
+              noWrap
               sx={{
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "normal",
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 1,
-              maxWidth: "530px",
-            }}>
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "normal",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+                maxWidth: "530px",
+              }}>
               {name}
             </Typography>
             <Typography
