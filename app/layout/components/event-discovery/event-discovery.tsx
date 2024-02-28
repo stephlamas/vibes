@@ -85,12 +85,14 @@ export function EventDiscovery() {
 
   return (
     <>
+    <Box sx={{ ml: 1 }}>
       <Typography variant="TITLE_S" component="h1">
         Upcoming events for you
       </Typography>
       <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
         Based on your favorite artists
       </Typography>
+      </Box>
       {events && events.length > 0 && (
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>

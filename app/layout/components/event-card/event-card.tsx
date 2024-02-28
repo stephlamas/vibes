@@ -4,7 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { useMediaQuery, Theme, Box } from "@mui/material";
+import { useMediaQuery, Theme, Box, Container } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -95,10 +95,10 @@ export default function EventCard({
 
   useEffect(() => {
     const fetchFavorites = async () => {
-        const spotifyUserId = await spotifyClient.getUserId();
-        const isFav = await favClient.isFav(spotifyUserId, id);
-        setIsFavorite(isFav);
-        setLoading(false);
+      const spotifyUserId = await spotifyClient.getUserId();
+      const isFav = await favClient.isFav(spotifyUserId, id);
+      setIsFavorite(isFav);
+      setLoading(false);
     };
 
     fetchFavorites();
@@ -123,55 +123,59 @@ export default function EventCard({
 
   if (isMobile) {
     return (
-      <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
-        <Box sx={boxMobileEventCardStyles}>
-          <Card key={id} sx={mobileEventCardStyles}>
-            <CardMedia
-              sx={mobileEventCardMediaStyles}
-              image={imageUrl}
-              title={name}
-            >
-              <IconButton sx={mobileEventCardFavoriteButtonStyles} onClick={toggleFavorite}>
-                {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-              </IconButton>
-            </CardMedia>
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography
-                gutterBottom
-                variant="PARAGRAPH_M_BOLD"
-                component="div"
-                sx={{ color: "text.primary" }} >
-                {name}
-              </Typography>
-              <Typography
-                variant="PARAGRAPH_S"
-                noWrap
-                sx={{ color: "text.secondary", marginTop: "6px" }}
-              >
-                {formattedDate} · {formattedTime}
-              </Typography>
-              <Typography
-                variant="PARAGRAPH_S"
-                sx={{ color: "text.secondary", marginTop: "6px" }}
-              >
-                {city} · {venue} {country}
-              </Typography>
-              <Typography
-                variant="PARAGRAPH_M_BOLD"
-                sx={mobileEventCardPriceStyles}
-              >
-                {formatCurrency(price, currency)}
-              </Typography>
-            </CardContent>
-          </Card>
+      <Container maxWidth="sm">
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
+            <Box sx={boxMobileEventCardStyles}>
+              <Card key={id} sx={mobileEventCardStyles}>
+                <CardMedia
+                  sx={mobileEventCardMediaStyles}
+                  image={imageUrl}
+                  title={name}
+                >
+                  <IconButton sx={mobileEventCardFavoriteButtonStyles} onClick={toggleFavorite}>
+                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  </IconButton>
+                </CardMedia>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography
+                    gutterBottom
+                    variant="PARAGRAPH_M_BOLD"
+                    component="div"
+                    sx={{ color: "text.primary" }} >
+                    {name}
+                  </Typography>
+                  <Typography
+                    variant="PARAGRAPH_S"
+                    noWrap
+                    sx={{ color: "text.secondary", marginTop: "6px" }}
+                  >
+                    {formattedDate} · {formattedTime}
+                  </Typography>
+                  <Typography
+                    variant="PARAGRAPH_S"
+                    sx={{ color: "text.secondary", marginTop: "6px" }}
+                  >
+                    {city} · {venue} {country}
+                  </Typography>
+                  <Typography
+                    variant="PARAGRAPH_M_BOLD"
+                    sx={mobileEventCardPriceStyles}
+                  >
+                    {formatCurrency(price, currency)}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          </Link>
         </Box>
-      </Link>
+      </Container>
     );
   }
 
