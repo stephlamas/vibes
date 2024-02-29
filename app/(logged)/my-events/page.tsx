@@ -27,6 +27,7 @@ export default function MyEvents() {
     const [eventData, setEventData] = useState<Event[]>([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const topRef = useRef<HTMLDivElement>(null);
 
     const getFavs = allFavoritesClient();
@@ -41,6 +42,7 @@ export default function MyEvents() {
                 const favorites = await getFavs.allFav(spotifyUserId);
                 setFavoriteEvents(favorites);
                 setTotalPages(Math.ceil(favorites.length / PAGE_SIZE));
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching favorite events:", error);
             }
@@ -54,7 +56,7 @@ export default function MyEvents() {
             try {
                 const eventDataPromises = favoriteEvents.map((eventId: string) => getEventById(eventId));
                 const eventData = await Promise.all(eventDataPromises);
-                setEventData(eventData);  
+                setEventData(eventData);
                 console.log('EVENT DATA: ', eventData);
             } catch (error) {
                 console.error("Error fetching event details:", error);
@@ -70,7 +72,7 @@ export default function MyEvents() {
         setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
         scrollToTop();
     };
-    
+
 
     const goToPreviousPage = () => {
         setCurrentPage((prev) => Math.max(prev - 1, 0));
@@ -100,11 +102,11 @@ export default function MyEvents() {
             _embedded: event._embedded,
             type: event.type,
             url: event.url,
-        })).filter(event => 
+        })).filter(event =>
             Object.values(event)
-            .every(value => value !== undefined));
+                .every(value => value !== undefined));
     };
-        
+
     return (
         <>
             <Container maxWidth="lg">
@@ -116,22 +118,28 @@ export default function MyEvents() {
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div style={{ width: '100%', height: 0 }} ref={topRef} />
-                    {getCurrentPageEvents().map((event: Event, index) => (
-                        <Box key={index} sx={{ mt: 2, width: '100%' }}>
-                            <EventCard
-                                id={event.id}
-                                name={event.name}
-                                date={event.date}
-                                time={event.time}
-                                price={event.price}
-                                currency={event.currency}
-                                imageUrl={event.imageUrl}
-                                city={event.city}
-                                venue={event.venue}
-                                country={event.country}
-                            />
-                        </Box>
-                    ))}
+                    {isLoading ? (
+                        <Typography variant="PARAGRAPH_S">Loading...</Typography>
+                    ) : favoriteEvents.length === 0 ? (
+                        <Typography variant="PARAGRAPH_S">You have no saved events</Typography>
+                    ) : (
+                        getCurrentPageEvents().map((event: Event, index) => (
+                            <Box key={index} sx={{ mt: 2, width: '100%' }}>
+                                <EventCard
+                                    id={event.id}
+                                    name={event.name}
+                                    date={event.date}
+                                    time={event.time}
+                                    price={event.price}
+                                    currency={event.currency}
+                                    imageUrl={event.imageUrl}
+                                    city={event.city}
+                                    venue={event.venue}
+                                    country={event.country}
+                                />
+                            </Box>
+                        ))
+                    )}
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
                         <Button
                             onClick={goToPreviousPage}
