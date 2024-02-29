@@ -1,5 +1,5 @@
 "use client";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { subtitleTypography } from "./styles/my-events.styles";
 import SpotifyClient from "@/core/clients/spotify-client";
 import allFavoritesClient from "@/core/clients/all-favorites-client";
@@ -25,9 +25,13 @@ interface Event {
 export default function MyEvents() {
     const [favoriteEvents, setFavoriteEvents] = useState<any[]>([]);
     const [eventData, setEventData] = useState<Event[]>([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
 
     const getFavs = allFavoritesClient();
     const spotifyClient = new SpotifyClient();
+
+    const PAGE_SIZE = 20;
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -35,6 +39,7 @@ export default function MyEvents() {
                 const spotifyUserId = await spotifyClient.getUserId();
                 const favorites = await getFavs.allFav(spotifyUserId);
                 setFavoriteEvents(favorites);
+                setTotalPages(Math.ceil(favorites.length / PAGE_SIZE));
             } catch (error) {
                 console.error("Error fetching favorite events:", error);
             }
@@ -59,6 +64,19 @@ export default function MyEvents() {
             fetchEventData();
         }
     }, [favoriteEvents]);
+
+    const getCurrentPageEvents = () => {
+        const startIndex = currentPage * PAGE_SIZE;
+        return eventData.slice(startIndex, startIndex + PAGE_SIZE);
+    };
+
+    const goToNextPage = () => {
+        setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+    };
+
+    const goToPreviousPage = () => {
+        setCurrentPage((prev) => Math.max(prev - 1, 0));
+    };
 
     const mappedEventData = eventData
         .filter((event: { name: string; }) => event.name !== undefined)
@@ -90,7 +108,6 @@ export default function MyEvents() {
                 Saved events
             </Typography>
             <Typography>
-                List:
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     {mappedEventData.map((event: Event, index) => (
                         <Box key={index} sx={{ mt: 2, width: '100%' }}>
@@ -108,6 +125,23 @@ export default function MyEvents() {
                             />
                         </Box>
                     ))}
+             
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
+                    <Button
+                        onClick={goToPreviousPage}
+                        disabled={currentPage === 0}
+                        style={{ color: currentPage === 0 ? "gray" : "black" }}
+                    >
+                        Previous
+                    </Button>
+                    <Button
+                        onClick={goToNextPage}
+                        disabled={currentPage >= totalPages - 1}
+                        style={{ color: currentPage >= totalPages - 1 ? "gray" : "black", marginLeft: '8px' }}
+                    >
+                        Next
+                    </Button>
+                </Box>
                 </Box>
             </Typography>   
         </>
