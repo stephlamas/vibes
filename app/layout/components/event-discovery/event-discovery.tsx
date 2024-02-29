@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../../../../core/clients/spotify-client';
@@ -32,6 +32,8 @@ export function EventDiscovery() {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const spotifyClient = new SpotifyClient();
@@ -77,25 +79,34 @@ export function EventDiscovery() {
 
   const goToNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+    scrollToTop();
   };
 
   const goToPreviousPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 0));
+    scrollToTop();
+  };
+
+  const scrollToTop = () => {
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "auto", block: "start" });
+    }
   };
 
   return (
     <>
-    <Box sx={{ ml: 1 }}>
-      <Typography variant="TITLE_S" component="h1">
-        Upcoming events for you
-      </Typography>
-      <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
-        Based on your favorite artists
-      </Typography>
+      <Box sx={{ ml: 1 }}>
+        <Typography variant="TITLE_S" component="h1">
+          Upcoming events for you
+        </Typography>
+        <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
+          Based on your favorite artists
+        </Typography>
       </Box>
       {events && events.length > 0 && (
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
+            <div style={{ width: '100%', height: 0 }} ref={topRef} />
             {getCurrentPageEvents().map((event, index) => (
               <EventCard
                 id={event.id}

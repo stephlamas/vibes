@@ -123,7 +123,7 @@ export default function EventCard({
 
   if (isMobile) {
     return (
-      <Container maxWidth="sm">
+      <Container maxWidth="lg">
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Link href={eventLink} passHref style={{ textDecoration: "none" }}>
             <Box sx={boxMobileEventCardStyles}>
