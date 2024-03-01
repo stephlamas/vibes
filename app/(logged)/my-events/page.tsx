@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography, Skeleton } from "@mui/material";
 import { subtitleTypography } from "./styles/my-events.styles";
 import SpotifyClient from "@/core/clients/spotify-client";
 import allFavoritesClient from "@/core/clients/all-favorites-client";
@@ -34,6 +34,12 @@ export default function MyEvents() {
     const spotifyClient = new SpotifyClient();
 
     const PAGE_SIZE = 20;
+
+    const skeleton = Array.from({ length: PAGE_SIZE }).map((_, index) => (
+        <Box key={index} sx={{ mt: 2, width: '100%' }}>
+            <Skeleton variant="rectangular" height={200} sx={{ borderRadius: '20px' }} />
+        </Box>
+    ))
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -119,7 +125,7 @@ export default function MyEvents() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div style={{ width: '100%', height: 0 }} ref={topRef} />
                     {isLoading ? (
-                        <Typography variant="PARAGRAPH_S">Loading...</Typography>
+                        skeleton
                     ) : favoriteEvents.length === 0 ? (
                         <Typography variant="PARAGRAPH_S">You have no saved events</Typography>
                     ) : (

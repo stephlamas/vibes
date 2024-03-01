@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Skeleton } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../../../../core/clients/spotify-client';
 import EventCard from '../event-card/event-card';
@@ -32,6 +32,7 @@ export function EventDiscovery() {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -65,12 +66,19 @@ export function EventDiscovery() {
           const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
           allEvents.sort(sortEvents);
           setEvents(allEvents);
+          setIsLoading(false);
         })
         .catch(console.error);
     }
   }, [topArtists]);
 
   const PAGE_SIZE = 20;
+
+  const skeleton = Array.from({ length: PAGE_SIZE }).map((_, index) => (
+    <Box key={index} sx={{ mt: 2, width: '100%' }}>
+      <Skeleton variant="rectangular" height={200} sx={{ borderRadius: '20px' }} />
+    </Box>
+  ))
 
   const getCurrentPageEvents = () => {
     const startIndex = currentPage * PAGE_SIZE;
@@ -107,21 +115,27 @@ export function EventDiscovery() {
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
             <div style={{ width: '100%', height: 0 }} ref={topRef} />
-            {getCurrentPageEvents().map((event, index) => (
-              <EventCard
-                id={event.id}
-                key={index}
-                name={event.name}
-                time={event.dates?.start?.localTime}
-                date={event.dates?.start?.localDate}
-                price={event.priceRanges?.[0]?.min}
-                currency={event.priceRanges?.[0]?.currency}
-                imageUrl={event.images?.[8]?.url}
-                city={event._embedded?.venues?.[0]?.city?.name}
-                venue={event._embedded?.venues?.[0]?.name}
-                country={event._embedded?.venues?.[0]?.country?.name}
-              />
-            ))}
+            {isLoading ? (
+              skeleton
+            ) : (
+              <>
+                {getCurrentPageEvents().map((event, index) => (
+                  <EventCard
+                    id={event.id}
+                    key={index}
+                    name={event.name}
+                    time={event.dates?.start?.localTime}
+                    date={event.dates?.start?.localDate}
+                    price={event.priceRanges?.[0]?.min}
+                    currency={event.priceRanges?.[0]?.currency}
+                    imageUrl={event.images?.[8]?.url}
+                    city={event._embedded?.venues?.[0]?.city?.name}
+                    venue={event._embedded?.venues?.[0]?.name}
+                    country={event._embedded?.venues?.[0]?.country?.name}
+                  />
+                ))}
+              </>
+            )}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
             <Button
