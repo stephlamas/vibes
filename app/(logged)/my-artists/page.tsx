@@ -3,6 +3,7 @@ import SpotifyClient from "@/core/clients/spotify-client";
 import ArtistCard from "@/app/layout/components/artist-card/artist-card";
 import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   artistsMainBoxStyles,
   artistCardStyles,
@@ -64,12 +65,14 @@ export default function MyArtists() {
       <Box sx={artistsMainBoxStyles()}>
         {getCurrentPageArtists().map((artist) => (
           <Box key={artist.id} sx={artistCardStyles}>
-            <ArtistCard
-              artist={{
-                name: artist.name,
-                imageUrl: artist.images[0].url,
-              }}
-            />
+            <Link href="/my-artist-events">
+              <ArtistCard
+                artist={{
+                  name: artist.name,
+                  imageUrl: artist.images[0].url,
+                }}
+              />
+            </Link>
           </Box>
         ))}
       </Box>
