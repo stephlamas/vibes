@@ -9,7 +9,7 @@ export const artistsMainBoxStyles = () => {
     flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: isMobile ? "center" : "flex-start",
+    justifyContent: isMobile ? "center" : "space-between",
     gap: theme.spacing(2),
     marginBottom: theme.spacing(10),
     maxWidth: "100%",
@@ -30,7 +30,7 @@ export const artistCardStyles = {
 export const paginationButtonStyles = {
   display: "flex",
   flexDirection: { xs: "row", sm: "row" },
-  justifyContent: { xs: "space-between", sm: "flex-start" },
+  justifyContent: { xs: "center", sm: "flex-start" },
   marginTop: "20px",
   marginBottom: { xs: "80px", sm: "20px" },
   "& button": {
