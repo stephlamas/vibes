@@ -39,7 +39,7 @@ export default function MyEvents() {
         <Box key={index} sx={{ mt: 2, width: '100%' }}>
             <Skeleton variant="rectangular" height={200} sx={{ borderRadius: '20px' }} />
         </Box>
-    ))
+    ));
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -116,36 +116,35 @@ export default function MyEvents() {
     return (
         <>
             <Container maxWidth="lg">
-                <Typography variant="TITLE_S" component="h1">
-                    My Events
-                </Typography>
-                <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
-                    Saved events
-                </Typography>
+                {isLoading ? (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
+                        {skeleton}
+                    </Box>
+                ) : favoriteEvents.length === 0 ? (
+                    <Typography variant="PARAGRAPH_S">You have no saved events</Typography>
+                ) : (
+                            <Typography variant="TITLE_S" mb={3}>
+                        My saved events
+                    </Typography>
+                )}
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div style={{ width: '100%', height: 0 }} ref={topRef} />
-                    {isLoading ? (
-                        skeleton
-                    ) : favoriteEvents.length === 0 ? (
-                        <Typography variant="PARAGRAPH_S">You have no saved events</Typography>
-                    ) : (
-                        getCurrentPageEvents().map((event: Event, index) => (
-                            <Box key={index} sx={{ mt: 2, width: '100%' }}>
-                                <EventCard
-                                    id={event.id}
-                                    name={event.name}
-                                    date={event.date}
-                                    time={event.time}
-                                    price={event.price}
-                                    currency={event.currency}
-                                    imageUrl={event.imageUrl}
-                                    city={event.city}
-                                    venue={event.venue}
-                                    country={event.country}
-                                />
-                            </Box>
-                        ))
-                    )}
+                    {getCurrentPageEvents().map((event: Event, index) => (
+                        <Box key={index} sx={{ mt: 2, width: '100%' }}>
+                            <EventCard
+                                id={event.id}
+                                name={event.name}
+                                date={event.date}
+                                time={event.time}
+                                price={event.price}
+                                currency={event.currency}
+                                imageUrl={event.imageUrl}
+                                city={event.city}
+                                venue={event.venue}
+                                country={event.country}
+                            />
+                        </Box>
+                    ))}
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
                         <Button
                             onClick={goToPreviousPage}

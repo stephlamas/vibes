@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Typography, Button, Skeleton } from '@mui/material';
+import { Box, Typography, Button, Skeleton, Container } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../../../../core/clients/spotify-client';
 import EventCard from '../event-card/event-card';
@@ -72,7 +72,7 @@ export function EventDiscovery() {
     }
   }, [topArtists]);
 
-  const PAGE_SIZE = 20;
+  const PAGE_SIZE = 10;
 
   const skeleton = Array.from({ length: PAGE_SIZE }).map((_, index) => (
     <Box key={index} sx={{ mt: 2, width: '100%' }}>
@@ -102,7 +102,7 @@ export function EventDiscovery() {
   };
 
   return (
-    <>
+    <Container maxWidth="lg">
       <Box sx={{ ml: 1 }}>
         <Typography variant="TITLE_S" component="h1">
           Upcoming events for you
@@ -111,50 +111,50 @@ export function EventDiscovery() {
           Based on your favorite artists
         </Typography>
       </Box>
-      {events && events.length > 0 && (
-        <>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
-            <div style={{ width: '100%', height: 0 }} ref={topRef} />
-            {isLoading ? (
-              skeleton
-            ) : (
-              <>
-                {getCurrentPageEvents().map((event, index) => (
-                  <EventCard
-                    id={event.id}
-                    key={index}
-                    name={event.name}
-                    time={event.dates?.start?.localTime}
-                    date={event.dates?.start?.localDate}
-                    price={event.priceRanges?.[0]?.min}
-                    currency={event.priceRanges?.[0]?.currency}
-                    imageUrl={event.images?.[8]?.url}
-                    city={event._embedded?.venues?.[0]?.city?.name}
-                    venue={event._embedded?.venues?.[0]?.name}
-                    country={event._embedded?.venues?.[0]?.country?.name}
-                  />
-                ))}
-              </>
-            )}
-          </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
-            <Button
-              onClick={goToPreviousPage}
-              disabled={currentPage === 0}
-              style={{ color: currentPage === 0 ? "gray" : "black" }}
-            >
-              Previous
-            </Button>
-            <Button
-              onClick={goToNextPage}
-              disabled={currentPage >= totalPages - 1}
-              style={{ color: currentPage >= totalPages - 1 ? "gray" : "black", marginLeft: '8px' }}
-            >
-              Next
-            </Button>
-          </Box>
-        </>
-      )}
-    </>
+      {
+        isLoading ? (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 2 }} >
+            {skeleton}
+          </Box >
+        ) : events && events.length > 0 && (
+          <>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
+              <div style={{ width: '100%', height: 0 }} ref={topRef} />
+              {getCurrentPageEvents().map((event, index) => (
+                <EventCard
+                  id={event.id}
+                  key={index}
+                  name={event.name}
+                  time={event.dates?.start?.localTime}
+                  date={event.dates?.start?.localDate}
+                  price={event.priceRanges?.[0]?.min}
+                  currency={event.priceRanges?.[0]?.currency}
+                  imageUrl={event.images?.[8]?.url}
+                  city={event._embedded?.venues?.[0]?.city?.name}
+                  venue={event._embedded?.venues?.[0]?.name}
+                  country={event._embedded?.venues?.[0]?.country?.name}
+                />
+              ))}
+
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
+              <Button
+                onClick={goToPreviousPage}
+                disabled={currentPage === 0}
+                style={{ color: currentPage === 0 ? "gray" : "black" }}
+              >
+                Previous
+              </Button>
+              <Button
+                onClick={goToNextPage}
+                disabled={currentPage >= totalPages - 1}
+                style={{ color: currentPage >= totalPages - 1 ? "gray" : "black", marginLeft: '8px' }}
+              >
+                Next
+              </Button>
+            </Box>
+          </>
+        )}
+    </Container>
   )
 };
