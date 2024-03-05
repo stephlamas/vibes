@@ -65,7 +65,7 @@ export default function MyArtists() {
       <Box sx={artistsMainBoxStyles()}>
         {getCurrentPageArtists().map((artist) => (
           <Box key={artist.id} sx={artistCardStyles}>
-            <Link href="/my-artist-events">
+            <Link href={`/artist/${encodeURIComponent(artist.name)}`} passHref style={{ textDecoration: "none" }}>
               <ArtistCard
                 artist={{
                   name: artist.name,
@@ -73,6 +73,7 @@ export default function MyArtists() {
                 }}
               />
             </Link>
+
           </Box>
         ))}
       </Box>
