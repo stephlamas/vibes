@@ -1,11 +1,10 @@
 "use client";
-import { Box, Button, Container, Typography, Skeleton } from "@mui/material";
-import { subtitleTypography } from "./styles/my-events.styles";
-import SpotifyClient from "@/core/clients/spotify-client";
-import allFavoritesClient from "@/core/clients/all-favorites-client";
-import { useEffect, useRef, useState } from "react";
-import { getEventById } from "@/core/services/events-service";
-import EventCard from "@/app/layout/components/event-card/event-card";
+import React, { useEffect, useRef, useState } from 'react';
+import { Box, Button, Container, Typography, Skeleton } from '@mui/material';
+import SpotifyClient from '@/core/clients/spotify-client';
+import allFavoritesClient from '@/core/clients/all-favorites-client';
+import { getEventById } from '@/core/services/events-service';
+import EventCard from '@/app/layout/components/event-card/event-card';
 
 interface Event {
     id: string;
@@ -33,7 +32,7 @@ export default function MyEvents() {
     const getFavs = allFavoritesClient();
     const spotifyClient = new SpotifyClient();
 
-    const PAGE_SIZE = 20;
+    const PAGE_SIZE = 10;
 
     const skeleton = Array.from({ length: PAGE_SIZE }).map((_, index) => (
         <Box key={index} sx={{ mt: 2, width: '100%' }}>
@@ -60,10 +59,12 @@ export default function MyEvents() {
     useEffect(() => {
         const fetchEventData = async () => {
             try {
-                const eventDataPromises = favoriteEvents.map((eventId: string) => getEventById(eventId));
-                const eventData = await Promise.all(eventDataPromises);
-                setEventData(eventData);
-                console.log('EVENT DATA: ', eventData);
+                for (const eventId of favoriteEvents) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    const eventDetails = await getEventById(eventId);
+                    setEventData(prevEventData => [...prevEventData, eventDetails]);
+                }
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching event details:", error);
             }
@@ -79,7 +80,6 @@ export default function MyEvents() {
         scrollToTop();
     };
 
-
     const goToPreviousPage = () => {
         setCurrentPage((prev) => Math.max(prev - 1, 0));
         scrollToTop();
@@ -91,61 +91,53 @@ export default function MyEvents() {
         }
     };
 
+    const mappedEventData = eventData.map((event: Event) => ({
+        id: event.id,
+        name: event.name,
+        date: event.dates?.start?.localDate,
+        time: event.dates?.start?.localTime,
+        price: event.priceRanges?.[0]?.min,
+        currency: event.priceRanges?.[0]?.currency,
+        imageUrl: event.images?.[8]?.url,
+        city: event._embedded?.venues?.[0]?.city?.name,
+        venue: event._embedded?.venues?.[0]?.name,
+        country: event._embedded?.venues?.[0]?.country?.name,
+        images: event.images,
+        _embedded: event._embedded,
+        type: event.type,
+        url: event.url,
+    }));
+
     const getCurrentPageEvents = () => {
         const startIndex = currentPage * PAGE_SIZE;
-        return eventData.slice(startIndex, startIndex + PAGE_SIZE).map((event: Event) => ({
-            id: event.id,
-            name: event.name,
-            date: event.dates?.start?.localDate,
-            time: event.dates?.start?.localTime,
-            price: event.priceRanges?.[0]?.min,
-            currency: event.priceRanges?.[0]?.currency,
-            imageUrl: event.images?.[8]?.url,
-            city: event._embedded?.venues?.[0]?.city?.name,
-            venue: event._embedded?.venues?.[0]?.name,
-            country: event._embedded?.venues?.[0]?.country?.name,
-            images: event.images,
-            _embedded: event._embedded,
-            type: event.type,
-            url: event.url,
-        })).filter(event =>
-            Object.values(event)
-                .every(value => value !== undefined));
+        return mappedEventData.slice(startIndex, startIndex + PAGE_SIZE);
     };
 
     return (
-        <>
-            <Container maxWidth="lg">
-                {isLoading ? (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
-                        {skeleton}
-                    </Box>
-                ) : favoriteEvents.length === 0 ? (
-                    <Typography variant="PARAGRAPH_S">You have no saved events</Typography>
-                ) : (
-                            <Typography variant="TITLE_S" mb={3}>
-                        My saved events
-                    </Typography>
-                )}
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ width: '100%', height: 0 }} ref={topRef} />
-                    {getCurrentPageEvents().map((event: Event, index) => (
-                        <Box key={index} sx={{ mt: 2, width: '100%' }}>
-                            <EventCard
-                                id={event.id}
-                                name={event.name}
-                                date={event.date}
-                                time={event.time}
-                                price={event.price}
-                                currency={event.currency}
-                                imageUrl={event.imageUrl}
-                                city={event.city}
-                                venue={event.venue}
-                                country={event.country}
-                            />
-                        </Box>
+        <Container maxWidth="lg" ref={topRef} >
+            {isLoading ? (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
+                    {skeleton}
+                </Box>
+            ) : eventData && eventData.length > 0 ? (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 3 }}>
+                    <Typography variant="TITLE_S" component="h1" mb={3}>My saved events</Typography>
+                    {getCurrentPageEvents().map((event: Event, index: number) => (
+                        <EventCard
+                            key={index}
+                            id={event.id}
+                            name={event.name}
+                            date={event.date}
+                            time={event.time}
+                            price={event.price}
+                            currency={event.currency}
+                            imageUrl={event.imageUrl}
+                            city={event.city}
+                            venue={event.venue}
+                            country={event.country}
+                        />
                     ))}
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginTop: 3 }}>
                         <Button
                             onClick={goToPreviousPage}
                             disabled={currentPage === 0}
@@ -156,13 +148,15 @@ export default function MyEvents() {
                         <Button
                             onClick={goToNextPage}
                             disabled={currentPage >= totalPages - 1}
-                            style={{ color: currentPage >= totalPages - 1 ? "gray" : "black", marginLeft: '8px' }}
+                            style={{ color: currentPage >= totalPages - 1 ? "gray" : "black" }}
                         >
                             Next
                         </Button>
                     </Box>
                 </Box>
-            </Container>
-        </>
+            ) : (
+                <Typography variant="TITLE_S" component="p" mt={3}>You have no favorite events yet</Typography>
+            )}
+        </Container>
     );
 }

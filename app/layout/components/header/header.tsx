@@ -87,7 +87,7 @@ const Header = () => {
           variant="TITLE_L"
           noWrap
           component="a"
-          href="#appbar"
+          href="/events"
           sx={logoTypography}
         >
           VIBES
@@ -97,7 +97,7 @@ const Header = () => {
           <Typography variant="PARAGRAPH_S_BOLD" sx={boxTypographyStyles}>
             {user.name}
           </Typography>
-          <Tooltip title="Open settings">
+          <Tooltip title="Open menu">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar src={user.imageUrl} alt={user.name} />
             </IconButton>

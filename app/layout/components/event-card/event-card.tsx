@@ -27,13 +27,13 @@ import {
 type EventCardProps = {
   id: string;
   name: string;
-  date: string;
-  time: string;
-  price: number | string;
-  currency: string;
-  imageUrl: string;
-  city: string;
-  venue: string;
+  date?: string;
+  time?: string;
+  price?: number | string;
+  currency?: any;
+  imageUrl?: string;
+  city?: string;
+  venue?: string;
   country?: string;
 };
 
