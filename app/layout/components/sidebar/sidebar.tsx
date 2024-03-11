@@ -13,6 +13,7 @@ import { BottomNav } from "../bottom-nav/bottom-nav";
 import { FireIcon } from "../icons/navigation/Fire";
 import { EventsIcon } from "../icons/navigation/My-events";
 import { ArtistsIcon } from "../icons/navigation/Artists";
+import { InfoIcon } from "../icons/navigation/Info";
 import Link from "next/link";
 
 export function Sidebar() {
@@ -61,6 +62,16 @@ export function Sidebar() {
           </ListItemIcon>
           <ListItemText>
             <Typography variant="PARAGRAPH_M">My artists</Typography>
+          </ListItemText>
+        </ListItemButton>
+      </Link>
+      <Link href="/about" passHref style={sidebarLinkStyles}>
+        <ListItemButton>
+          <ListItemIcon sx={{ color: "darkGray" }}>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography variant="PARAGRAPH_M">About</Typography>
           </ListItemText>
         </ListItemButton>
       </Link>

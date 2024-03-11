@@ -33,6 +33,7 @@ export function EventDiscovery() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [userCountryCode, setUserCountryCode] = useState<string | null>(null);
 
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -52,7 +53,17 @@ export function EventDiscovery() {
   }, []);
 
   useEffect(() => {
-    if (topArtists.length) {
+    const fetchUserCountryCode = async () => {
+      const spotifyClient = new SpotifyClient();
+      const countryCode = await spotifyClient.getUserCountryCode();
+      setUserCountryCode(countryCode);
+    };
+
+    fetchUserCountryCode();
+  }, []);
+
+  useEffect(() => {
+    if (topArtists.length && userCountryCode) { 
       const eventsPromises = topArtists.map((artist) =>
         fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
           .then(response => response.json())
@@ -62,17 +73,20 @@ export function EventDiscovery() {
       Promise.all(eventsPromises)
         .then(eventsArrays => {
           const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
+          const userEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode);
+          const otherEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode);
           const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
           const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
-          allEvents.sort(sortEvents);
-          setEvents(allEvents);
+          userEvents.sort(sortEvents);
+          otherEvents.sort(sortEvents);
+          setEvents([...userEvents, ...otherEvents]);
           setIsLoading(false);
         })
         .catch(console.error);
     }
-  }, [topArtists]);
+  }, [topArtists, userCountryCode]);
 
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 20;
 
   const skeleton = Array.from({ length: PAGE_SIZE }).map((_, index) => (
     <Box key={index} sx={{ mt: 2, width: '100%' }}>

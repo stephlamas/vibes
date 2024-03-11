@@ -55,6 +55,11 @@ class SpotifyClient {
         const userData = await this.call('/me');
         return userData.id;
     }
+
+    async getUserCountryCode() {
+        const userData = await this.call('/me');
+        return userData.country;
+    }
 }
 
 export default SpotifyClient;
