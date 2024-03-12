@@ -2,8 +2,8 @@ import { Container, Box, Typography } from "@mui/material";
 
 export default function AboutVibes() {
     return (
-        <Container maxWidth="lg">
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 3 }}>
+        <Container maxWidth="lg" sx={{ overflowY: 'auto', marginBottom: "80px" }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 10 }}>
                 <Typography variant="TITLE_S" component="h1" mb={3}>About</Typography>
                 <Typography variant="PARAGRAPH_M" sx={{ display: 'inline-block' }}>
                     <strong>🚀 Vibes</strong> is a web application that provides users with personalized event suggestions based on their music preferences.

@@ -1,9 +1,12 @@
 export const appBarStyles = {
   boxShadow: "none",
-  backgroundColor: "transparent",
+  backgroundColor: "neutral.0",
   fontFamily: "Montserrat",
   pt: "0px",
   color: "black",
+  position: "fixed",
+  top: 0,
+  zIndex: 1000,
 };
 
 export const toolBarStyles = {

@@ -33,7 +33,6 @@ export function EventDiscovery() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [userCountryCode, setUserCountryCode] = useState<string | null>(null);
 
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -53,38 +52,44 @@ export function EventDiscovery() {
   }, []);
 
   useEffect(() => {
-    const fetchUserCountryCode = async () => {
-      const spotifyClient = new SpotifyClient();
-      const countryCode = await spotifyClient.getUserCountryCode();
-      setUserCountryCode(countryCode);
-    };
 
-    fetchUserCountryCode();
-  }, []);
-
-  useEffect(() => {
-    if (topArtists.length && userCountryCode) { 
-      const eventsPromises = topArtists.map((artist) =>
-        fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
-          .then(response => response.json())
-          .catch(err => console.error(err))
-      );
-
-      Promise.all(eventsPromises)
-        .then(eventsArrays => {
-          const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
-          const userEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode);
-          const otherEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode);
-          const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
-          const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
-          userEvents.sort(sortEvents);
-          otherEvents.sort(sortEvents);
-          setEvents([...userEvents, ...otherEvents]);
-          setIsLoading(false);
-        })
-        .catch(console.error);
+    if (topArtists.length == 0) {
+      return;
     }
-  }, [topArtists, userCountryCode]);
+
+    const getUserCountryCode = async () => {
+      const spotifyClient = new SpotifyClient();
+      return await spotifyClient.getUserCountryCode();
+    }
+
+    getUserCountryCode()
+    .then((userCountryCode) => { 
+
+    })
+
+    // console.log(`userCountryCode: ${userCountryCode}`)
+
+    const eventsPromises = topArtists.map((artist) =>
+      fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
+        .then(response => response.json())
+        .catch(err => console.error(err))
+    );
+
+    Promise.all(eventsPromises)
+      .then(eventsArrays => {
+        const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
+        const userEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode);
+        const otherEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode);
+        const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
+        const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
+        userEvents.sort(sortEvents);
+        otherEvents.sort(sortEvents);
+        setEvents([...userEvents, ...otherEvents]);
+        setIsLoading(false);
+      })
+      .catch(console.error);
+
+  }, [topArtists]);
 
   const PAGE_SIZE = 20;
 
@@ -117,7 +122,7 @@ export function EventDiscovery() {
 
   return (
     <Container maxWidth="lg">
-      <Box sx={{ ml: 1 }}>
+      <Box sx={{ ml: 1, mt: 10 }}>
         <Typography variant="TITLE_S" component="h1">
           Upcoming events for you
         </Typography>

@@ -4,6 +4,8 @@ import { FireIcon } from "../icons/navigation/Fire";
 import { EventsIcon } from "../icons/navigation/My-events";
 import { ArtistsIcon } from "../icons/navigation/Artists";
 import Link from "next/link";
+import { InfoIcon } from "../icons/navigation/Info";
+
 export function BottomNav() {
   return (
     <BottomNavigation showLabels sx={bottomNavStyles}>
@@ -30,6 +32,14 @@ export function BottomNav() {
           value="my-artists"
         />
       </Link>
+      <Link href="/about" passHref>
+        <BottomNavigationAction
+          icon={<InfoIcon />}
+          label="About"
+          value="about"
+        />
+      </Link>
     </BottomNavigation>
   );
 }
+

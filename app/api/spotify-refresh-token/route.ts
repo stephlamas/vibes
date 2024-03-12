@@ -34,9 +34,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const cookieStore = cookies();
     cookieStore.set('accessToken', data.access_token);
 
-    console.error("REFRESH: Access token:" + data.access_token);
-
-
     return Response.json({"status": "success"});
 
 }

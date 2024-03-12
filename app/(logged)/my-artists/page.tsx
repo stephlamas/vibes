@@ -56,12 +56,14 @@ export default function MyArtists() {
 
   return (
     <>
-      <Typography variant="TITLE_S" component="h1">
-        My Artists
-      </Typography>
-      <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
-        Based on your Spotify listening history
-      </Typography>
+      <Box sx={{ mt: 10, ml: 3 }}>
+        <Typography variant="TITLE_S" component="h1">
+          My Artists
+        </Typography>
+        <Typography variant="PARAGRAPH_S" sx={subtitleTypography}>
+          Based on your Spotify listening history
+        </Typography>
+      </Box>
       <Box sx={artistsMainBoxStyles()}>
         {getCurrentPageArtists().map((artist) => (
           <Box key={artist.id} sx={artistCardStyles}>
