@@ -2,7 +2,7 @@ import { Container, Box, Typography } from "@mui/material";
 
 export default function AboutVibes() {
     return (
-        <Container maxWidth="lg" sx={{ overflowY: 'auto', marginBottom: "80px" }}>
+        <Container maxWidth="lg" sx={{ overflowY: 'auto', mb: "80px" }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 10 }}>
                 <Typography variant="TITLE_S" component="h1" mb={3}>About</Typography>
                 <Typography variant="PARAGRAPH_M" sx={{ display: 'inline-block' }}>

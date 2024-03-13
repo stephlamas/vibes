@@ -59,7 +59,7 @@ export default function ArtistEvents({ params }: { params: { artist: string } })
                     {skeleton}
                 </Box>
             ) : events && events.length > 0 ? (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 3 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 10 }}>
                     <Typography variant="TITLE_S" component="h1" mb={3}>Upcoming events by {artistName}</Typography>
                     {getCurrentPageEvents().map((event: any, index: any) => (
                         <EventCard

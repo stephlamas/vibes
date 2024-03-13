@@ -3,6 +3,7 @@ import { Box, Typography, Button, Skeleton, Container } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../../../../core/clients/spotify-client';
 import EventCard from '../event-card/event-card';
+import { get } from 'http';
 
 interface Event {
   id: string;
@@ -52,44 +53,83 @@ export function EventDiscovery() {
   }, []);
 
   useEffect(() => {
-
-    if (topArtists.length == 0) {
+    if (topArtists.length === 0) {
       return;
     }
 
     const getUserCountryCode = async () => {
       const spotifyClient = new SpotifyClient();
       return await spotifyClient.getUserCountryCode();
-    }
+    };
 
-    getUserCountryCode()
-    .then((userCountryCode) => { 
+    const getUserLocation = () => {
+      return new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              resolve({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              });
+            },
+            (error) => {
+              console.error('Error getting user location:', error);
+              reject(error);
+            }
+          );
+        } else {
+          reject(new Error('Geolocation is not supported'));
+        }
+      });
+    };
 
-    })
+    Promise.all([getUserCountryCode(), getUserLocation()])
+      .then(([userCountryCode, userLocation]: [string | null, { latitude: number; longitude: number }]) => {
+        console.log('User location:', userLocation);
+        console.log('User country code:', userCountryCode);
 
-    // console.log(`userCountryCode: ${userCountryCode}`)
+        const eventsPromises = topArtists.map((artist) =>
+          fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
+            .then(response => response.json())
+            .catch(err => console.error(err))
+        );
 
-    const eventsPromises = topArtists.map((artist) =>
-      fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
-        .then(response => response.json())
-        .catch(err => console.error(err))
-    );
+        Promise.all(eventsPromises)
+          .then(eventsArrays => {
+            const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
+            const userEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode);
+            const otherEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode);
+            const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
+            const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
 
-    Promise.all(eventsPromises)
-      .then(eventsArrays => {
-        const allEvents = eventsArrays.flatMap(e => e?._embedded?.events ?? []);
-        const userEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode);
-        const otherEvents = allEvents.filter(event => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode);
-        const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
-        const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number
-        userEvents.sort(sortEvents);
-        otherEvents.sort(sortEvents);
-        setEvents([...userEvents, ...otherEvents]);
-        setIsLoading(false);
+            const eventsWithinRadius = allEvents.filter((event) => {
+              const eventLocation = event._embedded?.venues?.[0]?.location;
+              console.log('Event location:', eventLocation)
+              if (!eventLocation) {
+                return false;
+              }
+              const distance = Math.sqrt(
+                Math.pow(eventLocation.latitude - userLocation.latitude, 2) +
+                Math.pow(eventLocation.longitude - userLocation.longitude, 2)
+              );
+              return distance < 0.1;
+            });
+
+            eventsWithinRadius.sort(sortEvents);
+            userEvents.sort(sortEvents);
+            otherEvents.sort(sortEvents);
+            setEvents([...eventsWithinRadius, ...userEvents, ...otherEvents]);
+            setIsLoading(false);
+          })
+          .catch(console.error);
       })
-      .catch(console.error);
+      .catch(error => {
+        console.error('Error:', error);
+      });
 
   }, [topArtists]);
+
+
 
   const PAGE_SIZE = 20;
 
