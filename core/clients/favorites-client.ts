@@ -1,5 +1,7 @@
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+
 export default function favoritesClient() {
-    const res = 'http://localhost:3000/api/user-favorite-event';
+    const res = `${apiUrl}/api/user-favorite-event`;
     return {
         fav: async function (userId: any, eventId: any) {
             const cfg = { method: 'POST', body: JSON.stringify({ userId, eventId }) };
