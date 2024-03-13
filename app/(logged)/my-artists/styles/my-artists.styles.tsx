@@ -30,7 +30,7 @@ export const artistCardStyles = {
 export const paginationButtonStyles = {
   display: "flex",
   flexDirection: { xs: "row", sm: "row" },
-  justifyContent: { xs: "center", sm: "flex-start" },
+  justifyContent: "center",
   marginTop: "20px",
   marginBottom: { xs: "80px", sm: "20px" },
   "& button": {
