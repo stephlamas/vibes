@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getEventById } from "@/core/services/events-service";
 import Typography from "@mui/material/Typography";
 import { Box, IconButton } from "@mui/material";
@@ -95,14 +95,18 @@ export default function EventPage({ params }: any) {
   return (
     <Box>
       {eventData && (
-        <Box>
+        <Box sx={{
+          ml: { xs: 0, sm: 0, md: '100px' },
+          mt: { xs: '80px', md: '20px' },
+          p: { xs: 2, md: 4 },
+        }}>
           {eventData.images && eventData.images.length > 0 && (
             <Box
               sx={{
                 backgroundImage: `url(${eventData.images[5].url})`,
                 backgroundSize: "cover",
                 backgroundPosition: "top",
-                height: { xs: "250px", md: "500px" },
+                height: { xs: "250px", md: "400px" },
                 width: "100%",
                 borderRadius: "18px",
               }}

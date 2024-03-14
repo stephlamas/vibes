@@ -1,7 +1,6 @@
   {
     "plugins": ["react", "react-hooks", "@typescript-eslint", "import", "prettier"],
     "extends": [
-      "./node_modules/@coverwallet/cw-javascript-coding-standards/src/eslint/fe-ts",
       "prettier",
       "eslint:recommended",
       "next",

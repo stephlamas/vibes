@@ -20,6 +20,7 @@ export default function ArtistEvents({ params }: { params: { artist: string } })
                     setEvents(res._embedded.events);
                 } else {
                     setEvents([]);
+                    setTotalPages(0);
                 }
             } catch (error) {
                 console.error(error);
