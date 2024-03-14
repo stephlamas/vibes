@@ -3,7 +3,6 @@ import { Box, Typography, Button, Skeleton, Container } from '@mui/material';
 import { subtitleTypography } from './styles/event-discoverty.styles';
 import SpotifyClient from '../../../../core/clients/spotify-client';
 import EventCard from '../event-card/event-card';
-import { get } from 'http';
 
 interface Event {
   id: string;
@@ -85,8 +84,8 @@ export function EventDiscovery() {
 
     Promise.all([getUserCountryCode(), getUserLocation()])
       .then(([userCountryCode, userLocation]: [string | null, { latitude: number; longitude: number }]) => {
-        console.log('User location:', userLocation);
-        console.log('User country code:', userCountryCode);
+        // console.log('User location:', userLocation);
+        // console.log('User country code:', userCountryCode);
 
         const eventsPromises = topArtists.map((artist) =>
           fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
@@ -104,7 +103,7 @@ export function EventDiscovery() {
 
             const eventsWithinRadius = allEvents.filter((event) => {
               const eventLocation = event._embedded?.venues?.[0]?.location;
-              console.log('Event location:', eventLocation)
+              // console.log('Event location:', eventLocation)
               if (!eventLocation) {
                 return false;
               }

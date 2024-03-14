@@ -10,6 +10,5 @@ export async function getEventByArtist(artist: string) {
 
 export async function getEventsByCountryCode(countryCode: string) {
     const res = await fetch(`/api/events-by-country?countryCode=${countryCode}`);
-    console.log('Eventos por código de país:', res);
     return await res;
 }
