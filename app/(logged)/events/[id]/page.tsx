@@ -95,7 +95,11 @@ export default function EventPage({ params }: any) {
   return (
     <Box>
       {eventData && (
-        <Box>
+        <Box sx={{
+          ml: { xs: 0, md: 3 },
+          mt: { xs: 10, md: 7 },
+          p: { xs: 2, md: 0 },
+        }}>
           {eventData.images && eventData.images.length > 0 && (
             <Box
               sx={{

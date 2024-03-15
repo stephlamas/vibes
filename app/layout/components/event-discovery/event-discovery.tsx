@@ -160,8 +160,14 @@ export function EventDiscovery() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ ml: 1, mt: 10 }}>
+    <Container maxWidth="lg" 
+    ref={topRef} 
+    sx={{ 
+      ml: { xs: 0, md: 5 },
+      p: { xs: 0 },
+      mr: { xs: 0 },
+      }}>
+      <Box sx={{ p: 2, ml: 1, mt: 10 }}>
         <Typography variant="TITLE_S" component="h1">
           Upcoming events for you
         </Typography>
@@ -176,25 +182,25 @@ export function EventDiscovery() {
           </Box >
         ) : events && events.length > 0 && (
           <>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 3 }}>
-              <div style={{ width: '100%', height: 0 }} ref={topRef} />
-              {getCurrentPageEvents().map((event, index) => (
-                <EventCard
-                  id={event.id}
-                  key={index}
-                  name={event.name}
-                  time={event.dates?.start?.localTime}
-                  date={event.dates?.start?.localDate}
-                  price={event.priceRanges?.[0]?.min}
-                  currency={event.priceRanges?.[0]?.currency}
-                  imageUrl={event.images?.[8]?.url}
-                  city={event._embedded?.venues?.[0]?.city?.name}
-                  venue={event._embedded?.venues?.[0]?.name}
-                  country={event._embedded?.venues?.[0]?.country?.name}
-                />
-              ))}
-
-            </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
+                <Box sx={{ width: '100%', maxWidth: '600px', display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                  {getCurrentPageEvents().map((event, index) => (
+                    <EventCard
+                      id={event.id}
+                      key={index}
+                      name={event.name}
+                      time={event.dates?.start?.localTime}
+                      date={event.dates?.start?.localDate}
+                      price={event.priceRanges?.[0]?.min}
+                      currency={event.priceRanges?.[0]?.currency}
+                      imageUrl={event.images?.[8]?.url}
+                      city={event._embedded?.venues?.[0]?.city?.name}
+                      venue={event._embedded?.venues?.[0]?.name}
+                      country={event._embedded?.venues?.[0]?.country?.name}
+                    />
+                  ))}
+                </Box>
+              </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
               <Button
                 onClick={goToPreviousPage}

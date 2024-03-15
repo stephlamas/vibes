@@ -114,14 +114,22 @@ export default function MyEvents() {
     };
 
     return (
-        <Container maxWidth="lg" ref={topRef} >
+        <Container 
+        maxWidth="lg" 
+        ref={topRef}
+        sx={{
+            ml: { xs: 0, md: 5 },
+            p: { xs: 0 },
+            mr: { xs: 0 },
+        }}
+        >
             {isLoading ? (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 10 }}>
                     {skeleton}
                 </Box>
             ) : eventData && eventData.length > 0 ? (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 10 }}>
-                    <Typography variant="TITLE_S" component="h1" mb={3}>My saved events</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
+                    <Typography variant="TITLE_S" component="h1" mb={3} sx={{ ml: 1, p: 2}}>My saved events</Typography>
                     {getCurrentPageEvents().map((event: Event, index: number) => (
                         <EventCard
                             key={index}
