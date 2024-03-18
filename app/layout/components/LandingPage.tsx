@@ -39,6 +39,7 @@ export function LandingPage() {
     const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes}`;
     window.location.href = spotifyAuthUrl;
   };
+  
   return (
     <LandingContainer
       sx={landingContainerStyle}
