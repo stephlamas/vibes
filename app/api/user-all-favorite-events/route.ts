@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export async function GET(req: NextRequest) {
     try {
-        const searchParams = new URLSearchParams(req.url.split("?")[1]);
+        const searchParams = new URLSearchParams(req.url.split("?")[1] || "");
 
         const userId = searchParams.get('userId');
 
@@ -32,7 +32,6 @@ export async function GET(req: NextRequest) {
         return Response.json({ favoriteEvents }, { status: 200 });
 
     } catch (err) {
-        console.error(err);
         return Response.json({ error: "Internal server error" }, { status: 500 });
     }
 }
