@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "plugins": [
     "react",
@@ -30,3 +31,27 @@
     "google": "readonly"
   }
 }
+=======
+  {
+    "plugins": ["react", "react-hooks", "@typescript-eslint", "import", "prettier"],
+    "extends": [
+      "prettier",
+      "eslint:recommended",
+      "next",
+      "next/core-web-vitals"
+    ],
+    "ignorePatterns": ["jest.config.js"],
+    "rules": {
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/require-default-props": "off",
+      "react/jsx-props-no-spreading": "off"
+    },
+    "env": {
+      "jest": true
+    },
+    "globals": {
+        "google": "readonly"
+    }
+  }
+>>>>>>> fdecca8ad726a36aa78e5bf49d513aa9aeda55b2

@@ -102,7 +102,7 @@ export default function EventPage({ params }: any) {
                 backgroundImage: `url(${eventData.images[5].url})`,
                 backgroundSize: "cover",
                 backgroundPosition: "top",
-                height: { xs: "250px", md: "500px" },
+                height: { xs: "250px", md: "400px" },
                 width: "100%",
                 borderRadius: "18px",
               }}
