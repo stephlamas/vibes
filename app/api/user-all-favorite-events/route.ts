@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { MongoClient } from 'mongodb';
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
     try {
         const searchParams = new URLSearchParams(req.url.split("?")[1]);
 

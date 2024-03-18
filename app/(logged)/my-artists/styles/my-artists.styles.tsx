@@ -1,6 +1,6 @@
 import { useMediaQuery, useTheme } from "@mui/material";
 
-export const artistsMainBoxStyles = () => {
+export const ArtistsMainBoxStyles = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -42,7 +42,7 @@ export const paginationButtonStyles = {
   },
 };
 
-export const subtitleTypography = { 
+export const subtitleTypography = {
   marginTop: '12px',
   color: 'text.secondary',
 }

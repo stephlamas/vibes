@@ -4,13 +4,6 @@ import { createTypography } from '../typography';
 const { PARAGRAPH_S } = createTypography();
 const { pink, black, white } = createPalette();
 
-declare module '@mui/material/Button' {
-  interface ButtonPropsVariantOverrides {
-    primary: true;
-    secondary: true;
-    card: true;
-  }
-}
 
 const commonStyles = {
   textTransform: 'none',

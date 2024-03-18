@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getEventById } from "@/core/services/events-service";
 import Typography from "@mui/material/Typography";
 import { Box, IconButton } from "@mui/material";
@@ -63,10 +63,6 @@ export default function EventPage({ params }: any) {
     try {
       const spotifyUserId = await spotifyClient.getUserId();
       e.preventDefault();
-      const requestBody = {
-        userId: spotifyUserId,
-        eventId: eventData.id,
-      };
 
       if (isFavorite) {
         favClient.unfav(spotifyUserId, eventData.id);

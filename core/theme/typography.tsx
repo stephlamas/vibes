@@ -1,4 +1,5 @@
 declare module '@mui/material/Typography' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface TypographyPropsVariantOverrides {
       HEADLINE_XXL: true;
       HEADLINE_XL: true;

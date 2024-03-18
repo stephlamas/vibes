@@ -5,7 +5,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  artistsMainBoxStyles,
+  ArtistsMainBoxStyles,
   artistCardStyles,
   paginationButtonStyles,
   subtitleTypography
@@ -64,7 +64,7 @@ export default function MyArtists() {
           Based on your Spotify listening history
         </Typography>
       </Box>
-      <Box sx={artistsMainBoxStyles()}>
+      <Box sx={ArtistsMainBoxStyles()}>
         {getCurrentPageArtists().map((artist) => (
           <Box key={artist.id} sx={artistCardStyles}>
             <Link href={`/artist/${encodeURIComponent(artist.name)}`} passHref style={{ textDecoration: "none" }}>

@@ -88,7 +88,7 @@ export default function EventCard({
   const eventLink = `/events/${id}`;
 
   const [isFavorite, setIsFavorite] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const favClient = favoritesClient();
   const spotifyClient = new SpotifyClient();

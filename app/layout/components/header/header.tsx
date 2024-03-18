@@ -23,13 +23,13 @@ import { deleteAllCookies, redirectTo } from "@/core/helpers/cookies/cookie-serv
 
 
 
-function deleteCookies() {
-  const deleteCookie = (name: any) => {
-    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  };
-  deleteCookie("accessToken");
-  deleteCookie("refreshToken");
-}
+// function deleteCookies() {
+//   const deleteCookie = (name: any) => {
+//     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+//   };
+//   deleteCookie("accessToken");
+//   deleteCookie("refreshToken");
+// }
 
 
 const Header = () => {

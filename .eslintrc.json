@@ -1,23 +1,32 @@
-  {
-    "plugins": ["react", "react-hooks", "@typescript-eslint", "import", "prettier"],
-    "extends": [
-      "./node_modules/@coverwallet/cw-javascript-coding-standards/src/eslint/fe-ts",
-      "prettier",
-      "eslint:recommended",
-      "next",
-      "next/core-web-vitals"
-    ],
-    "ignorePatterns": ["jest.config.js"],
-    "rules": {
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off",
-      "react/require-default-props": "off",
-      "react/jsx-props-no-spreading": "off"
-    },
-    "env": {
-      "jest": true
-    },
-    "globals": {
-        "google": "readonly"
-    }
+{
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "import",
+    "prettier"
+  ],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "next",
+    "next/core-web-vitals"
+  ],
+  "ignorePatterns": [
+    "jest.config.js"
+  ],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "no-unused-vars": "off"
+  },
+  "env": {
+    "jest": true
+  },
+  "globals": {
+    "google": "readonly"
   }
+}

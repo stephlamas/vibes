@@ -14,7 +14,7 @@ class SpotifyClient {
             },
           })
         .then(r => r.json())
-        .catch(e => {
+        .catch(() => {
             throw new Error("Failed!");
         });        
     }

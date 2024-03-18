@@ -10,7 +10,7 @@ export default function ArtistEvents({ params }: { params: { artist: string } })
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
     const artistName = decodeURIComponent(params.artist);
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages,] = useState(0);
 
     useEffect(() => {
         const fetchEvents = async () => {

@@ -182,7 +182,7 @@ export function EventDiscovery() {
           </Box >
         ) : events && events.length > 0 && (
           <>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, mb: 8 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 3, mb: 8 }}>
                 <Box sx={{ width: '100%', maxWidth: '600px', display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                   {getCurrentPageEvents().map((event, index) => (
                     <EventCard
@@ -221,4 +221,4 @@ export function EventDiscovery() {
         )}
     </Container>
   )
-};
+}

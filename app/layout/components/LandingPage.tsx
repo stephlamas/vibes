@@ -44,20 +44,21 @@ export function LandingPage() {
       sx={landingContainerStyle}
     >
       <LandingTitleBox sx={landingTitleBoxStyle} item xs={6} sm={6} md={6} lg={2}>
-        <Typography variant="HEADLINE_XXL" className="animate__animated animate__flash">VIBES</Typography>
+        <Typography variant="HEADLINE_XXL" className="animate__animated animate__flash">
+          VIBES</Typography>
       </LandingTitleBox>
-        <LoginBox sx={loginBoxStyle}>
-          <Typography variant="TITLE_XS">
-            <Link onClick={handleLoginButton}>
-              <FontAwesomeIcon
-                icon={faSpotify}
-                size="2x"
-                style={{ marginRight: ".2em" }}
-              />
-              Login with Spotify
-            </Link>
-          </Typography>
-        </LoginBox>
+      <LoginBox sx={loginBoxStyle}>
+        <Typography variant="TITLE_XS">
+          <Link onClick={handleLoginButton}>
+            <FontAwesomeIcon
+              icon={faSpotify}
+              size="2x"
+              style={{ marginRight: ".2em" }}
+            />
+            Login with Spotify
+          </Link>
+        </Typography>
+      </LoginBox>
     </LandingContainer>
   );
 }

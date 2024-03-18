@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const { refreshToken } = body;
+    const {refreshToken } = body;
 
     const requestBody = new URLSearchParams({
         grant_type: "refresh_token",
