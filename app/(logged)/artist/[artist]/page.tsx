@@ -20,7 +20,6 @@ export default function ArtistEvents({ params }: { params: { artist: string } })
                     setEvents(res._embedded.events);
                 } else {
                     setEvents([]);
-                    setTotalPages(0);
                 }
             } catch (error) {
                 console.error(error);
@@ -46,11 +45,11 @@ export default function ArtistEvents({ params }: { params: { artist: string } })
     };
 
     const goToNextPage = () => {
-        setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(events.length / PAGE_SIZE) - 1));
+        setCurrentPage((prev: number) => Math.min(prev + 1, Math.ceil(events.length / PAGE_SIZE) - 1));
     };
 
     const goToPreviousPage = () => {
-        setCurrentPage((prev) => Math.max(prev - 1, 0));
+        setCurrentPage((prev: number) => Math.max(prev - 1, 0));
     };
 
     return (
