@@ -22,6 +22,7 @@ const LoginBox = styled(Grid)({});
 export function LandingPage() {
   const clientId = process.env.CLIENT_ID;
   const redirectUri = process.env.REDIRECT_URI;
+  console.log(redirectUri)
 
   const scopes = [
     'streaming',
@@ -39,7 +40,7 @@ export function LandingPage() {
     const spotifyAuthUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=${scopes}`;
     window.location.href = spotifyAuthUrl;
   };
-  
+
   return (
     <LandingContainer
       sx={landingContainerStyle}
