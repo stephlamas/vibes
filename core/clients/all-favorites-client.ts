@@ -6,6 +6,9 @@ export default function allFavoritesClient() {
         allFav: async function (userId: any) {
             try {
                 const r = await fetch(`${res}?userId=${userId}`);
+                if(r.status === 404) {
+                    return []
+                }
                 if (!r.ok) {
                     throw new Error('Failed to fetch favorite events');
                 }
