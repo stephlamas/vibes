@@ -50,6 +50,7 @@ export default function MyEvents() {
                 setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching favorite events:", error);
+                throw(error);
             }
         };
 
