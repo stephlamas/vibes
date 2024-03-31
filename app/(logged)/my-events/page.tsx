@@ -5,6 +5,7 @@ import SpotifyClient from '@/core/clients/spotify-client';
 import allFavoritesClient from '@/core/clients/all-favorites-client';
 import { getEventById } from '@/core/services/events-service';
 import EventCard from '@/app/layout/components/event-card/event-card';
+import "animate.css";
 
 interface Event {
     id: string;
@@ -164,7 +165,7 @@ export default function MyEvents() {
                     </Box>
                 </Box>
             ) : (
-                <Typography variant="TITLE_S" component="p" mt={3}>You have no favorite events yet</Typography>
+                        <Typography variant="TITLE_S" component="p" mt={8} className="animate__animated animate__headShake">You have no favorite events yet</Typography>
             )}
         </Container>
     );
