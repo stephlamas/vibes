@@ -131,7 +131,7 @@ export default function MyEvents() {
                 </Box>
             ) : eventData && eventData.length > 0 ? (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
-                    <Typography variant="TITLE_S" component="h1" mb={3} sx={{ ml: 1, p: 2}}>My saved events</Typography>
+                    <Typography variant="TITLE_S" component="h1" mb={3} sx={{ p: 2}}>My saved events</Typography>
                     {getCurrentPageEvents().map((event: Event, index: number) => (
                         <EventCard
                             key={index}
