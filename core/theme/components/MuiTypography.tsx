@@ -24,6 +24,7 @@ export const MuiTypography = {
       root: {
         display: 'flex',
         alignItems: 'center',
+        fontFamily: 'Space Mono',
       },
     },
   };
