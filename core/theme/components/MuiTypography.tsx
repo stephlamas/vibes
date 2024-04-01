@@ -24,8 +24,8 @@ export const MuiTypography = {
       root: {
         display: 'flex',
         alignItems: 'center',
-        fontFamily: 'Space Mono, monospace',
-        '-webkit-font-smoothing': 'antialiased', 
+        fontFamily: 'Space Mono, Roboto, sans-serif',
+        WebkitFontSmoothing: 'antialiased', 
       },
     },
   };
