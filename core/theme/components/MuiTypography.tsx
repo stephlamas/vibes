@@ -1,3 +1,5 @@
+import '@fontsource/space-mono';
+
 export const MuiTypography = {
     defaultProps: {
       variantMapping: {
@@ -24,7 +26,7 @@ export const MuiTypography = {
       root: {
         display: 'flex',
         alignItems: 'center',
-        fontFamily: 'Space Mono, Roboto, sans-serif',
+        fontFamily: 'Space Mono',
         WebkitFontSmoothing: 'antialiased', 
       },
     },
