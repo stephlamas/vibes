@@ -1,5 +1,5 @@
 export const mobileEventCardStyles = {
-  width: "320px",
+  width: "350px",
   height: 360,
   marginBottom: "20px",
   overflow: "hidden",
@@ -13,7 +13,7 @@ export const boxMobileEventCardStyles = {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  minWidth: "50vh",
+  // minWidth: "50vh",
 };
 
 export const mobileEventCardMediaStyles = {
