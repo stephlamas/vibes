@@ -1,5 +1,5 @@
 export const mobileEventCardStyles = {
-  width: "400px",
+  width: "320px",
   height: 360,
   marginBottom: "20px",
   overflow: "hidden",
