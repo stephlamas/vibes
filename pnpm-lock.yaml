@@ -14,6 +14,9 @@ dependencies:
   '@fontsource/roboto':
     specifier: ^5.0.8
     version: 5.0.12
+  '@fontsource/space-mono':
+    specifier: ^5.0.19
+    version: 5.0.19
   '@fortawesome/fontawesome-svg-core':
     specifier: ^6.4.2
     version: 6.5.1
@@ -666,6 +669,10 @@ packages:
 
   /@fontsource/roboto@5.0.12:
     resolution: {integrity: sha512-x0o17jvgoSSbS9OZnUX2+xJmVRvVCfeaYJjkS7w62iN7CuJWtMf5vJj8LqgC7ibqIkitOHVW+XssRjgrcHn62g==}
+    dev: false
+
+  /@fontsource/space-mono@5.0.19:
+    resolution: {integrity: sha512-gz9yaKtXCY+HutNvQ4APc15xwZ1f6pWXve5N55x5m/hOoGqgB9Auf3l7CitHNhNJkSKEmaM45M29b0rFeudXlg==}
     dev: false
 
   /@fortawesome/fontawesome-common-types@6.5.1:
