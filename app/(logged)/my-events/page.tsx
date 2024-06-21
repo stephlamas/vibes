@@ -23,7 +23,6 @@ interface Event {
 }
 
 export default function MyEvents() {
-    const [favoriteEvents, setFavoriteEvents] = useState<any[]>([]);
     const [eventData, setEventData] = useState<Event[]>([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -35,47 +34,38 @@ export default function MyEvents() {
 
     const PAGE_SIZE = 10;
 
-    const skeleton = Array.from({ length: PAGE_SIZE }).map((_, index) => (
-        <Box key={index} sx={{ mt: 2, width: '100%' }}>
-            <Skeleton variant="rectangular" height={200} sx={{ borderRadius: '20px' }} />
-        </Box>
-    ));
-
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
                 const spotifyUserId = await spotifyClient.getUserId();
                 const favorites = await getFavs.allFav(spotifyUserId);
-                setFavoriteEvents(favorites);
+                
+                if(favorites.length === 0) {
+                    setTotalPages(0);
+                    setIsLoading(false);
+                    return;
+                };
+
+                for (const eventId of favorites) {
+                    const eventDetails = await getEventById(eventId);
+                    setEventData(prevEventData => {
+                        const eventExists = prevEventData.some(event => event.id === eventDetails.id);
+                        if (eventExists) {
+                            return prevEventData;
+                        }
+                        return [...prevEventData, eventDetails];
+                    });
+                }
                 setTotalPages(Math.ceil(favorites.length / PAGE_SIZE));
                 setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching favorite events:", error);
-                throw(error);
+                throw (error);
             }
         };
 
         fetchFavorites();
     }, []);
-
-    useEffect(() => {
-        const fetchEventData = async () => {
-            try {
-                for (const eventId of favoriteEvents) {
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    const eventDetails = await getEventById(eventId);
-                    setEventData(prevEventData => [...prevEventData, eventDetails]);
-                }
-                setIsLoading(false);
-            } catch (error) {
-                console.error("Error fetching event details:", error);
-            }
-        };
-
-        if (favoriteEvents.length > 0) {
-            fetchEventData();
-        }
-    }, [favoriteEvents]);
 
     const goToNextPage = () => {
         setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
@@ -115,58 +105,70 @@ export default function MyEvents() {
         return mappedEventData.slice(startIndex, startIndex + PAGE_SIZE);
     };
 
-    return (
-        <Container 
-        maxWidth="lg" 
-        ref={topRef}
-        sx={{
-            ml: { xs: 0, md: 5 },
-            p: { xs: 0 },
-            mr: { xs: 0 },
-        }}
-        >
-            {isLoading ? (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 10 }}>
-                    {skeleton}
-                </Box>
-            ) : eventData && eventData.length > 0 ? (
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
-                    <Typography variant="TITLE_S" component="h1" mb={3} sx={{ p: 2}}>My saved events</Typography>
-                    {getCurrentPageEvents().map((event: Event, index: number) => (
-                        <EventCard
-                            key={index}
-                            id={event.id}
-                            name={event.name}
-                            date={event.date}
-                            time={event.time}
-                            price={event.price}
-                            currency={event.currency}
-                            imageUrl={event.imageUrl}
-                            city={event.city}
-                            venue={event.venue}
-                            country={event.country}
-                        />
-                    ))}
-                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginTop: 3 }}>
-                        <Button
-                            onClick={goToPreviousPage}
-                            disabled={currentPage === 0}
-                            style={{ color: currentPage === 0 ? "gray" : "black" }}
-                        >
-                            Previous
-                        </Button>
-                        <Button
-                            onClick={goToNextPage}
-                            disabled={currentPage >= totalPages - 1}
-                            style={{ color: currentPage >= totalPages - 1 ? "gray" : "black" }}
-                        >
-                            Next
-                        </Button>
+    const skeleton = () => {
+        return <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 10 }}>
+            { 
+                Array.from({ length: PAGE_SIZE }).map((_, index) => (
+                    <Box key={index} sx={{ mt: 2, width: '100%' }}>
+                        <Skeleton variant="rectangular" height={200} sx={{ borderRadius: '20px' }} />
                     </Box>
-                </Box>
-            ) : (
-                        <Typography variant="TITLE_S" component="p" mt={8} className="animate__animated animate__headShake">You have no favorite events yet</Typography>
-            )}
+                ))            
+            }
+        </Box>
+    }
+
+    const noFavs = () => <Typography variant="TITLE_S" component="p" mt={8} className="animate__animated animate__headShake">You have no favorite events yet</Typography>
+
+    const thereAreFavs = () => {
+        return <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
+            <Typography variant="TITLE_S" component="h1" mb={3} sx={{ p: 2 }}>My saved events</Typography>
+            {getCurrentPageEvents().map((event: Event, index: number) => (
+                <EventCard
+                    key={index}
+                    id={event.id}
+                    name={event.name}
+                    date={event.date}
+                    time={event.time}
+                    price={event.price}
+                    currency={event.currency}
+                    imageUrl={event.imageUrl}
+                    city={event.city}
+                    venue={event.venue}
+                    country={event.country}
+                />
+            ))}
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginTop: 3 }}>
+                <Button
+                    onClick={goToPreviousPage}
+                    disabled={currentPage === 0}
+                    style={{ color: currentPage === 0 ? "gray" : "black" }}
+                >
+                    Previous
+                </Button>
+                <Button
+                    onClick={goToNextPage}
+                    disabled={currentPage >= totalPages - 1}
+                    style={{ color: currentPage >= totalPages - 1 ? "gray" : "black" }}
+                >
+                    Next
+                </Button>
+            </Box>
+        </Box>        
+    }
+
+    const favs = () => eventData && eventData.length > 0 ? thereAreFavs() : noFavs();
+
+    return (
+        <Container
+            maxWidth="lg"
+            ref={topRef}
+            sx={{
+                ml: { xs: 0, md: 5 },
+                p: { xs: 0 },
+                mr: { xs: 0 },
+            }}
+        >
+            {isLoading ?  skeleton() : favs() }
         </Container>
     );
 }
