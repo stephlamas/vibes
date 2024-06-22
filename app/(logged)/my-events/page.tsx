@@ -7,23 +7,9 @@ import { getEventById } from '@/core/services/events-service';
 import EventCard from '@/app/layout/components/event-card/event-card';
 import "animate.css";
 
-interface Event {
-    id: string;
-    name: string;
-    date: string;
-    time: string;
-    price: number;
-    currency: string;
-    imageUrl: string;
-    city: string;
-    venue: string;
-    images: any[];
-    _embedded: any;
-    [key: string]: any;
-}
 
 export default function MyEvents() {
-    const [eventData, setEventData] = useState<Event[]>([]);
+    const [events, setEvents] = useState<Array<any>>([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +23,7 @@ export default function MyEvents() {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
+
                 const spotifyUserId = await spotifyClient.getUserId();
                 const favorites = await getFavs.allFav(spotifyUserId);
                 
@@ -46,17 +33,28 @@ export default function MyEvents() {
                     return;
                 };
 
-                for (const eventId of favorites) {
-                    const eventDetails = await getEventById(eventId);
-                    setEventData(prevEventData => {
-                        const eventExists = prevEventData.some(event => event.id === eventDetails.id);
-                        if (eventExists) {
-                            return prevEventData;
-                        }
-                        return [...prevEventData, eventDetails];
-                    });
+                console.log(`Lets fetch favs: ${favorites}`)
+                const evts: Array<any> = [];
+                for (const favorite of favorites) {
+                    console.log(`Fetch fav: ${favorite}`);
+                    const event = await getEventById(favorite);
+                    const e = {
+                        id: event.id,
+                        name: event.name,
+                        date: event.dates?.start?.localDate,
+                        time: event.dates?.start?.localTime,
+                        price: event.priceRanges?.[0]?.min,
+                        currency: event.priceRanges?.[0]?.currency,
+                        imageUrl: event.images?.[8]?.url,
+                        city: event._embedded?.venues?.[0]?.city?.name,
+                        venue: event._embedded?.venues?.[0]?.name,
+                        country: event._embedded?.venues?.[0]?.country?.name,
+                    };
+                    console.log(JSON.stringify(e))
+                    evts.push(e);
                 }
-                setTotalPages(Math.ceil(favorites.length / PAGE_SIZE));
+                setEvents(evts);
+                setTotalPages(Math.ceil(evts.length / PAGE_SIZE));
                 setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching favorite events:", error);
@@ -82,27 +80,10 @@ export default function MyEvents() {
             topRef.current.scrollIntoView({ behavior: "auto", block: "start" });
         }
     };
-
-    const mappedEventData = eventData.map((event: Event) => ({
-        id: event.id,
-        name: event.name,
-        date: event.dates?.start?.localDate,
-        time: event.dates?.start?.localTime,
-        price: event.priceRanges?.[0]?.min,
-        currency: event.priceRanges?.[0]?.currency,
-        imageUrl: event.images?.[8]?.url,
-        city: event._embedded?.venues?.[0]?.city?.name,
-        venue: event._embedded?.venues?.[0]?.name,
-        country: event._embedded?.venues?.[0]?.country?.name,
-        images: event.images,
-        _embedded: event._embedded,
-        type: event.type,
-        url: event.url,
-    }));
-
+    
     const getCurrentPageEvents = () => {
         const startIndex = currentPage * PAGE_SIZE;
-        return mappedEventData.slice(startIndex, startIndex + PAGE_SIZE);
+        return events.slice(startIndex, startIndex + PAGE_SIZE);
     };
 
     const skeleton = () => {
@@ -122,7 +103,7 @@ export default function MyEvents() {
     const thereAreFavs = () => {
         return <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 10 }}>
             <Typography variant="TITLE_S" component="h1" mb={3} sx={{ p: 2 }}>My saved events</Typography>
-            {getCurrentPageEvents().map((event: Event, index: number) => (
+            {getCurrentPageEvents().map((event: any, index: number) => (
                 <EventCard
                     key={index}
                     id={event.id}
@@ -156,7 +137,7 @@ export default function MyEvents() {
         </Box>        
     }
 
-    const favs = () => eventData && eventData.length > 0 ? thereAreFavs() : noFavs();
+    const favs = () => events.length > 0 ? thereAreFavs() : noFavs();
 
     return (
         <Container
