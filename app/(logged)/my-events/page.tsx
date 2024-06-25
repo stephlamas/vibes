@@ -31,7 +31,7 @@ export default function MyEvents() {
                     setTotalPages(0);
                     setIsLoading(false);
                     return;
-                };
+                }
 
                 console.log(`Lets fetch favs: ${favorites}`)
                 const evts: Array<any> = [];
