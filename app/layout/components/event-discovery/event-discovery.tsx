@@ -39,93 +39,80 @@ export function EventDiscovery() {
   const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const spotifyClient = new SpotifyClient();
-
-    spotifyClient
-      .getTopItems("artists")
-      .then((data) => {
-        setTopArtists(data.items);
-        setTotalPages(Math.ceil(data.items.length / PAGE_SIZE));
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(error.message);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (topArtists.length === 0) return;
-
-    const getUserCountryCode = async () => {
+    const fetchData = async () => {
       const spotifyClient = new SpotifyClient();
-      return await spotifyClient.getUserCountryCode();
-    };
 
-    const getUserLocation = () => {
-      return new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              resolve({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              });
-            },
-            (error) => {
-              console.error('Error getting user location:', error);
-              reject(error);
-            }
-          );
-        } else {
-          reject(new Error('Geolocation is not supported'));
-        }
-      });
-    };
+      try {
+        const artistData = await spotifyClient.getTopItems("artists");
+        setTopArtists(artistData.items);
+        setTotalPages(Math.ceil(artistData.items.length / PAGE_SIZE));
 
-    Promise.all([getUserCountryCode(), getUserLocation()])
-      .then(([userCountryCode, userLocation]) => {
-        const eventsPromises = topArtists.map((artist) =>
-          fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
-            .then((response) => response.json())
-            .catch((err) => console.error(err))
-        );
+        if (artistData.items.length > 0) {
+          const userCountryCode = await spotifyClient.getUserCountryCode();
 
-        Promise.all(eventsPromises)
-          .then((eventsArrays) => {
-            const allEvents = eventsArrays.flatMap((e) => e?._embedded?.events ?? []);
-            const userEvents = allEvents.filter(
-              (event) => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode
-            );
-            const otherEvents = allEvents.filter(
-              (event) => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode
-            );
-            const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
-            const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number;
-
-            const eventsWithinRadius = allEvents.filter((event) => {
-              const eventLocation = event._embedded?.venues?.[0]?.location;
-              if (!eventLocation) {
-                return false;
-              }
-              const distance = Math.sqrt(
-                Math.pow(eventLocation.latitude - userLocation.latitude, 2) +
-                Math.pow(eventLocation.longitude - userLocation.longitude, 2)
+          const userLocation = await new Promise<{ latitude: number; longitude: number }>((resolve, reject) => {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  resolve({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                  });
+                },
+                (error) => {
+                  console.error('Error getting user location:', error);
+                  reject(error);
+                }
               );
-              return distance < 0.1;
-            });
+            } else {
+              reject(new Error('Geolocation is not supported'));
+            }
+          });
 
-            eventsWithinRadius.sort(sortEvents);
-            userEvents.sort(sortEvents);
-            otherEvents.sort(sortEvents);
-            setEvents([...eventsWithinRadius, ...userEvents, ...otherEvents]);
-            setIsLoading(false);
-          })
-          .catch(console.error);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, [topArtists]);
+          const eventsPromises = artistData.items.map((artist: { name: string | number | boolean; }) =>
+            fetch(`/api/events?artistName=${encodeURIComponent(artist.name)}`)
+              .then((response) => response.json())
+              .catch((err) => console.error(err))
+          );
+
+          const eventsArrays = await Promise.all(eventsPromises);
+          const allEvents = eventsArrays.flatMap((e) => e?._embedded?.events ?? []);
+          const userEvents = allEvents.filter(
+            (event) => event._embedded?.venues?.[0]?.country?.countryCode === userCountryCode
+          );
+          const otherEvents = allEvents.filter(
+            (event) => event._embedded?.venues?.[0]?.country?.countryCode !== userCountryCode
+          );
+          const startDate = (evt: any) => new Date(evt.dates.start.localDate) as Date;
+          const sortEvents = (e1: any, e2: any) => (startDate(e1) > startDate(e2) ? 1 : -1) as number;
+
+          const eventsWithinRadius = allEvents.filter((event) => {
+            const eventLocation = event._embedded?.venues?.[0]?.location;
+            if (!eventLocation) {
+              return false;
+            }
+            const distance = Math.sqrt(
+              Math.pow(eventLocation.latitude - userLocation.latitude, 2) +
+              Math.pow(eventLocation.longitude - userLocation.longitude, 2)
+            );
+            return distance < 0.1;
+          });
+
+          eventsWithinRadius.sort(sortEvents);
+          userEvents.sort(sortEvents);
+          otherEvents.sort(sortEvents);
+          setEvents([...eventsWithinRadius, ...userEvents, ...otherEvents]);
+        }
+      } catch (err) {
+        console.error(err);
+        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const skeleton = useMemo(
     () =>
