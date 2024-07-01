@@ -99,44 +99,46 @@ export default function EventPage({ params }: any) {
           {eventData.images && eventData.images.length > 0 && (
             <Box
               sx={{
-                backgroundImage: `url(${eventData.images[5].url})`,
+                backgroundImage: `url(${eventData.images[4].url})`,
                 backgroundSize: "cover",
                 backgroundPosition: "top",
                 height: { xs: "250px", md: "400px" },
                 width: "100%",
-                borderRadius: "18px",
+                borderRadius: "20px",
               }}
             />
           )}
           <Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center" justifyItems="center">
+            <Box>
               <Typography variant="TITLE_S" mt={3} mb={3}>
                 {eventData.name}
               </Typography>
-              <IconButton disableTouchRipple aria-label="add to favorites" onClick={toggleFavorite}>
+              <IconButton disableTouchRipple aria-label="add to favorites" onClick={toggleFavorite} sx={{ p: .5, mb: 3, backgroundColor: '#efefef', borderRadius: '8px' }}>
                 {isFavorite ? (
                   <>
-                    <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
+                    <FavoriteIcon sx={{ color: "pink.4", mr: 1 }} />
+                    <Typography variant="PARAGRAPH_S" mr={1} color="black">
                       Remove
                     </Typography>
-                    <FavoriteIcon sx={{ color: "pink.4" }} />
+
                   </>
                 ) : (
                   <>
-                    <Typography variant="PARAGRAPH_S" mr={1} color="neutral.7">
-                      Save
+                    <FavoriteBorderIcon sx={{ mr: 1, color: 'black' }} />
+                    <Typography variant="PARAGRAPH_S" mr={1} color="black">
+                      Add to my events
                     </Typography>
-                    <FavoriteBorderIcon />
+
                   </>
                 )}
               </IconButton>
             </Box>
 
-            <Box>
+            <Box sx={{ mt: 1 }}>
               <Box display="flex" alignItems="start" gap={1}>
                 <LocationIcon />
                 <Box>
-                  <Typography variant="TITLE_XS" mb={1}>
+                  <Typography variant="TITLE_XS" mb={2}>
                     {eventData._embedded?.venues?.[0].name}
                   </Typography>
                   <Typography variant="PARAGRAPH_S" mb={3} color="neutral.7">
@@ -171,7 +173,7 @@ export default function EventPage({ params }: any) {
                       passHref
                       style={{ textDecoration: "none", color: "black" }}
                     >
-                      <Typography variant="PARAGRAPH_S" mb={3} p={0.5}>
+                      <Typography variant="PARAGRAPH_S" mb={3} p={0}>
                         <TicketmasterIcon />
                         <Typography
                           variant="PARAGRAPH_S"
