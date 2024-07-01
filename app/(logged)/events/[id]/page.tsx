@@ -118,7 +118,7 @@ export default function EventPage({ params }: any) {
                   <>
                     <FavoriteIcon sx={{ color: "pink.4", mr: 1 }} />
                     <Typography variant="PARAGRAPH_S" mr={1} color="black">
-                      Remove
+                      Remove from my events
                     </Typography>
 
                   </>
