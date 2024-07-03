@@ -15,6 +15,7 @@ import SpotifyClient from "@/core/clients/spotify-client";
 import favoritesClient from "@/core/clients/favorites-client";
 import GoogleMapsComponent from "@/core/components/google-maps"
 
+
 function formatCurrency(
   price: number | string | undefined,
   currency: string,
@@ -173,7 +174,11 @@ export default function EventPage({ params }: any) {
                           borderRadius: '8px',
                           padding: '6px 8px', 
                           cursor: 'pointer',
-                          marginTop: 2
+                          marginTop: 2,
+                          transition: "background-color 0.15s ease-in-out, color 0.3s ease-in-out",
+                          '&:hover': {
+                            backgroundColor: "white",
+                          },
                         }}
                       >
                         <TicketmasterIcon /> 
