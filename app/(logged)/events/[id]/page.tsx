@@ -140,7 +140,7 @@ export default function EventPage({ params }: any) {
               <Box display="flex" alignItems="start" gap={1}>
                 <EventsIcon />
                 <Box>
-                  <Typography variant="TITLE_XS" mb={1}>
+                  <Typography variant="TITLE_XS" mb={2}>
                     {formattedDate}
                   </Typography>
                   <Typography variant="PARAGRAPH_S" mb={3} color="neutral.7">
@@ -162,12 +162,23 @@ export default function EventPage({ params }: any) {
                     <Link
                       href={eventData.url}
                       passHref
-                      style={{ textDecoration: "none", color: "black" }}
+                      style={{ textDecoration: "none", color: "black"}}
                     >
-                      <Typography variant="PARAGRAPH_S" mb={3} p={0}>
-                        <TicketmasterIcon />
-                        <span style={{ marginLeft: "8px" }}>
-                          Buy tickets
+                      <Typography
+                        variant="PARAGRAPH_S"
+                        mb={3}
+                        p={0}
+                        sx={{
+                          backgroundColor: "#D6EAF8",
+                          borderRadius: '8px',
+                          padding: '6px 8px', 
+                          cursor: 'pointer',
+                          marginTop: 2
+                        }}
+                      >
+                        <TicketmasterIcon /> 
+                        <span style={{ marginLeft: '8px' }}>
+                          Get tickets
                         </span>
                       </Typography>
 
