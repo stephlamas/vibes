@@ -13,6 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SpotifyClient from "@/core/clients/spotify-client";
 import favoritesClient from "@/core/clients/favorites-client";
+import GoogleMapsComponent from "@/core/components/google-maps"
 
 function formatCurrency(
   price: number | string | undefined,
@@ -85,8 +86,12 @@ export default function EventPage({ params }: any) {
       setIsFavorite(isFav);
     };
     fetchData();
-
   }, [params.id]);
+
+  const center = {
+    lat: parseFloat(eventData._embedded?.venues?.[0]?.location?.latitude || "0"),
+    lng: parseFloat(eventData._embedded?.venues?.[0]?.location?.longitude || "0"),
+  };
 
   return (
     <Box>
@@ -120,7 +125,6 @@ export default function EventPage({ params }: any) {
                     <Typography variant="PARAGRAPH_S" mr={1} color="black">
                       Remove from my events
                     </Typography>
-
                   </>
                 ) : (
                   <>
@@ -128,24 +132,11 @@ export default function EventPage({ params }: any) {
                     <Typography variant="PARAGRAPH_S" mr={1} color="black">
                       Add to my events
                     </Typography>
-
                   </>
                 )}
               </IconButton>
             </Box>
-
             <Box sx={{ mt: 1 }}>
-              <Box display="flex" alignItems="start" gap={1}>
-                <LocationIcon />
-                <Box>
-                  <Typography variant="TITLE_XS" mb={2}>
-                    {eventData._embedded?.venues?.[0].name}
-                  </Typography>
-                  <Typography variant="PARAGRAPH_S" mb={3} color="neutral.7">
-                    {eventData._embedded?.venues?.[0]?.city?.name} · {eventData._embedded?.venues?.[0]?.state?.name} {eventData._embedded?.venues?.[0]?.country?.name}
-                  </Typography>
-                </Box>
-              </Box>
               <Box display="flex" alignItems="start" gap={1}>
                 <EventsIcon />
                 <Box>
@@ -175,14 +166,11 @@ export default function EventPage({ params }: any) {
                     >
                       <Typography variant="PARAGRAPH_S" mb={3} p={0}>
                         <TicketmasterIcon />
-                        <Typography
-                          variant="PARAGRAPH_S"
-                          style={{ marginLeft: "8px" }}
-                          color="neutral.7"
-                        >
+                        <span style={{ marginLeft: "8px" }}>
                           Buy tickets
-                        </Typography>
+                        </span>
                       </Typography>
+
                     </Link>
                   ) : (
                     <Typography variant="PARAGRAPH_S" mb={1} color="neutral.7">
@@ -193,6 +181,22 @@ export default function EventPage({ params }: any) {
               </Box>
             </Box>
           </Box>
+          <Box display="flex" alignItems="start" gap={1}>
+            <LocationIcon />
+            <Box>
+              <Typography variant="TITLE_XS" mb={2}>
+                {eventData._embedded?.venues?.[0].name}
+              </Typography>
+              <Typography variant="PARAGRAPH_S" mb={3} color="neutral.7">
+                {eventData._embedded?.venues?.[0]?.city?.name} · {eventData._embedded?.venues?.[0]?.state?.name} {eventData._embedded?.venues?.[0]?.country?.name}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ mt: 2 }}>
+            <GoogleMapsComponent center={center} />
+          </Box>
+
         </Box>
       )}
     </Box>
