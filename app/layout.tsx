@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { AppWrapper } from "./layout/components/AppWrapper";
+import { AppWrapper } from "./layout/components/app-wrapper";
 
 export const metadata: Metadata = {
   title: "Vibes",

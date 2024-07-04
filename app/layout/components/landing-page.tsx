@@ -9,7 +9,7 @@ import {
   landingContainerStyle,
   landingTitleBoxStyle,
   loginBoxStyle,
-} from "../styles/LandingPage.style";
+} from "../styles/landing-page.style";
 import { Grid } from "@mui/material";
 import Link from "@mui/material/Link";
 import "animate.css";
