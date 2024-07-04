@@ -1,7 +1,6 @@
 export const appBarStyles = {
   boxShadow: "none",
   backgroundColor: "neutral.0",
-  fontFamily: "Montserrat",
   pt: "0px",
   color: "black",
   position: "fixed",

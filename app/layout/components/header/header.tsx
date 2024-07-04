@@ -22,16 +22,6 @@ import SpotifyClient from "../../../../core/clients/spotify-client";
 import { deleteAllCookies, redirectTo } from "@/core/helpers/cookies/cookie-service";
 
 
-
-// function deleteCookies() {
-//   const deleteCookie = (name: any) => {
-//     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-//   };
-//   deleteCookie("accessToken");
-//   deleteCookie("refreshToken");
-// }
-
-
 const Header = () => {
   const [data, setData] = useState<any>({} as any);
 

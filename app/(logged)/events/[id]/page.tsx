@@ -172,7 +172,7 @@ export default function EventPage({ params }: any) {
                         sx={{
                           backgroundColor: "#D6EAF8",
                           borderRadius: '8px',
-                          padding: '6px 8px', 
+                          padding: '5px 8px', 
                           cursor: 'pointer',
                           marginTop: 2,
                           transition: "background-color 0.15s ease-in-out, color 0.3s ease-in-out",
