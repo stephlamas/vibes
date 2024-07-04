@@ -1,9 +1,11 @@
 export const MuiCssBaseline = {
     styleOverrides: {
-        '@global': {
-            body: {
-                fontFamily: 'Space Mono'
-            },
+        root: {
+            fontFamily: 'Space Mono'
         },
-    },
+        body: {
+            margin: "0",
+            padding: "0"
+        }
+    }
 };

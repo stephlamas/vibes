@@ -28,8 +28,6 @@ export default function Logged({ children }: { children: React.ReactNode }) {
             <Box
                 component="footer"
                 sx={{
-                    pb: 0,
-                    mb: 0,
                     bottom: 0,
                     mt: 8,
                     height: "160px",
