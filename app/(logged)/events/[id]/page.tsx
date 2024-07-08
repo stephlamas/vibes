@@ -100,7 +100,7 @@ export default function EventPage({ params }: any) {
         <Box sx={{
           ml: { xs: 0, md: 3 },
           mt: { xs: 10, md: 7 },
-          p: { xs: 2, md: 0 },
+          p: { xs: 3, md: 1 },
         }}>
           {eventData.images && eventData.images.length > 0 && (
             <Box
@@ -110,7 +110,7 @@ export default function EventPage({ params }: any) {
                 backgroundPosition: "top",
                 height: { xs: "250px", md: "400px" },
                 width: "100%",
-                borderRadius: "20px",
+                borderRadius: "18px",
               }}
             />
           )}
