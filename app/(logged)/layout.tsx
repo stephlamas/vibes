@@ -28,8 +28,7 @@ export default function Logged({ children }: { children: React.ReactNode }) {
             <Box
                 component="footer"
                 sx={{
-                    bottom: 0,
-                    mt: 8,
+                    mt: "120px",
                     height: "160px",
                     backgroundColor: "#efefef",
                     display: 'flex',
@@ -38,6 +37,11 @@ export default function Logged({ children }: { children: React.ReactNode }) {
                     textAlign: 'center',
                     zIndex: 2,
                     width: '100%',
+                    marginBottom: {
+                        xs: '72px',
+                        sm: '0px',
+                        lg: '0px'
+                     },
                 }}
             >
                 <Footer />

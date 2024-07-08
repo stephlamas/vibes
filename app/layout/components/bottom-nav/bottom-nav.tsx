@@ -1,5 +1,4 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import { bottomNavStyles } from "./styles/bottom-nav.styles";
 import { FireIcon } from "../icons/navigation/Fire";
 import { EventsIcon } from "../icons/navigation/My-events";
 import { ArtistsIcon } from "../icons/navigation/Artists";
@@ -8,7 +7,7 @@ import { InfoIcon } from "../icons/navigation/Info";
 
 export function BottomNav() {
   return (
-    <BottomNavigation showLabels sx={bottomNavStyles}>
+    <BottomNavigation showLabels>
       <Link href="/events" passHref>
         <BottomNavigationAction
           icon={<FireIcon />}
